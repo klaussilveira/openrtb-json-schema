@@ -1,0 +1,4545 @@
+# About the IAB Tech Lab <a name="techlab"></a>
+
+The IAB Technology Laboratory is a nonprofit research and development consortium charged with producing and helping companies implement global industry technical standards and solutions. The goal of the Tech Lab is to reduce friction associated with the digital advertising and marketing supply chain while contributing to the safe growth of an industry. The IAB Tech Lab spearheads the development of technical standards, creates and maintains a code library to assist in rapid, cost-effective implementation of IAB standards, and establishes a test platform for companies to evaluate the compatibility of their technology solutions with IAB standards, which for 18 years have been the foundation for interoperability and profitable growth in the digital advertising supply chain. Further details about the IAB Technology Lab can be found at www.iabtechlab.com
+
+### Significant Contributors to the 2.6 version specification
+
+Stanislav Belov, Software Engineer, Google; Allen Dove, CTO, Magnite; Steven Katz, Senior Principal Architect, Yahoo!; Curt Larson, Chief Product Officer, Sharethrough; Dr. Neal Richter, Director of Science, Amazon Advertising; Jud Spencer, Principal Software Engineer, The Trade Desk; Ian Trider, VP, RTB Platform Operations, Basis Technologies; Rob Hazan, Sr. Director Product Management, Index Exchange; James Wilhite, VP Product, Publica; Jean-Luc Wasmer, VP Partnership Operations, Triton Digital; Sam Mansour, Principle Product Manager, Oracle; Scott Kay, Engineering Manager, Xandr; Emma Fenlon, Sr. Manager, Exchange Quality, Yahoo!; Liam Whiteside, Head of Ad Technology, Global; Don Marti, VP Ecosystem Innovation, Raptive; Aron Schatz, Director Product Management, Double Verify; Jake Jolly, Product Manager, Google; Amit Shetty, VP Product, Pixalate; Tim Harvey, Founder, Knitting Media; Jason Shao, CTO, Place Exchange; Chris Coupland, Platform Operations Manager, Basis Technologies; Simon Trasler, SVP, Magnite; Patrick McCann, SVP Research, Raptive; David Dabbs, Director of Platform Architecture, Epsilon;
+
+### IAB Tech Lab Lead:
+
+Hillary Slattery, Sr. Director of Product, IAB Tech Lab
+
+### License <a name="license"></a>
+
+This specification is licensed under a Creative Commons Attribution 3.0 License. To view a copy of this license, visit creativecommons.org/licenses/by/3.0/ http://creativecommons.org/licenses/by/3.0/ or write to Creative Commons, 171 Second Street, Suite 300, San Francisco, CA 94105, USA.
+
+### Disclaimer <a name="disclaimer"></a>
+
+THE STANDARDS, THE SPECIFICATIONS, THE MEASUREMENT GUIDELINES, AND ANY OTHER MATERIALS OR SERVICES PROVIDED TO OR USED BY YOU HEREUNDER (THE “PRODUCTS AND SERVICES”) ARE PROVIDED “AS IS” AND “AS AVAILABLE,” AND IAB TECHNOLOGY LABORATORY, INC. (“TECH LAB”) MAKES NO WARRANTY WITH RESPECT TO THE SAME AND HEREBY DISCLAIMS ANY AND ALL EXPRESS, IMPLIED, OR STATUTORY WARRANTIES, INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AVAILABILITY, ERROR-FREE OR UNINTERRUPTED OPERATION, AND ANY WARRANTIES ARISING FROM A COURSE OF DEALING, COURSE OF PERFORMANCE, OR USAGE OF TRADE. TO THE EXTENT THAT TECH LAB MAY NOT AS A MATTER OF APPLICABLE LAW DISCLAIM ANY IMPLIED WARRANTY, THE SCOPE AND DURATION OF SUCH WARRANTY WILL BE THE MINIMUM PERMITTED UNDER SUCH LAW. THE PRODUCTS AND SERVICES DO NOT CONSTITUTE BUSINESS OR LEGAL ADVICE. TECH LAB DOES NOT WARRANT THAT THE PRODUCTS AND SERVICES PROVIDED TO OR USED BY YOU HEREUNDER SHALL CAUSE YOU AND/OR YOUR PRODUCTS OR SERVICES TO BE IN COMPLIANCE WITH ANY APPLICABLE LAWS, REGULATIONS, OR SELF-REGULATORY FRAMEWORKS, AND YOU ARE SOLELY RESPONSIBLE FOR COMPLIANCE WITH THE SAME, INCLUDING, BUT NOT LIMITED TO, DATA PROTECTION LAWS, SUCH AS THE PERSONAL INFORMATION PROTECTION AND ELECTRONIC DOCUMENTS ACT (CANADA), THE DATA PROTECTION DIRECTIVE (EU), THE E-PRIVACY DIRECTIVE (EU), THE GENERAL DATA PROTECTION REGULATION (EU), AND THE E-PRIVACY REGULATION (EU) AS AND WHEN THEY BECOME EFFECTIVE.
+
+# TABLE OF CONTENTS
+
+- [About the IAB Tech Lab](#techlab)
+
+- [License](#license)
+
+- [Disclaimer](#disclaimer)
+
+## [Getting Started](#started)
+
+## [1. Introduction](#intro)
+
+- [1.1 - Mission / Overview](#mission)
+
+- [1.2 - History of OpenRTB](#history)
+
+- [1.3 - Version History](#versionhistory)
+
+	- [OpenRTB Real-Time Bidding API](#realtimebidding)
+
+	- [OpenRTB Display Block List Branch](#displayblock)
+
+- [1.4 - Resources](#resources)
+
+- [1.5 - Terminology](#terminology)
+
+## [2. OpenRTB Basics](#rtbbasics)
+
+- [2.1 - Transport](#transport)
+
+- [2.2 - Security](#security)
+
+- [2.3 - Data Format](#dataformat)
+
+- [2.4 - Data Encoding](#dataencoding)
+
+- [2.5 - OpenRTB Version HTTP Header](#httpheader)
+
+- [2.6 - Versioning Behavior](#versioningbehavior)
+
+- [2.7 - Privacy](#privacy)
+
+- [2.8 - Relationship to Brand Safety Certified](#relationshiptocertified)
+
+- [2.9 - Customization and Extensions](#customization)
+
+## [3. Bid Request Specification](#bidspecification)
+
+- [3.1 - Object Model](#objectmodel)
+
+- [3.2 - Object Specifications](#objectspecs)
+
+	- [3.2.1 - Object: BidRequest](#objectbidrequest)
+
+	- [3.2.2 - Object: Source](#objectsource)
+
+	- [3.2.3 - Object: Regs](#objectregs)
+
+	- [3.2.4 - Object: Imp](#objectimp)
+
+	- [3.2.5 - Object: Metric](#objectmetric)
+
+	- [3.2.6 - Object: Banner](#objectbanner)
+
+	- [3.2.7 - Object: Video](#objectvideo)
+
+	- [3.2.8 - Object: Audio](#objectaudio)
+
+	- [3.2.9 - Object: Native](#objectnative)
+
+	- [3.2.10 - Object: Format](#objectformat)
+
+	- [3.2.11 - Object: Pmp](#objectpmp)
+
+	- [3.2.12 - Object: Deal](#objectdeal)
+
+	- [3.2.13 - Object: Site](#objectsite)
+
+	- [3.2.14 - Object: App](#objectapp)
+
+	- [3.2.15 - Object: Publisher](#objectpublisher)
+
+	- [3.2.16 - Object: Content](#objectcontent)
+
+	- [3.2.17 - Object: Producer](#objectproducer)
+
+	- [3.2.18 - Object: Device](#objectdevice)
+
+	- [3.2.19 - Object: Geo](#objectgeo)
+
+	- [3.2.20 - Object: User](#objectuser)
+
+	- [3.2.21 - Object: Data](#objectdata)
+
+	- [3.2.22 - Object: Segment](#objectsegment)
+
+	- [3.2.23 - Object: Network](#objectnetwork)
+
+	- [3.2.24 - Object: Channel](#objectchannel)
+
+	- [3.2.25 - Object: SupplyChain](#objectsupplychain)
+
+	- [3.2.26 - Object: SupplyChainNode](#objectsupplychainnode)
+
+	- [3.2.27 - Object: EID](#objecteid)
+
+	- [3.2.28 - Object: UID](#objectuid)
+
+	- [3.2.29 - Object: UserAgent](#objectuseragent)
+
+	- [3.2.30 - Object: BrandVersion](#objectbrandversion)
+
+	- [3.2.31 - Object: Qty](#objectqty)
+
+	- [3.2.32 - Object: DOOH](#objectdooh)
+
+	- [3.2.33 - Object: Refresh](#objectrefresh)
+
+	- [3.2.34 - Object: RefSettings](#objectrefsettings)
+
+	- [3.2.35 - Object: DurFloors](#objectdurfloors)
+
+
+## [4. Bid Response Specification](#bidresponsespec)
+
+- [4.1 - Object Model](#4.2objectmodel)
+
+- [4.2 - Object Specifications](#objectspecs)
+
+	- [4.2.1 - Object: BidResponse](#objectbidresponse)
+
+	- [4.2.2 - Object: SeatBid](#objectseatbid)
+
+	- [4.2.3 - Object: Bid](#objectbid)
+
+- [4.3 - Ad Serving Options](#adservingoptions)
+
+	- [4.3.1 - Markup Served on the Win Notice](#markupservedonwin)
+
+	- [4.3.2 - Markup Served in the Bid](#markupservedinbid)
+
+	- [4.3.3 - Comparison of Ad Serving Approaches](#comparisonofapproaches)
+
+- [4.4 - Substitution Macros](#substitutionmacros)
+
+	- [4.4.1 - Notes on the macro ${AUCTION_MIN_TO_WIN}](#notesonmacro)
+
+## [5. Enumerated Lists Specification](#enumeratedlistsspec)
+
+## [6. Bid Request/Response Samples](#bidrequestresponsesamples)
+
+- [6.1 - GitHub Repository](#githubrepo)
+
+- [6.2 - Bid Requests](#6.4bidrequests)
+
+	- [6.2.1 - Example 1 – Simple Banner](#simplebanner)
+
+	- [6.2.2 - Example 2 – Expandable Creative](#expandablecreative)
+
+	- [6.2.3 - Example 3 – Mobile](#example3mobile)
+
+	- [6.2.4 - Example 4 – Video](#example4video)
+
+	- [6.2.5 - Example 5 – PMP with Direct Deal](#pmpwdirectdeal)
+
+	- [6.2.6 - Example 6 – Native Ad](#example6nativead)
+
+- [6.3 - Bid Responses](#6.3bidresponses)
+
+	- [6.3.1 - Example 1 – Ad Served on Win Notice](#ex1adservedwin)
+
+	- [6.3.2 - Example 2 – VAST XML Document Returned Inline](#vastxml)
+
+	- [6.3.3 - Example 3 – Direct Deal Ad Served on Win Notice](#directdealadonwin)
+
+	- [6.3.4 - Example 4 – Native Markup Returned Inline](#nativemarkupreturnedinline)
+
+## [7. Implementation Notes](implementation.md#implementationnotes)
+
+- [7.1 - No-Bid Signaling](implementation.md#nobidsignaling)
+
+- [7.2 - Impression Expiration](implementation.md#impressionexpiration)
+
+- [7.3 - PMP & Direct Deals](implementation.md#pmpanddirectdeals)
+
+- [7.4 - Skippability](implementation.md#skippability)
+
+- [7.5 - Regs Resources](implementation.md#regsresources)
+
+- [7.6 - Pod Bidding for Video and Audio](implementation.md#podbidding)
+
+- [7.7 - Network vs Channel Example Cases](implementation.md#networkandchannel)
+
+- [7.8 - Counting Billable Events and Tracked Ads](implementation.md#counting)
+
+- [7.9 - Digital Out-Of-Home](implementation.md#dooh)
+
+- [7.10 - Updated Video Signals](implementation.md#videosignals)
+
+- [7.11 - Guidance on the Use of Floors](implementation.md#floors)
+
+
+## [Appendix A. Additional Information](#appendixa)
+
+## [Appendix B. Specification Change Log](#appendixb)
+## [Appendix C. Cookie Based ID Syncing](#appendixc)
+
+## Getting Started <a name="started"></a>
+
+This specification contains a detailed explanation of an RTB (Real-Time Bidding) interface. Not all objects are “required,” and each object may contain several optional parameters. As that term is used herein, “required” attributes are designated as such if their omission would technically break the protocol. This means that it is technically possible for two implementers to conduct a minimally viable transaction if all required attributes are included, and impossible without them. This does not, however, mean that including only required attributes will be satisfactory to implementers for business reasons. For example, a request with only required attributes does not supply any context about what is being bid on, such as whether it is for a site or app, or which site/app it is for. While the transaction is technically possible, in practice, market participants will likely find this to be unsatisfactory.
+
+Some optional attributes are denoted "recommended." As that term is used herein “recommended” means that their inclusion is customary and, thus, likely to be expected by most implementers. While they are not required for a minimally viable transaction to occur, the market norm is to include such attributes; implementers may be unwilling to transact unless these attributes are included. The designation as "recommended" is based on awareness of these market norms and should not be interpreted as a suggestion by IAB Tech Lab that an implementer propagate any specific attribute. Implementers should determine which attributes they will make available based on discussion with their business partners, and in a manner consistent with applicable law.
+
+
+<table>
+  <tr>
+    <td><strong>Example Type</strong></td>
+	  <td><strong>Attribute</strong></td>
+    <td><strong>Type</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+	  <td rowspan="2">Examples of required attributes.<br> Grouped at the tops of tables for convenience</td>
+<td><code>id</code></td>
+    <td>string;<br> required</td>
+    <td>...</td>
+  </tr>
+  <tr>
+    <td><code>imp</code></td>
+    <td>object array;<br> required</td>
+    <td>...</td>
+  </tr>
+  <tr>
+<td rowspan="2">Examples of recommended attributes.<br> Grouped after required attributes.</td>
+<td><code>site</code></td>
+    <td>object;<br>recommended</td>
+    <td>...</td>
+  </tr>
+  <tr>
+    <td><code>app</code></td>
+    <td>object;<br>recommended</td>
+    <td>...</td>
+  </tr>
+  <tr>
+<td rowspan="4">Examples of optional attributes with and without defaults.<br> Attributes are assumed optional unless explicitly qualified as required or recommended.</td>
+    <td><code>test</code></td>
+    <td>integer;<br>default 0</td>
+    <td>...</td>
+     <tr>
+    <td><code>at</code></td>
+    <td>integer;<br>default 2</td>
+    <td>...</td>
+  </tr>
+  <tr>
+    <td><code>tmax</code></td>
+    <td>integer;</td>
+    <td>...</td>
+  </tr>
+  <tr>
+    <td><code>wseat</code></td>
+    <td>string array</td>
+    <td>...</td>
+  </tr>
+</table>
+
+*Example of how Required, Recommended and Optional attributes are presented.*
+
+**IMPORTANT:** Since **recommended** attributes are not required, they may not be available from all supply sources. It is suggested that all parties to OpenRTB trasnaction develop an integration checklist to identify which attributes the supply side supports in the bid request, and which attributes the demand side requires for ad decisioning.
+
+# 1. Introduction <a name="intro"></a>
+
+## 1.1 - Mission / Overview <a name="mission"></a>
+
+The mission of OpenRTB is to spur growth in Real-Time Bidding (RTB) marketplaces by providing open industry standards for communication between buyers of advertising and sellers of publisher inventory. There are several aspects to these standards including but not limited to the actual real-time bidding protocol, information taxonomies, offline configuration synchronization, and many more.
+
+This document specifies a standard for the Real-Time Bidding Interface that grew out of previous OpenRTB collaboration on the “block list project” and the “OpenRTB Mobile” project. These protocol standards aim to simplify the connection between suppliers of publisher inventory (i.e., exchanges, networks working with publishers, and sell-side platforms) and competitive buyers of that inventory (i.e., bidders, demand side platforms, or networks working with advertisers).
+
+The overall goal of OpenRTB is and has been to create a *lingua franca* for communicating between buyers and sellers. The intent is not to regulate exactly how each business operates. It aims to make integration between parties easier, so that innovation can happen at a deeper-level at each of the businesses in the ecosystem.
+
+## 1.2 - History of OpenRTB <a name="history"></a>
+
+OpenRTB was launched as a pilot project between three demand-side platforms (DataXu, MediaMath, and Turn) and three sell-side platforms (Admeld, PubMatic, and The Rubicon Project) in November 2010. The first goal was to standardize communication between parties for exchanging block lists. Version 1.0 of the OpenRTB block list specification was released in December 2010.
+
+After a positive response from the industry, Nexage approached the OpenRTB project with a proposal to create an API specification for OpenRTB focusing on the actual real-time bid request/response protocol and specifically to support mobile advertising. The mobile subcommittee was formed between companies representing the buy-side (DataXu, Fiksu, and [X+1]) and companies representing the sell- side (Nexage, Pubmatic, Smaato, and Jumptap). This project resulted in the OpenRTB Mobile 1.0 specification, which was released in February 2011.
+
+Following the release of the mobile specification, a video subcommittee was formed with video ad exchanges (BrightRoll and Adap.tv) collaborating with DataXu and ContextWeb to incorporate support for video. The goal was to incorporate support for display, video, and mobile in one document. This effort resulted in OpenRTB 2.0, which was released as a unified standard in June 2011.
+
+Due to very widespread adoption by the industry, OpenRTB was adopted as an IAB Tech Lab standard in January 2012 with the release of version 2.1.
+
+## 1.3 - Version History <a name="versionhistory"></a>
+
+**OpenRTB Real-Time Bidding API** <a name="realtimebidding"></a>
+
+2.6 - Introduces Ad Pods for CTV transactions, a structured User-Agent object and other minor enhancements.
+
+2.5 - Support for header bidding, billing and loss notifications, Flex Ads, Payment ID, tactic ID, impression metrics, out-stream video, and many more minor enhancements.
+
+2.4 - Support for Audio ad units and the largest set of minor to moderate enhancements in v2.x history.
+
+2.3 - Support for Native ad units and multiple minor enhancements.
+
+2.2 - New enhancements for private marketplace direct deals, video, mobile, and regulatory signals.
+
+2.1 - Revisions for IQG compliance, minor enhancements, and corrections.
+
+2.0 - Combines display, mobile, and video standards into a unified specification.
+
+1.0 - Original Release of OpenRTB Mobile.
+
+**OpenRTB Display Block List Branch** <a name="displayblock"></a>
+
+1.2 - Publisher Preferences API (proposed).
+
+1.1 - Minor edits to include real-time exchange of creative attributes.
+
+1.0 - Original Release of OpenRTB block list specifications.
+
+## 1.4 - Resources <a name="resources"></a>
+Updates to the specification are made through the IAB Tech Lab’s [Programmatic Supply Chain Working Group](https://iabtechlab.com/working-groups/programmatic-supply-chain-working-group/). Contact techlab@iabtechlab.com to join the working group and participate in Slack discussions.
+
+## 1.5 - Terminology <a name="terminology"></a>
+
+The following terms are used throughout this document specifically in the context of the OpenRTB Interface and this specification.
+
+
+<table>
+  <tr>
+    <td><strong>Term&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Definition&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+  </tr>
+  <tr>
+    <td><code>RTB</code></td>
+    <td>Bidding for individual impressions in real-time (i.e., while a consumer is waiting).</td>
+  </tr>
+  <tr>
+    <td><code>Exchange</code></td>
+    <td>A service that conducts an auction among bidders per impression.</td>
+  </tr>
+  <tr>
+    <td><code>Bidder</code></td>
+    <td>An entity that competes in real-time auctions to acquire impressions.</td>
+  </tr>
+  <tr>
+    <td><code>Seat</code></td>
+    <td>An advertising entity (e.g., advertiser, agency) that wishes to obtain impressions and uses bidders to act on their behalf; a customer of a bidder and usually the owner of the advertising budget.</td>
+  </tr>
+  <tr>
+    <td><code>Publisher</code></td>
+    <td>An entity that operates one or more sites.</td>
+  </tr>
+  <tr>
+    <td><code>Site</code></td>
+    <td>Ad supported content including web and applications unless otherwise specified.</td>
+  </tr>
+  <tr>
+    <td><code>Deal</code></td>
+    <td>A pre-arranged agreement between a Publisher and a Seat to purchase impressions under certain terms.</td>
+  </tr>
+</table>
+
+
+## 2. OpenRTB Basics <a name="rtbbasics"></a>
+
+The following figure illustrates the OpenRTB interactions between an exchange and its bidders. Ad requests originate at publisher sites or applications. For each inbound ad request, bid requests are broadcast to bidders, responses are evaluated under prevailing auction rules, and a winner is selected. The winning bidder is notified of the auction win via a win notice. Ad markup can either be included in the bid prospectively or in response to the win notice. A separate billing notice is also available to accommodate varying policies enacted by exchanges which are beyond the scope of the OpenRTB specification (e.g., billing on device delivery, viewability, etc.). The win notice informs the bidder’s pricing algorithms of a success, whereas the billing notice indicates that spend should actually be applied. A loss notification is also available to inform the bidder of the reason their bid did not win.
+
+The URLs for win, billing, and loss notices and the ad markup itself can contain any of several standard macros that enable the exchange to communicate critical data to the bidder (e.g., clearing price).
+
+![](https://github.com/InteractiveAdvertisingBureau/openrtb2.x/blob/864a56706b106eda94c03abefaa01dd43544864c/assets/Figure1%20OpenRTB.png)
+
+*Figure 2: Reference Model - Request Sequence.*
+
+This specification focuses on the real-time interactions of bid request and response and the win, billing, and loss notices. Related specifications include:
+
+- [AdCOM](https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md): The Advertising Common Object Model, a companion specification that defines common objects and values expected to be used across many IAB Tech Lab specifications. As of OpenRTB 2.6, all enumerated lists used by OpenRTB 2.6 are kept in AdCOM to enable more rapid iteration.
+- [OpenRTB Ad Management API](https://github.com/InteractiveAdvertisingBureau/AdManagementAPI/blob/master/Ad%20Management%20API%20v1.md): A companion specification for facilitating creative review between bidders and exchanges.
+
+Other interactions (e.g., block list synchronization, traffic control, etc.) are candidates for future OpenRTB initiatives or alternate projects.
+
+## 2.1 - Transport <a name="transport"></a>
+
+The base protocol between an exchange and its bidders is HTTP. Specifically, HTTP POST is required for bid requests to accommodate greater payloads than HTTP GET and facilitate the use of binary representations. Win notices may be either POST or GET at the discretion of the exchange.
+
+Calls returning content (e.g., any bid response, a win notice that returns markup) should return HTTP code 200. Calls returning no content in response to valid requests (e.g., an empty bid response which is one option for indicating no-bid, a win notice that does not return markup) should return HTTP 204.
+Invalid calls (e.g., a bid request containing a malformed or corrupt payload) should return HTTP 400 with no content.
+
+**BEST PRACTICE**: One of the simplest and most effective ways of improving connection performance is to enable HTTP Persistent Connections, also known as Keep-Alive. This has a profound impact on overall performance by reducing connection management overhead as well as CPU utilization on both sides of the interface.
+
+## 2.2 - Security <a name="security"></a>
+
+HTTPS is not technically required for a functioning OpenRTB implementation. However, HTTPS is increasingly customary. It is strongly recommended that exchanges and bidders use only HTTPS.
+
+## 2.3 - Data Format <a name="dataformat"></a>
+
+JSON (JavaScript Object Notation) is the suggested format for bid request and bid response data payloads. JSON was chosen for its combination of human readability and compactness. The data payloads are described in Section 3 and Section 4.
+
+Optionally, an exchange may also offer binary representations (e.g., compressed JSON, ProtoBuf, Avro, etc.), which can be more efficient in terms of transmission time and bandwidth. The IAB Tech Lab may offer reference implementations for these or other formats. When available, the use of these reference implementations is highly recommended to reduce exchange-specific variations.
+
+The bid request specifies the representation as a mime type using the Content-Type HTTP header. The mime type for the standard JSON representation is “application/json” as shown. The format of the bid response must be the same as the bid request.
+
+```Content-Type: application/json```
+
+If alternative binary representations are used, the exchange or SSP should specify the Content-Type appropriately. For example: “Content-Type: avro/binary” or “Content-Type: application/x-protobuf”. If the content-type is missing, the bidder should assume the type is application/json, unless a different default has been selected by an exchange.
+
+As a convention, the absence of an attribute has a formal meaning. In most cases, this indicates that the value is unknown, unless otherwise specified.
+
+## 2.4 - Data Encoding <a name="dataencoding"></a>
+
+Compressing data sent between exchanges and bidders can be very beneficial. Compression greatly reduces the size of data transferred and thus saves network bandwidth for both exchanges and bidders. To realize these savings fully, compression should be enabled for both the bid request sent by the exchange and the bid response returned by the bidder.
+
+Compression can be enabled on the bid response using standard HTTP 1.1 mechanisms. Most webservers already support gzip compression of response content and as such it is an ideal choice. For an exchange to signal they would like the response to be compressed, it should set the standard HTTP 1.1 Accept-Encoding header. The encoding value used should be “gzip”.
+
+```accept-encoding: gzip```
+
+This header represents to bidders an indication by the exchange that it is capable of accepting gzip encoding for the response. If the bidder server supports this and is correctly configured, it will automatically respond with content that is gzip encoded. This will be indicated using the standard HTTP 1.1 Content-Encoding header.
+
+```content-encoding: gzip```
+
+To enable compression on the bid request, it must first be agreed upon between the exchange and the bidder that this is supported. This is similar to when a custom data format is used since the exchange has to know both format and encoding before sending the bid request. If the bidder supports it, the exchange should indicate it is sending a gzip compressed bid request by setting the HTTP 1.1 Content- Encoding header. The encoding value used should be "gzip".
+
+```content-enconding: gzip```
+
+If this header is not set then it is assumed that the request content isn’t encoded. In HTTP 1.1, the Content-Encoding header is usually only used for response content. However, by using this header for the request content as well we are able to indicate a request is compressed regardless of the data format used. This is useful since even binary data formats can benefit from being compressed.
+
+## 2.5 - OpenRTB Version HTTP Header <a name="httpheader"></a>
+
+The OpenRTB Version should be passed in the header of a bid request with a custom header parameter. This will allow bidders to recognize the version of the message contained before attempting to parse the request.
+
+Additionally, it is recommended albeit optional that bidders place an identically formatted message in the HTTP header of the response with the protocol version the bidder has implemented. The message may contain a different version number than the request header.
+
+*x-openrtb-version: 2.6*
+
+This version should be specified as `<major>.<minor>` (e.g., 2.6).
+
+## 2.6 - Versioning Behavior <a name="versioningbehavior"></a>
+
+As of OpenRTB 2.6-202211, OpenRTB's version number is only incremented on breaking changes. In other words, OpenRTB 2.7 should be considered a distinct version from OpenRTB 2.6 when there is a need for distinguishing versions. For example, a demand source might regard the version header when parsing a bid request received from a supply source. See OpenRTB Principles.
+
+The current version of the OpenRTB specification is updated approximately once a month if there are non-breaking improvements to be released such as new fields, objects, or values in enumerated lists. Errata, such as clarifications or corrections to descriptions not materially impacting the specification itself, are also addressed during monthly updates. See Errata.
+
+Release branches are created for each monthly release and the history of these can be reviewed on GitHub. The master branch for the repository will always reflect the most recent release, whereas ongoing development work occurs in the 'develop' branch.
+
+This versioning policy is a break from historical practice for OpenRTB 2.x. In versions of OpenRTB prior to 2.6, major version numbers represent breaking changes and minor version numbers represent non-breaking changes.
+This means:
+
+- Bidders and exchanges must tolerate receiving new or unexpected fields and enumerated list values gracefully, treating them as unknown or ignoring them
+- Bidders and exchanges should freely transmit new fields or enumerated list values
+
+For example, if a new field or object is introduced in a future version of OpenRTB 2.6, exchanges should immediately start transmitting it to bidders, if the exchange chooses to implement support for that field. Bidders should start consuming it at their discretion, if it is relevant to them. Neither party needs to explicitly negotiate an "upgrade" to the latest release, but rather should discuss specific fields of interest as they become available.
+
+New minor versions of OpenRTB 2.6 may introduce additional optional ways of handling things. For example, burl field was introduced in OpenRTB 2.5. Use of `burl` (instead of including a pixel in markup in `adm` field) is a breaking change for a specific exchange <> bidder integration, but this is a result of a decision between these parties to switch impression counting methodology and not a result of OpenRTB 2.5 itself. Partners should discuss such situations before making breaking changes to their integrations.
+
+## 2.7 - Privacy <a name="privacy"></a>
+
+Without limiting the scope of the Disclaimer, the OpenRTB specification does include several features to support implementer’s communication of information regarding consumer privacy, including, but not limited to:
+
+- The status of do not track headers (Section 3.2.18)
+- Presence of site/app privacy policies (Section 3.2.13 and Section 3.2.14)
+- Regulations or laws that the transmitter of a bid request believes are applicable (Section 3.2.3)
+- Consent and opt-out information strings for the user (Global Privacy Platform, US Privacy String and Transparency and Consent Framework consent strings) (Section 3.2.3 and Section 3.2.20)
+
+As noted in the Disclaimer, each implementer is responsible to ensure that their implementation complies with any applicable laws, regulations, or self-regulatory frameworks.
+
+## 2.8 - Relationship to Brand Safety Certified <a name="relationshiptocertified"></a>
+
+OpenRTB is fully compatible with the Brand Safety Certified available here: [https://www.tagtoday.net/brand-safety](https://www.tagtoday.net/brand-safety) .
+
+## 2.9 - Customization and Extensions <a name="customization"></a>
+
+The OpenRTB spec allows for exchange specific customization and extensions of the specification. Any object may contain extensions. To keep extension fields consistent across platforms, they should consistently be named `ext`.
+
+In order to better support common and well known extensions, IAB Tech Lab is now hosting these extensions at our Github repository : https://github.com/InteractiveAdvertisingBureau/openrtb/tree/master/extensions
+
+# 3. Bid Request Specification <a name="bidspecification"></a>
+
+RTB transactions are initiated when an exchange or other supply source sends a bid request to a bidder. The bid request consists of the top-level bid request object, at least one impression object, and may optionally include additional objects providing impression context.
+
+## 3.1 - Object Model <a name="objectmodel"></a>
+
+Following is the object model for the bid request. The top-level object (i.e., in JSON the unnamed outer object) is denoted as `BidRequest` in the model. Of its direct subordinates, only `Imp` is technically required since it is fundamental to describing the impression being sold and it requires at least one of `Banner` (which may allow multiple formats), `Video`, `Audio`, and `Native` to define the type of impression (i.e., whichever one or more the publisher is willing to accept; although a bid will be for exactly one of those specified). An impression can optionally be subject to a private marketplace.
+
+![](https://github.com/InteractiveAdvertisingBureau/openrtb2.x/blob/a29f4b1060c04813270dbf13607bba0403409068/assets/ORTB%20ERD.png)
+
+*Figure 3: Bid Request object model.*
+
+Other subordinates to the `BidRequest` provide various forms of information to assist bidders in making targeting and pricing decisions.
+
+Not shown in the model figure is an extensions object. This is an object of undefined structure that can be added to any other object to convey exchange-specific extensions to the standard. Exchanges using these objects are responsible for publishing their extensions to their bidders.
+
+The following table summarizes the objects in the Bid Request model and serves as an index into the detailed definitions in the subsections that follow.
+
+
+
+<table>
+  <tr>
+    <td><strong>Object&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Section&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>BidRequest</code></td>
+    <td>3.2.1</td>
+    <td>Top-level object.</td>
+  </tr>
+  <tr>
+    <td><code>Source</code></td>
+    <td>3.2.2</td>
+    <td>Request source details on post-auction decisioning (e.g., header bidding).</td>
+  </tr>
+  <tr>
+    <td><code>Regs</code></td>
+    <td>3.2.3</td>
+    <td>Regulatory conditions in effect for all impressions in this bid request.</td>
+  </tr>
+  <tr>
+    <td><code>Imp</code></td>
+    <td>3.2.4</td>
+    <td>Container for the description of a specific impression; at least 1 per request.</td>
+  </tr>
+  <tr>
+    <td><code>Metric</code></td>
+    <td>3.2.5</td>
+    <td>A quanitifiable often historical data point about an impression.</td>
+  </tr>
+  <tr>
+    <td><code>Banner</code></td>
+    <td>3.2.6</td>
+    <td>Details for a banner impression (incl. in-banner video) or video companion ad.</td>
+  </tr>
+  <tr>
+    <td><code>Video</code></td>
+    <td>3.2.7</td>
+    <td>Details for a video impression.</td>
+  </tr>
+  <tr>
+    <td><code>Audio</code></td>
+    <td>3.2.8</td>
+    <td>Container for audio impression.</a>.</td>
+  </tr>
+  <tr>
+    <td><code>Native</code></td>
+    <td>3.2.9</td>
+    <td>Container for a native impression conforming to the Dynamic Native Ads API.</td>
+  </tr>
+  <tr>
+    <td><code>Format</code></td>
+    <td>3.2.10</td>
+    <td>An allowed size of a banner.</td>
+  </tr>
+  <tr>
+    <td><code>Pmp</code></td>
+    <td>3.2.11</td>
+    <td>Collection of private marketplace (PMP) deals applicable to this impression.</td>
+  </tr>
+  <tr>
+    <td><code>Deal</code></td>
+    <td>3.2.12</td>
+    <td>Deal terms pertaining to this impression between a seller and buyer.</td>
+  </tr>
+  <tr>
+    <td><code>Site</code></td>
+    <td>3.2.13</td>
+    <td>Details of the website calling for the impression.</td>
+  </tr>
+  <tr>
+    <td><code>App</code></td>
+    <td>3.2.14</td>
+    <td>Details of the application calling for the impression.</td>
+  </tr>
+  <tr>
+    <td><code>Publisher</code></td>
+    <td>3.2.15</td>
+    <td>Entity that controls the content of and distributes the site or app.</td>
+    </tr>
+  <tr>
+    <td><code>Content</code></td>
+    <td>3.2.16</td>
+    <td>Details about the published content itself, within which the ad will be shown.</td>
+  </tr>
+  <tr>
+    <td><code>Producer</code></td>
+    <td>3.2.17</td>
+    <td>Producer of the content; not necessarily the publisher (e.g., syndication).</td>
+  </tr>
+  <tr>
+    <td><code>Device</code></td>
+    <td>3.2.18</td>
+    <td>Details of the device on which the content and impressions are displayed.</td>
+  </tr>
+  <tr>
+    <td><code>Geo</code></td>
+    <td>3.2.19</td>
+    <td>Location of the device or user's home base depending on the parent object.</td>
+  </tr>
+  <tr>
+    <td><code>User</code></td>
+    <td>3.2.20</td>
+    <td>Human user of the device; audience for advertising.</td>
+  </tr>
+  <tr>
+    <td><code>Data</code></td>
+    <td>3.2.21</td>
+    <td>Collection of additional user targeting data from a specific data source.</td>
+  </tr>
+  <tr>
+    <td><code>Segment</code></td>
+    <td>3.2.22</td>
+    <td>Specific data point about a user from a specific data source.</td>
+  </tr>
+  <tr>
+    <td><code>Network</code></td>
+    <td>3.2.23</td>
+    <td>Network on which an ad will be displayed.</td>
+  </tr>
+  <tr>
+    <td><code>Channel</code></td>
+    <td>3.2.24</td>
+    <td>Channel on which an ad will be displayed.</td>
+  </tr>
+  <tr>
+    <td><code>SupplyChain</code></td>
+    <td>3.2.25</td>
+    <td>Chain of nodes from beginning to end representing the entities involved in the direct flow of payment for inventory.</td>
+  </tr>
+  <tr>
+    <td><code>SupplyChainNode</code></td>
+    <td>3.2.26</td>
+    <td>Nodes defining the identity of an entity participating in the supply chain of a bid request.</td>
+  </tr>
+  <tr>
+    <td><code>EIDs</code></td>
+    <td>3.2.27</td>
+    <td>Extended identifiers support.</td>
+  </tr>
+  <tr>
+    <td><code>UIDs</code></td>
+    <td>3.2.28</td>
+    <td>Extended identifiers user id support.</td>
+  </tr>
+  <tr>
+    <td><code>UserAgent</code></td>
+    <td>3.2.29</td>
+    <td>Structured user agent information.</td>
+  </tr>
+  <tr>
+    <td><code>BrandVersion</code></td>
+    <td>3.2.30</td>
+    <td>Name and version information for a browser or similar software component.</td>
+    </td>
+    </td>
+  </tr>
+ <tr>
+    <td><code>Qty</code></td>
+    <td>3.2.31</td>
+    <td>A means of passing a multiplier in the bid request, representing the total quantity of impressions for adverts that display to more than one person.</td>
+    </td>
+    </td>
+  </tr>
+  <tr>
+    <td><code>DOOH</code></td>
+    <td>3.2.32</td>
+    <td>Details of the Digital Out of Home inventory calling for the impression.</td>
+    </td>
+    </td>
+  </tr>
+</table>
+
+
+# 3.2 - Object Specifications <a name="objectspecs"></a>
+
+### 3.2.1 - Object: BidRequest <a name="objectbidrequest"></a>
+
+The top-level bid request object contains an exchange unique bid request or auction ID. This `id` attribute is required as is at least one impression object (Section 3.2.4). Other attributes in this top-level object establish rules and restrictions that apply to all impressions being offered.
+
+There are also several subordinate objects that provide detailed data to potential buyers. Among these are the `Site`, `App` and `DOOH`objects, which describe the type of published media in which the impression(s) appear. These objects are highly recommended, but only one applies to a given bid request depending on whether the media is browser-based web content, a non-browser application, or Digital Out of Home inventory respectively.
+
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string; required</td>
+    <td>ID of the bid request, assigned by the exchange, and unique for the exchange’s subsequent tracking of the responses. The exchange may use different values for different recipients.</td>
+  </tr>
+  <tr>
+    <td><code>imp</code></td>
+    <td>object array; required</td>
+    <td>Array of <code>Imp</code> objects (Section 3.2.4) representing the impressions offered. At least 1 <code>Imp</code> object is required.</td>
+  </tr>
+  <tr>
+    <td><code>site</code></td>
+    <td>object; recommended</td>
+    <td>Details via a <code>Site</code> object (Section 3.2.13) about the publisher’s website. Only applicable and recommended for websites.</td>
+  </tr>
+  <tr>
+    <td><code>app</code></td>
+    <td>object; recommended</td>
+    <td>Details via an <code>App</code> object (Section 3.2.14) about the publisher’s app (i.e., non-browser applications). Only applicable and recommended for apps.</td>
+  </tr>
+  <tr>
+    <td><code>dooh</code></td>
+    <td>object</td>
+    <td>This object should be included if the ad supported content is a Digital Out-Of-Home screen. A bid request with a DOOH object must not contain a site or app object.</td>
+  </tr>
+  <tr>
+    <td><code>device</code></td>
+    <td>object; recommended</td>
+    <td>Details via a <code>Device</code> object (Section 3.2.18) about the user’s device to which the impression will be delivered.</td>
+  </tr>
+  <tr>
+    <td><code>user</code></td>
+    <td>object; recommended</td>
+    <td>Details via a <code>User</code> object (Section 3.2.20) about the human user of the device; the advertising audience.</td>
+  </tr>
+  <tr>
+    <td><code>test</code></td>
+    <td>integer; default 0</td>
+    <td>Indicator of test mode in which auctions are not billable, where 0 = live mode, 1 = test mode.</td>
+  </tr>
+  <tr>
+    <td><code>at</code></td>
+    <td>integer; default 2</td>
+    <td>Auction type, where 1 = First Price, 2 = Second Price Plus. Exchange-specific auction types can be defined using values 500 and greater.</td>
+  </tr>
+  <tr>
+    <td><code>tmax</code></td>
+    <td>integer</td>
+    <td>Maximum time in milliseconds the exchange allows for bids to be received including Internet latency to avoid timeout. This value supersedes any *a priori* guidance from the exchange.</td>
+  </tr>
+  <tr>
+    <td><code>wseat</code></td>
+    <td>string array</td>
+    <td>Allowed list of buyer seats (e.g., advertisers, agencies) allowed to bid on this impression. IDs of seats and knowledge of the buyer’s customers to which they refer must be coordinated between bidders and the exchange *a priori*. At most, only one of <code>wseat</code> and <code>bseat</code> should be used in the same request. Omission of both implies no seat restrictions.</td>
+  </tr>
+  <tr>
+    <td><code>bseat</code></td>
+    <td>string array</td>
+    <td>Block list of buyer seats (e.g., advertisers, agencies) restricted from bidding on this impression. IDs of seats and knowledge of the buyer’s customers to which they refer must be coordinated between bidders and the exchange *a priori*. At most, only one of <code>wseat</code> and <code>bseat</code> should be used in the same request. Omission of both implies no seat restrictions.</td>
+  </tr>
+  <tr>
+    <td><code>allimps</code></td>
+    <td>integer; default 0</td>
+    <td>Flag to indicate if Exchange can verify that the impressions offered represent all of the impressions available in context (e.g., all on the web page, all video spots such as pre/mid/post roll) to support road-blocking. 0 = no or unknown, 1 = yes, the impressions offered represent all that are available.</td>
+  </tr>
+  <tr>
+    <td><code>cur</code></td>
+    <td>string array</td>
+    <td>Array of allowed currencies for bids on this bid request using ISO-4217 alpha codes. Recommended only if the exchange accepts multiple currencies.</td>
+  </tr>
+  <tr>
+    <td><code>wlang</code></td>
+    <td>string array</td>
+    <td>Allowed list of languages for creatives using ISO-639-1-alpha-2. Omission implies no specific restrictions, but buyers would be advised to consider <code>language</code> attribute in the <code>Device</code> and/or <code>Content</code> objects if available. Only one of <code>wlang</code> or <code>wlangb</code> should be present.</td>
+  </tr>
+  <tr>
+    <td><code>wlangb</code></td>
+    <td>string array</td>
+    <td>Allowed list of languages for creatives using IETF BCP 47I. Omission implies no specific restrictions, but buyers would be advised to consider language attribute in the <code>Device</code> and/or <code>Content</code> objects if available. Only one of <code>wlang</code> or <code>wlangb</code> should be present.</td>
+  </tr>
+  <tr>
+    <td><code>acat</code></td>
+    <td>string array</td>
+    <td>Allowed advertiser categories using the specified category taxonomy. <br>The taxonomy to be used is defined by the <code>cattax</code> field. If no <code>cattax</code> field is supplied IAB Content Taxonomy 1.0 is assumed. Only one of <code>acat</code> or <code>bcat</code> should be present.</td>
+  </tr>
+  <tr>
+    <td><code>bcat</code></td>
+    <td>string array</td>
+    <td>Blocked advertiser categories using the specified category taxonomy. <br>The taxonomy to be used is defined by the <code>cattax</code> field. If no <code>cattax</code> field is supplied IAB Content Taxonomy 1.0 is assumed. Only one of <code>acat</code> or <code>bcat</code> should be present.</td>
+  </tr>
+  <tr>
+    <td><code>cattax</code></td>
+    <td>integer; default 1</td>
+    <td>The taxonomy in use for bcat. Refer to the AdCOM 1.0 list <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list_categorytaxonomies">List: Category Taxonomies</a> for values.</td>
+  </tr>
+  <tr>
+    <td><code>badv</code></td>
+    <td>string array</td>
+    <td>Block list of advertisers by their domains (e.g., “ford.com”).</td>
+  </tr>
+  <tr>
+    <td><code>bapp</code></td>
+    <td>string array</td>
+    <td>Block list of applications by their app store IDs. See <a href="https://iabtechlab.com/wp-content/uploads/2020/08/IAB-Tech-Lab-OTT-store-assigned-App-Identification-Guidelines-2020.pdf">OTT/CTV Store Assigned App Identification Guidelines</a> for more details about expected strings for CTV app stores. For mobile apps in Google Play Store, these should be bundle or package names (e.g. com.foo.mygame). For apps in Apple App Store, these should be a numeric ID.</td>
+  </tr>
+  <tr>
+    <td><code>source</code></td>
+    <td>object</td>
+    <td>A Source object (Section 3.2.2) that provides data about the inventory source and which entity makes the final decision.</td>
+  </tr>
+  <tr>
+    <td><code>regs</code></td>
+    <td>object</td>
+    <td>A Regs object (Section 3.2.3) that specifies any industry, legal, or governmental regulations in force for this request.</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+    </td>
+    </td>
+  </tr>
+</table>
+
+
+
+### 3.2.2 - Object: Source <a name="objectsource"></a>
+
+This object describes the nature and behavior of the entity that is the source of the bid request upstream from the exchange. The primary purpose of this object is to define post-auction or upstream decisioning when the exchange itself does not control the final decision. A common example of this is header bidding, but it can also apply to upstream server entities such as another RTB exchange, a mediation platform, or an ad server combines direct campaigns with 3rd party demand in decisioning.
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>fd</code></td>
+    <td>integer, recommended</td>
+    <td>Entity responsible for the final impression sale decision, where 0 = exchange, 1 = upstream source.</td>
+  </tr>
+  <tr>
+    <td><code>tid</code></td>
+    <td>string; recommended</td>
+    <td>Transaction ID that must be common across all participants in this bid request (e.g., potentially multiple exchanges).</td>
+  </tr>
+  <tr>
+    <td><code>pchain</code></td>
+    <td>string; recommended</td>
+    <td>Payment ID chain string containing embedded syntax described in the TAG payment ID Protocol v1.0.</td>
+  </tr>
+  <tr>
+    <td><code>schain</code></td>
+    <td>object; recommended</td>
+    <td>This object represents both the links in the supply chain as well as an indicator whether or not the supply chain is complete. Details via the <code>SupplyChain</code> object (section 3.2.25).</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.3 - Object: Regs <a name="objectregs"></a>
+
+This object contains any legal, governmental, or industry regulations that the sender deems applicable to the request. See Section 7.5 for more details on the flags supporting Coppa, GDPR and others.
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>coppa</code></td>
+    <td>integer</td>
+    <td>Flag indicating if this request is subject to the COPPA regulations established by the USA FTC, where 0 = no, 1 = yes. Refer to Section 7.5 for more information.</td>
+  </tr>
+  <tr>
+    <td><code>gdpr</code></td>
+    <td>integer</td>
+    <td>Flag that indicates whether or not the request is subject to GDPR regulations 0 = No, 1 = Yes, omission indicates unknown. Refer to Section 7.5 for more information.</td>
+  </tr>
+  <tr>
+    <td><code>us_privacy</code></td>
+    <td>string</td>
+    <td>Communicates signals regarding consumer privacy under US privacy regulation. See <a href="https://github.com/InteractiveAdvertisingBureau/USPrivacy/blob/master/CCPA/US%20Privacy%20String.md">US Privacy String specifications</a>. Refer to Section 7.5 for more information.</td>
+  </tr>
+  <tr>
+    <td><code>gpp</code></td>
+    <td>string</td>
+    <td>Contains the Global Privacy Platform’s consent string. See the <a href="https://github.com/InteractiveAdvertisingBureau/Global-Privacy-Platform">Global Privacy Platform specification</a> for more details.</td>
+  </tr>
+  <tr>
+    <td><code>gpp_sid</code></td>
+    <td>integer array</td>
+    <td>Array of the section(s) of the string which should be applied for this transaction. Generally will contain one and only one value, but there are edge cases where more than one may apply. GPP Section 3 (Header) and 4 (Signal Integrity) do not need to be included. See the <a href="https://github.com/InteractiveAdvertisingBureau/Global-Privacy-Platform/blob/main/Sections/Section%20Information.md">GPP Section Information</a> for more details.</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+### 3.2.4 - Object: Imp <a name="objectimp"></a>
+
+This object describes an ad placement or impression being auctioned. A single bid request can include multiple `Imp` objects, a use case for which might be an exchange that supports selling all ad positions on a given page. Each `Imp` object has a required ID so that bids can reference them individually.
+
+The presence of `Banner` (Section 3.2.6), `Video` (Section 3.2.7), and/or `Native` (Section 3.2.9) objects subordinate to the `Imp` object indicates the type of impression being offered. The publisher can choose one such type which is the typical case or mix them at their discretion. However, any given bid for the impression must conform to one of the offered type.
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string; required</td>
+    <td>A unique identifier for this impression within the content of the bid request (typically, starts with 1 and increments).</td>
+  </tr>
+  <tr>
+    <td><code>metric</code></td>
+    <td>object array</td>
+    <td>An array of <code>Metric</code> object (section 3.2.5).</td>
+  </tr>
+  <tr>
+    <td><code>banner</code></td>
+    <td>object</td>
+    <td>A <code>Banner</code> object (section 3.2.6); required if this impression is offered as a banner ad opportunity.</td>
+  </tr>
+  <tr>
+    <td><code>video</code></td>
+    <td>object</td>
+    <td>A <code>Video</code> object (Section 3.2.7); required if this impression is offered as a video ad opportunity.</td>
+  </tr>
+  <tr>
+    <td><code>audio</code></td>
+    <td>object</td>
+    <td>An <code>Audio</code> object (Section 3.2.8); required if this impression is offered as an audio ad opportunity.</td>
+  </tr>
+  <tr>
+    <td><code>native</code></td>
+    <td>object</td>
+    <td>A <code>Native</code> object (Section 3.2.9); required if this impression is offered as a native ad opportunity.</td>
+  </tr>
+  <tr>
+    <td><code>pmp</code></td>
+    <td>object</td>
+    <td>A <code>Pmp</code> object (Section 3.2.11) containing any private marketplace deals in effect for this impression.</td>
+  </tr>
+  <tr>
+    <td><code>displaymanager</code></td>
+    <td>string</td>
+    <td>Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile). Used by some ad servers to customize ad code by partner. <br>Recommended for video and/or apps.</td>
+  </tr>
+  <tr>
+    <td><code>displaymanagerver</code></td>
+    <td>string</td>
+    <td>Version of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile). Used by some ad servers to customize ad code by partner. <br>Recommended for video and/or apps.</td>
+  </tr>
+  <tr>
+    <td><code>instl</code></td>
+    <td>integer; default 0</td>
+    <td>1 = the ad is interstitial or full screen, 0 = not interstitial.</td>
+  </tr>
+  <tr>
+    <td><code>tagid</code></td>
+    <td>string</td>
+    <td>Identifier for specific ad placement or ad tag that was used to initiate the auction. This can be useful for debugging of any issues, or for optimization by the buyer.</td>
+  </tr>
+  <tr>
+    <td><code>bidfloor</code></td>
+    <td>float; default 0</td>
+    <td>Minimum bid for this impression expressed in CPM.</td>
+  </tr>
+  <tr>
+    <td><code>bidfloorcur</code></td>
+    <td>string; default "USD"</td>
+    <td>Currency specified using ISO-4217 alpha codes. This may be different from bid currency returned by bidder if this is allowed by the exchange. This currency sets the default for all floors specified in the `Imp` object.</td>
+  </tr>
+  <tr>
+    <td><code>clickbrowser</code></td>
+    <td>integer</td>
+    <td>Indicates the type of browser opened upon clicking the creative in an app, where 0 = embedded, 1 = native. Note that the Safari View Controller in iOS 9.x devices is considered a native browser for purposes of this attribute.</td>
+  </tr>
+  <tr>
+    <td><code>secure</code></td>
+    <td>integer</td>
+    <td>Flag to indicate if the impression requires secure HTTPS URL creative assets and markup, where 0 = non-secure, 1 = secure. If omitted, the secure state is unknown, but non-secure HTTP support can be assumed.</td>
+  </tr>
+  <tr>
+    <td><code>iframebuster</code></td>
+    <td>string array</td>
+    <td>Array of exchange-specific names of supported iframe busters.</td>
+  </tr>
+  <tr>
+    <td><code>rwdd</code></td>
+    <td>integer; default 0</td>
+    <td>Indicates whether the user receives a reward for viewing the ad, where 0 = no, 1 = yes. Typically video ad implementations allow users to read an additional news article for free, receive an extra life in a game, or get a sponsored ad-free music session. The reward is typically distributed after the video ad is completed.</td>
+  </tr>
+  <tr>
+    <td><code>ssai</code></td>
+    <td>integer; default 0</td>
+    <td>Indicates if server-side ad insertion (e.g., stitching an ad into an audio or video stream) is in use and the impact of this on asset and tracker retrieval, where 0 = status unknown, 1 = all client-side (i.e., not server-side), 2 = assets stitched server-side but tracking pixels fired client-side, 3 = all server-side.</td>
+  </tr>
+  <tr>
+    <td><code>exp</code></td>
+    <td>integer</td>
+    <td>Advisory as to the number of seconds that may elapse between the auction and the actual impression.</td>
+  </tr>
+  <tr>
+    <td><code>qty</code></td>
+    <td>object</td>
+    <td>A means of passing a multiplier in the bid request, representing the total quantity of impressions for adverts that display to more than one person.</td>
+  </tr>
+  <tr>
+    <td><code>dt</code></td>
+    <td>float</td>
+    <td>Timestamp when the item is estimated to be fulfilled (e.g. when a DOOH impression will be displayed) in Unix format (i.e., milliseconds since the epoch).</td>
+  </tr>
+  <tr>
+    <td><code>refresh</code></td>
+    <td>object</td>
+    <td>Details about ad slots being refreshed automatically. (Section 3.2.33)</td>
+    </td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+    </td>
+    </td>
+  </tr>
+
+</table>
+
+
+
+### 3.2.5 - Object: Metric <a name="objectmetric"></a>
+
+This object is associated with an impression as an array of metrics. These metrics can offer insight into the impression to assist with decisioning such as average recent viewability, click-through rate, etc. Each metric is identified by its type, reports the value of the metric, and optionally identifies the source or vendor measuring the value.
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>type</code></td>
+    <td>string; required</td>
+    <td>Type of metric being presented using exchange curated string names which should be published to bidders <i>a priori</i>.</td>
+  </tr>
+  <tr>
+    <td><code>value</code></td>
+    <td>float; required</td>
+    <td>Number representing the value of the metric. Probabilities must be in the range 0.0 – 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>vendor</code></td>
+    <td>string; recommended</td>
+    <td>Source of the value using exchange curated string names which should be published to bidders <i>a priori</i>. If the exchange itself is the source versus a third party, “EXCHANGE” is recommended.</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.6 - Object: Banner <a name="objectbanner"></a>
+
+This object represents the most general type of impression. Although the term “banner” may have very specific meaning in other contexts, here it can be many things including a simple static image, an expandable ad unit, or even in-banner video (refer to the `Video` object in Section 3.2.7 for the more generalized and full featured video ad units). An array of `Banner` objects can also appear within the `Video` to describe optional companion ads defined in the VAST specification.
+
+The presence of a `Banner` as a subordinate of the `Imp` object indicates that this impression is offered as a banner type impression. At the publisher’s discretion, that same impression may also be offered as video, audio, and/or native by also including as `Imp` subordinates objects of those types. However, any given bid for the impression must conform to one of the offered types.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>format</code></td>
+    <td>object array;<br> recommended</td>
+    <td>Array of format objects (Section 3.2.10) representing the banner sizes permitted. If none are specified, then use of the <code>h</code> and <code>w</code> attributes is highly recommended.</td>
+  </tr>
+  <tr>
+    <td><code>w</code></td>
+    <td>integer</td>
+    <td>Exact width in device-independent pixels (DIPS); recommended if no <code>Format</code> objects are specified.</td>
+  </tr>
+  <tr>
+    <td><code>h</code></td>
+    <td>integer</td>
+    <td>Exact height in device-independent pixels (DIPS); recommended if no <code>Format</code> objects are specified. </td>
+  </tr>
+  <tr>
+    <td><code>btype</code></td>
+    <td>integer array</td>
+    <td>Blocked banner ad types.<br>
+	Values:<br>
+1 = XHTML Text Ad,<br>
+2 = XHTML Banner Ad,<br>
+3 = JavaScript Ad,<br>
+4 = iframe.<br></td>
+  </tr>
+  <tr>
+    <td><code>battr</code></td>
+    <td>integer array</td>
+    <td>Blocked creative attributes. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--creative-attributes-">List: Creative Attributes</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>pos</code></td>
+    <td>integer</td>
+    <td>Ad position on screen. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--placement-positions-">List: Placement Positions</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>mimes</code></td>
+    <td>string array</td>
+    <td>Content MIME types supported. Popular MIME types may include, <code>“image/jpeg”</code> and <code>“image/gif”</code>.</td>
+  </tr>
+  <tr>
+    <td><code>topframe</code></td>
+    <td>integer</td>
+    <td>Indicates if the banner is in the top frame as opposed to an iframe, where 0 = no, 1 = yes.</td>
+  </tr>
+  <tr>
+    <td><code>expdir</code></td>
+    <td>integer array</td>
+    <td>Directions in which the banner may expand. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--expandable-directions-">List: Expandable Directions</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>api</code></td>
+    <td>integer array</td>
+    <td>List of supported API frameworks for this impression. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--api-frameworks-">List: API Frameworks</a> in AdCOM 1.0. If an API is not explicitly listed, it is assumed not to be supported.</td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string</td>
+    <td>Unique identifier for this banner object. Recommended when <code>Banner</code> objects are used with a <code>Video</code> object (Section 3.2.7) to represent an array of companion ads. Values usually start at 1 and increase with each object; should be unique within an impression.</td>
+  </tr>
+  <tr>
+    <td><code>vcm</code></td>
+    <td>integer</td>
+    <td>Relevant only for <code>Banner</code> objects used with a <code>Video</code> object (Section 3.2.7) in an array of companion ads. Indicates the companion banner rendering mode relative to the associated video, where 0 = concurrent, 1 = end-card.</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+    </td>
+    </td>
+  </tr>
+</table>
+
+
+### 3.2.7 - Object: Video <a name="objectvideo"></a>
+
+This object represents a video impression. Many of the fields are non-essential for minimally viable transactions, but are included to offer fine control when needed. Video in OpenRTB generally assumes compliance with the VAST standard. As such, the notion of companion ads is supported by optionally including an array of `Banner` objects (refer to the `Banner` object in Section 3.2.6) that define these companion ads.
+
+The presence of a `Video` as a subordinate of the `Imp` object indicates that this impression is offered as a video type impression. At the publisher’s discretion, that same impression may also be offered as `Banner`, `Audio`, and/or `Native` by also including as `Imp` subordinates objects of those types. However, any given bid for the impression must conform to one of the offered types.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>mimes</code></td>
+    <td>string array; required</td>
+    <td>Content MIME types supported (e.g., “<code>video/mp4</code>”).</td>
+  </tr>
+  <tr>
+    <td><code>minduration</code></td>
+    <td>integer; default 0 recommended</td>
+    <td>Minimum video ad duration in seconds. This field is mutually exclusive with <code>rqddurs</code>; only one of <code>minduration</code> and <code>rqddurs</code> may be in a bid request.</td>
+  </tr>
+  <tr>
+    <td><code>maxduration</code></td>
+    <td>integer; recommended</td>
+    <td>Maximum video ad duration in seconds. This field is mutually exclusive with <code>rqddurs</code>; only one of <code>maxduration</code> and <code>rqddurs</code> may be in a bid request.</td>
+  </tr>
+  <tr>
+    <td><code>startdelay</code></td>
+    <td>integer; recommended</td>
+    <td>Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll ad placements. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--start-delay-modes-">List: Start Delay Modes</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>maxseq</code></td>
+    <td>integer; recommended</td>
+    <td>Indicates the maximum number of ads that may be served into a “dynamic” video ad pod (where the precise number of ads is not predetermined by the seller). See Section 7.6 for more details.</td>
+  </tr>
+  <tr>
+    <td><code>poddur</code></td>
+    <td>integer; recommended</td>
+    <td>Indicates the total amount of time in seconds that advertisers may fill for a “dynamic” video ad pod (See Section 7.6 for more details), or the dynamic portion of a “hybrid” ad pod. This field is required only for the dynamic portion(s) of video ad pods. This field refers to the length of the entire ad break, whereas <code>minduration</code>/<code>maxduration</code>/<code>rqddurs</code> are constraints relating to the slots that make up the pod.</td>
+  </tr>
+  <tr>
+    <td><code>protocols</code></td>
+    <td>integer array; recommended</td>
+    <td>Array of supported video protocols. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--creative-subtypes---audiovideo-">List: Creative Substypes - Audio/Video</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>w</code></td>
+    <td>integer; recommended</td>
+    <td>Width of the video player in device independent pixels (DIPS).</td>
+  </tr>
+  <tr>
+    <td><code>h</code></td>
+    <td>integer; recommended</td>
+    <td>Height of the video player in device independent pixels (DIPS).</td>
+  </tr>
+  <tr>
+    <td><code>podid</code></td>
+    <td>string</td>
+    <td>Unique identifier indicating that an impression opportunity belongs to a video ad pod. If multiple impression opportunities within a bid request share the same <code>podid</code>, this indicates that those impression opportunities belong to the same video ad pod.</td>
+  </tr>
+  <tr>
+    <td><code>podseq</code></td>
+    <td>integer; default 0</td>
+    <td>The sequence (position) of the video ad pod within a content stream. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list_podsequence"List: Pod Sequence</a> in AdCOM 1.0 for guidance on the use of this field.</td>
+  </tr>
+  <tr>
+    <td><code>rqddurs</code></td>
+    <td>integer array</td>
+    <td>Precise acceptable durations for video creatives in seconds. This field specifically targets the Live TV use case where non-exact ad durations would result in undesirable ‘dead air’. This field is mutually exclusive with <code>minduration</code> and <code>maxduration</code>; if rqddurs is specified, <code>minduration</code> and <code>maxduration</code> must not be specified and vice versa.</td>
+  </tr>
+  <tr>
+    <td><code>placement</code></td>
+    <td>integer; DEPRECATED</td>
+    <td>Deprecated as of OpenRTB 2.6-202303. Use <code>plcmt</code> instead.</td>
+  </tr>
+  <tr>
+    <td><code>plcmt</code></td>
+    <td>integer</td>
+    <td>Video placement type for the impression. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/develop/AdCOM%20v1.0%20FINAL.md#list_plcmtsubtypesvideo">List: Plcmt Subtypes - Video</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>linearity</code></td>
+    <td>integer</td>
+    <td>Indicates if the impression must be linear, nonlinear, etc. If none specified, assume all are allowed. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--linearity-modes-">List: Linearity Modes</a> in AdCOM 1.0. Note that this field describes the expected VAST response and not whether a placement is in-stream, out-stream, etc. For that, see <code>placement</code>.</td>
+  </tr>
+  <tr>
+    <td><code>skip</code></td>
+    <td>integer</td>
+    <td>Indicates if the player will allow the video to be skipped, where 0 = no, 1 = yes. <br>If a bidder sends markup/creative that is itself skippable, the <code>Bid</code> object should include the <code>attr</code> array with an element of 16 indicating skippable video. Refer to  <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--creative-attributes-">List: Creative Attributes</a> in AdCOM 1.0.</td>
+    </tr>
+  <tr>
+    <td><code>skipmin</code></td>
+    <td>integer; default 0</td>
+    <td>Videos of total duration greater than this number of seconds can be skippable; only applicable if the ad is skippable. </td>
+  </tr>
+  <tr>
+    <td><code>skipafter</code></td>
+    <td>integer; default 0</td>
+    <td>Number of seconds a video must play before skipping is enabled; only applicable if the ad is skippable.</td>
+  </tr>
+  <tr>
+    <td><code>sequence</code></td>
+    <td>integer; default 0 <br>DEPRECATED</td>
+    <td>Deprecated as of OpenRTB 2.6. Use <code>slotinpod</code></td>
+  </tr>
+  <tr>
+    <td><code>slotinpod</code></td>
+    <td>integer; default 0</td>
+    <td>For video ad pods, this value indicates that the seller can guarantee delivery against the indicated slot position in the pod. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--slot-position-in-pod-">List: Slot Position in Pod</a> in AdCOM 1.0 guidance on the use of this field.</td>
+  </tr>
+  <tr>
+    <td><code>mincpmpersec</code></td>
+    <td>float</td>
+    <td>Minimum CPM per second. This is a price floor for the "dynamic" portion of a video ad pod, relative to the duration of bids an advertiser may submit.</td>
+  </tr>
+  <tr>
+    <td><code>battr</code></td>
+    <td>integer array</td>
+    <td>Blocked creative attributes. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--creative-attributes-">List: Creative Attributes</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>maxextended</code></td>
+    <td>integer</td>
+    <td>Maximum extended ad duration if extension is allowed. If blank or 0, extension is not allowed. If -1, extension is allowed, and there is no time limit imposed. If greater than 0, then the value represents the number of seconds of extended play supported beyond the <code>maxduration</code> value.</td>
+  </tr>
+  <tr>
+    <td><code>minbitrate</code></td>
+    <td>inpteger</td>
+    <td>Minumim bit rate in Kbps (kilobits per second).</td>
+ </tr>
+  <tr>
+    <td><code>maxbitrate</code></td>
+    <td>integer</td>
+    <td>Maximum bit rate in Kbps (kilobits per second).</td>
+  </tr>
+  <tr>
+    <td><code>boxingallowed</code></td>
+    <td>integer; default 1</td>
+    <td>Indicates if letter-boxing of 4:3 content into a 16:9 window is allowed, where 0=no, 1=yes.</td>
+  </tr>
+  <tr>
+    <td><code>playbackmethod</code></td>
+    <td>integer array</td>
+    <td>Playback methods that may be in use. If none are specified, any method may be used. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--playback-methods-">List: Playback Methods</a> in AdCOM 1.0. Only one method is typically used in practice. As a result, this array may be converted to an integer in a future version of the specification. It is strongly advised to use only the first element of this array in preparation for this change.</td>
+ </tr>
+  <tr>
+    <td><code>playbackend</code></td>
+    <td>integer</td>
+    <td>The event that causes playback to end. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--playback-cessation-modes-">List: Playback Cessation Modes</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>delivery</code></td>
+    <td>integer array</td>
+    <td>Supported delivery methods (e.g., streaming, progressive). If none specified, assume all are supported. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--delivery-methods-">List: Delivery Methods</a> in AdCOM 1.0. </td>
+  </tr>
+  <tr>
+    <td><code>pos</code></td>
+    <td>integer</td>
+    <td>Ad position on screen. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--placement-positions-">List: Placement Positions </a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>companionad</code></td>
+    <td>object array</td>
+    <td>Array of <code>Banner</code> objects (Section 3.2.6) if companion ads are available.</td>
+  </tr>
+  <tr>
+    <td><code>api</code></td>
+    <td>integer array</td>
+    <td>List of supported API frameworks for this impression. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--api-frameworks-">List: API Frameworks</a> in AdCOM 1.0. If an API is not explicitly listed, it is assumed not to be supported.</td>
+  </tr>
+  <tr>
+    <td><code>companiontype</code></td>
+    <td>integer array</td>
+    <td>Supported VAST companion ad types. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--companion-types-">List: Companion Types</a> in AdCOM 1.0. Recommended if companion <code>Banner</code> objects are included via the <code>companionad</code> array. If one of these banners will be rendered as an end-card, this can be specified using the <code>vcm</code> attribute with the particular banner (Section 3.2.6).</td>
+  </tr>
+<tr>
+    <td><code>poddedupe</code></td>
+    <td>enum array <b>PROVISIONAL</b></td>
+    <td>Indicates pod deduplication settings that will be applied to bid responses. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/main/AdCOM%20v1.0%20FINAL.md#list--pod-deduplication-settings-">List: Pod Deduplication</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>durfloors</code></td>
+    <td>object array</td>
+    <td>An array of `DurFloors` objects (Section 3.2.35) indicating the floor prices for video creatives of various durations that the buyer may bid with.</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+    </td>
+    </td>
+  </tr>
+</table>
+
+
+### 3.2.8 - Object: Audio <a name="objectaudio"></a>
+
+This object represents an audio type impression. Many of the fields are non-essential for minimally viable transactions, but are included to offer fine control when needed. Audio in OpenRTB generally assumes compliance with the VAST standard. As such, the notion of companion ads is supported by optionally including an array of `Banner` objects (refer to the `Banner` object in Section 3.2.6) that define these companion ads.
+
+The presence of a `Audio` as a subordinate of the `Imp` object indicates that this impression is offered as an audio type impression. At the publisher’s discretion, that same impression may also be offered as `Banner`, `Video`, and/or `Native` by also including as `Imp` subordinates objects of those types. However, any given bid for the impression must conform to one of the offered types.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>mimes</code></td>
+    <td>string array; required</td>
+    <td>Content MIME types supported (e.g., <code>“audio/mp4”</code>).</td>
+  </tr>
+  <tr>
+    <td><code>minduration</code></td>
+    <td>integer; default 0 recommended</td>
+    <td>Minimum audio ad duration in seconds. This field is mutually exclusive with <code>rqddurs</code>; only one of <code>minduration</code> and <code>rqddurs</code> may be in a bid request.</td>
+  </tr>
+  <tr>
+    <td><code>maxduration</code></td>
+    <td>integer; recommended</td>
+    <td>Maximum audio ad duration in seconds. This field is mutually exclusive with <code>rqddurs</code>; only one of <code>maxduration</code> and <code>rqddurs</code> may be in a bid request.</td>
+  </tr>
+  <tr>
+    <td><code>poddur</code></td>
+    <td>integer; recommended</td>
+    <td>Indicates the total amount of time that advertisers may fill for a "dynamic" audio ad pod, or the dynamic portion of a "hybrid" ad pod. This field is required only for the dynamic portion(s) of audio ad pods. This field refers to the length of the entire ad break, wheras <code>minduration</code>/<code>maxduration</code>/<code>rqddurs</code> are constraints relating to the slots that make up the pod.</td>
+  </tr>
+  <tr>
+    <td><code>protocols</code></td>
+    <td>integer array; recommended</td>
+    <td>Array of supported audio protocols. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--creative-subtypes---audiovideo-">List: Creative Subtypes - Audio/Video</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>startdelay</code></td>
+    <td>integer; recommended</td>
+    <td>Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll ad placements. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--start-delay-modes-">List: Start Delay Modes</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>rqddurs</code></td>
+    <td>integer array</td>
+    <td>Precise acceptable durations for audio creatives in seconds. This field specifically targets the live audio/radio use case where non-exact ad durations would result in undesirable 'dead air'. This field is mutually exclusive with <code>minduraiton</code> and <code>maxduration</code>; if <code>rqddurs</code> is specified, <code>minduraiton</code> and <code>maxduration</code> must not be specified and vice versa.</td>
+  </tr>
+  <tr>
+    <td><code>podid</code></td>
+    <td>string</td>
+    <td>Unique identifier indicating that an impression opportunity belongs to an audio ad pod. If multiple impression opportunities within a bid request share the same <code>podid</code>, this indicates that those impression opportunities belong to the same audio ad pod.</td>
+  </tr>
+  <tr>
+    <td><code>podseq</code></td>
+    <td>integer; default 0</td>
+    <td>The sequence (position) of the audio ad pod within a content stream. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--pod-sequence-">List: Pod Sequence</a> in AdCOM 1.0 for guidance on the use of this field.</td>
+  </tr>
+  <tr>
+    <td><code>sequence</code></td>
+    <td>integer; default 0<br>DEPRECATED</td>
+    <td>Deprecated as of OpenRTB 2.6. Use <code>slotinpod</code></td>
+  </tr>
+  <tr>
+    <td><code>slotinpod</code></td>
+    <td>integer; default 0</td>
+    <td>For audio ad pods, this value indicates that the seller can guarantee delivery against the indicated slot position in the pod. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--slot-position-in-pod-">List: Slot Position in Pod</a> in AdCOM 1.0 guidance on the use of this field.</td>
+  </tr>
+  <tr>
+    <td><code>mincpmpersec</code></td>
+    <td>float</td>
+    <td>Minimum CPM per second. This is a price floor for the “dynamic” portion of an audio ad pod, relative to the duration of bids an advertiser may submit.</td>
+ </tr>
+  <tr>
+    <td><code>battr</code></td>
+    <td>integer array</td>
+    <td>Blocked creative attributes. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--creative-attributes-">List: Creative Attributes</a> in AdCOM 1.0</td>
+  </tr>
+  <tr>
+    <td><code>maxextended</code></td>
+    <td>integer</td>
+    <td>Maximum extended ad duration if extension is allowed. If blank or 0, extension is not allowed. If -1, extension is allowed, and there is no time limit imposed. If greater than 0, then the value represents the number of seconds of extended play supported beyond the <code>maxduration</code> value.</td>
+  </tr>
+  <tr>
+    <td><code>minbitrate</code></td>
+    <td>integer</td>
+    <td>Minumim bit rate in Kbps (kilobits per second).</td>
+ </tr>
+  <tr>
+    <td><code>maxbitrate</code></td>
+    <td>integer</td>
+    <td>Maximum bit rate in Kbps (kilobits per second).</td>
+  </tr>
+  <tr>
+    <td><code>delivery</code></td>
+    <td>integer array</td>
+    <td>Supported delivery methods (e.g., streaming, progressive). If none specified, assume all are supported. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--delivery-methods-">List: Delivery Methods</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>companionad</code></td>
+    <td>object array</td>
+    <td>Array of <code>Banner</code> objects (Section 3.2.6) if companion ads are available.</td>
+  </tr>
+  <tr>
+    <td><code>api</code></td>
+    <td>integer array</td>
+    <td>List of supported API frameworks for this impression. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--api-frameworks-">List: API Framworks</a> in AdCOM 1.0. If an API is not explicitly listed, it is assumed not to be supported.</td>
+ </tr>
+  <tr>
+    <td><code>companiontype</code></td>
+    <td>integer array</td>
+    <td>Supported companion ad types. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--companion-types-">List: Companion Types</a> in AdCOM 1.0. Recommended if companion <code>Banner</code> objects are included via the <code>companionad</code> array.</td>
+  </tr>
+  <tr>
+    <td><code>maxseq</code></td>
+    <td>integer</td>
+    <td>The maximum number of ads that can be played in an ad pod.</td>
+  </tr>
+  <tr>
+    <td><code>feed</code></td>
+    <td>integer</td>
+    <td>Type of audio feed. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--feed-types-">List: Feed Types</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>stitched</code></td>
+    <td>integer</td>
+    <td>Indicates if the ad is stitched with audio content or delivered independently, where 0=no, 1=yes.</td>
+  </tr>
+  <tr>
+    <td><code>nvol</code></td>
+    <td>integer</td>
+    <td>Volume normalization mode. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--volume-normalization-modes-">List: Volume Normalization Modes</a> in AdCOM 1.0.</td>
+ </tr>
+  <tr>
+    <td><code>durfloors</code></td>
+    <td>object array</td>
+    <td>An array of `DurFloors` objects (Section 3.2.35) indicating the floor prices for audio creatives of various durations that the buyer may bid with.</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+    </td>
+    </td>
+  </tr>
+</table>
+
+
+
+### 3.2.9 - Object: Native <a name="objectnative"></a>
+
+This object represents a native type impression. Native ad units are intended to blend seamlessly into the surrounding content (e.g., a sponsored Twitter or Facebook post). As such, the response must be well-structured to afford the publisher fine-grained control over rendering.
+
+The Native Subcommittee has developed a companion specification to OpenRTB called the <a href="https://iabtechlab.com/standards/openrtb-native/">Dynamic Native Ads API</a>. It defines the request parameters and response markup structure of native ad units. This object provides the means of transporting request parameters as an opaque string so that the specific parameters can evolve separately under the auspices of the Dynamic Native Ads API. Similarly, the ad markup served will be structured according to that specification.
+
+The presence of a `Native` as a subordinate of the `Imp` object indicates that this impression is offered as a native type impression. At the publisher’s discretion, that same impression may also be offered as `Banner`, `Video`, and/or `Audio` by also including as `Imp` subordinates objects of those types. However, any given bid for the impression must conform to one of the offered types.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>request</code></td>
+    <td>string; required</td>
+    <td>Request payload complying with the <a href="https://iabtechlab.com/standards/openrtb-native/">Native Ad Specification</a>. The root node of the payload, "native", was dropped in the Native Ads Specification 1.1. <br>For Native 1.0, this is a JSON-encoded string consisting of a unnamed root object, with a single subordinate object named 'native', which is the Native Markup Request object, section 4.1 of OpenRTB Native 1.0 specification. <br>For Native 1.1 and higher, this is a JSON-encoded string consisting of an unnamed root object which is itself the Native Markup Request Object, section 4.1 of OpenRTB Native 1.1+ .</td>
+  </tr>
+  <tr>
+    <td><code>ver</code></td>
+    <td>string; recommended</td>
+	  <td>Version of the Dynamic Native Ads API to which <code>request</code> complies; highly recommended for efficient parsing.</td>
+  </tr>
+  <tr>
+    <td><code>api</code></td>
+    <td>integer array</td>
+    <td>List of supported API frameworks for this impression. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--api-frameworks-">List: API Frameworks</a> in AdCOM. If an API is not explicitly listed, it is assumed not to be supported.</td>
+  </tr>
+  <tr>
+    <td><code>battr</code></td>
+    <td>integer array</td>
+    <td>Blocked creative attributes. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--creative-attributes-">List: Creative Attributes</a> in AdCOM.</td>
+   <tr>
+  </tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.10 - Object: Format <a name="objectformat"></a>
+
+This object represents an allowed size (i.e., height and width combination) or Flex Ad parameters for a banner impression. These are typically used in an array where multiple sizes are permitted. It is recommended that either the `w`/`h` pair or the `wratio`/`hratio`/`wmin` set (i.e., for Flex Ads) be specified.
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>w</code></td>
+    <td>integer</td>
+    <td>Width in device independent pixels (DIPS).</td>
+  </tr>
+  <tr>
+    <td><code>h</code></td>
+    <td>integer</td>
+    <td>Height in device independent pixels (DIPS).</td>
+  </tr>
+  <tr>
+    <td><code>wratio</code></td>
+    <td>integer</td>
+    <td>Relative width when expressing size as a ratio.</td>
+  </tr>
+  <tr>
+    <td><code>hratio</code></td>
+    <td>integer</td>
+    <td>Relative height when expressing size as a ratio.</td>
+   <tr>
+  </tr>
+    <td><code>wmin</code></td>
+    <td>integer</td>
+    <td>The minimum width in device independent pixels (DIPS) at which the ad will be displayed the size is expressed as a ratio.</td>
+   </tr>
+   <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+### 3.2.11 - Object: Pmp <a name="objectpmp"></a>
+
+This object is the private marketplace container for direct deals between buyers and sellers that may pertain to this impression. The actual deals are represented as a collection of `Deal` objects. Refer to Section 7.3 for more details.
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>private_auction</code></td>
+    <td>integer; default 0</td>
+    <td>Indicator of auction eligibility to seats named in the Direct Deals object, where 0=all bids are accepted, 1=bids are restricted to the deals specified and the terms thereof.</td>
+  </tr>
+  <tr>
+    <td><code>deals</code></td>
+    <td>object array</td>
+	  <td>Array of <code>Deal</code> (Section 3.2.12) objects that convey the specific deals applicable to this impression.</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+### 3.2.12 - Object: Deal <a name="objectdeal"></a>
+
+This object constitutes a specific deal that was struck between a buyer and a seller. Its presence with the `Pmp` collection indicates that this impression is available under the terms of that deal. Refer to Section 7.3 for more details.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string; required</td>
+    <td>A unique identifier for the direct deal.</td>
+  </tr>
+  <tr>
+    <td><code>bidfloor</code></td>
+    <td>float; default 0</td>
+    <td>Minimum bid for this impression expressed in CPM.</td>
+  </tr>
+  <tr>
+    <td><code>bidfloorcur</code></td>
+    <td>string; default "USD"</td>
+    <td>Currency specified using ISO-4217 alpha codes. This may be different from bid currency returned by bidder if this is allowed by the exchange. This field does not inherit from `Imp.bidfloorcur`; it is either explicitly specified or defaults to USD.</td>
+  </tr>
+  <tr>
+    <td><code>at</code></td>
+    <td>integer</td>
+    <td>Optional override of the overall auction type of the bid request, where 1 = First Price, 2 = Second Price Plus, 3 = the value passed in <code>bidfloor</code> is the agreed upon deal price. Additional auction types can be defined by the exchange.</td>
+  </tr>
+  <tr>
+    <td><code>wseat</code></td>
+    <td>string array</td>
+    <td>Allowed list of buyer seats (e.g., advertisers, agencies) allowed to bid on this deal. IDs of seats and the buyer’s customers to which they refer must be coordinated between bidders and the exchange <i>a priori</i>. Omission implies no seat restrictions.</td>
+  </tr>
+  <tr>
+    <td><code>wadomain</code></td>
+    <td>string array</td>
+    <td>Array of advertiser domains (e.g., advertiser.com) allowed to bid on this deal. Omission implies no advertiser restrictions.</td>
+   </tr>
+   <tr>
+    <td><code>guar</code></td>
+    <td>integer, default 0</td>
+    <td>Indicates that the deal is of type `guaranteed` and the bidder must bid on the deal, where 0 = not a guaranteed deal, 1 = guaranteed deal.</td>
+  </tr>
+  <tr>
+    <td><code>mincpmpersec</code></td>
+    <td>float</td>
+    <td>Minimum CPM per second. This is a price floor for video or audio impression opportunities, relative to the duration of bids an advertiser may submit.</td>
+  </tr>
+  <tr>
+    <td><code>durfloors</code></td>
+    <td>object array</td>
+    <td>Container for floor price by duration information, to be used if a given deal is eligible for video or audio demand. An array of DurFloors objects (see Section 3.2.35).</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+  </tr>
+</table>
+
+### 3.2.13 - Object: Site <a name="objectsite"></a>
+
+This object should be included if the ad supported content is a website as opposed to a non-browser application or Digital Out of Home (DOOH) inventory. A bid request must not contain more than one of a `Site`, `App` or `DOOH` object. At a minimum, it is useful to provide a site ID or page URL, but this is not strictly required.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string; recommended</td>
+    <td>Exchange-specific site ID.</td>
+  </tr>
+  <tr>
+    <td><code>name</code></td>
+    <td>string</td>
+    <td>Site name (may be aliased at the publisher's request).</td>
+  </tr>
+  <tr>
+    <td><code>domain</code></td>
+    <td>string</td>
+    <td>Domain of the site (e.g., "mysite.foo.com").</td>
+  </tr>
+  <tr>
+    <td><code>cattax</code></td>
+    <td>integer; default 1</td>
+    <td>The taxonomy in use. Refer to the AdCOM <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list_categorytaxonomies">List: Category Taxonomies</a> for values. If no cattax field is supplied IAB Cotent Category Taxonomy 1.0 is assumed.</td>
+   <tr>
+  </tr>
+    <td><code>cat</code></td>
+    <td>string array</td>
+    <td>Array of IAB Tech Lab content categories of the site. The taxonomy to be used is defined by the cattax field.</td>
+   </tr>
+   <tr>
+    <td><code>sectioncat</code></td>
+    <td>string array</td>
+    <td>Array of IAB Tech Lab content categories that describe the current section of the site. The taxonomy to be used is defined by the cattax field.</td>
+  </tr>
+  <tr>
+    <td><code>pagecat</code></td>
+    <td>string array</td>
+    <td>Array of IAB Tech Lab content categories that describe the current page or view of the site. The taxonomy to be used is definied by the cattax field.</td>
+  </tr>
+  <tr>
+    <td><code>page</code></td>
+    <td>string</td>
+    <td>URL of the page where the impression will be shown.</td>
+   <tr>
+  </tr>
+    <td><code>ref</code></td>
+    <td>string</td>
+    <td>Referrer URL that caused navigation to the current page.</td>
+   </tr>
+   <tr>
+    <td><code>search</code></td>
+    <td>string</td>
+    <td>Search string that caused navigation to the current page.</td>
+  <tr>
+  </tr>
+    <td><code>mobile</code></td>
+    <td>integer</td>
+    <td>Indicates if the site has been programmed to optimize layout when viewed on mobile devices, where 0=no, 1=yes.</td>
+   </tr>
+   <tr>
+    <td><code>privacypolicy</code></td>
+    <td>integer</td>
+    <td>Indicates if the site has a privacy policy, where 0 = no, 1 = yes.</td>
+  </tr>
+  <tr>
+    <td><code>publisher</code></td>
+    <td>object</td>
+    <td>Details about the Publisher (Section 3.2.15) of the site.</td>
+  </tr>
+  <tr>
+    <td><code>content</code></td>
+    <td>object</td>
+    <td>Details about the Content (Section 3.2.16) within the site.</td>
+   <tr>
+  </tr>
+    <td><code>keywords</code></td>
+    <td>string</td>
+    <td>Comma separated list of keywords about the site. Only one of <code>keywords</code> or <code>kwarray</code> may be present.</td>
+   </tr>
+   <tr>
+    <td><code>kwarray</code></td>
+    <td>string array</td>
+    <td>Array of keywords about the site. Only one of <code>keywords</code> or <code>kwarray</code> may be present.</td>
+  <tr>
+  <tr>
+    <td><code>inventorypartnerdomain</code></td>
+    <td>string</td>
+    <td>A domain to be used for inventory authorization in the case of inventory sharing arrangements between a site owner and content owner. This field is typically used by authorization crawlers to establish the domain of the content owner, who has the right to monetize some portion of ad inventory within the site. The content owner's domain should be listed in the site owner's ads.txt file as an <code>inventorypartnerdomain</code>. Authorization for supply from the <code>inventorypartnerdomain</code> will be published in the ads.txt file on the root of that domain. Refer to <a href="https://iabtechlab.com/wp-content/uploads/2022/04/Ads.txt-1.1.pdf">the ads.txt 1.1 spec</a> for more details.</td>
+  </tr>
+  </tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.14 - Object: App <a name="objectapp"></a>
+
+This object should be included if the ad supported content is a non-browser application (typically in mobile) as opposed to a website. A bid request must not contain more than one of a `Site`, `App` or `DOOH` object. At a minimum, it is useful to provide an App ID or bundle, but this is not strictly required.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string; recommended</td>
+    <td>Exchange-specific app ID.</td>
+  </tr>
+  <tr>
+    <td><code>name</code></td>
+    <td>string</td>
+    <td>App name (may be aliased at the publisher's request).</td>
+ </tr>
+  <tr>
+    <td><code>bundle</code></td>
+    <td>string</td>
+    <td>The store ID of the app in an app store. See <a href="https://iabtechlab.com/wp-content/uploads/2020/08/IAB-Tech-Lab-OTT-store-assigned-App-Identification-Guidelines-2020.pdf">OTT/CTV Store Assigned App Identification Guidelines</a> for more details about expected strings for CTV app stores. For mobile apps in Google Play Store, these should be bundle or package names (e.g. com.foo.mygame). For apps in Apple App Store, these should be a numeric ID.</td>
+  </tr>
+  <tr>
+    <td><code>domain</code></td>
+    <td>string</td>
+    <td>Domain of the app (e.g., "mygame.foo.com").</td>
+</tr>
+  <tr>
+    <td><code>storeurl</code></td>
+    <td>string</td>
+    <td>App store URL for an installed app; for IQG 2.1 compliance.</td>
+  </tr>
+  <tr>
+    <td><code>cattax</code></td>
+    <td>integer; default 1</td>
+    <td>The taxonomy in use. Refer to the AdCOM <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list_categorytaxonomies">List: Category Taxonomies</a> for values.</td>
+   <tr>
+  </tr>
+    <td><code>cat</code></td>
+    <td>string array</td>
+    <td>Array of IAB Tech Lab content categories of the app. The taxonomy to be used is defined by the cattax field. If no cattax field is supplied Content Category Taxonomy 1.0 is assumed.</td>
+   </tr>
+   <tr>
+    <td><code>sectioncat</code></td>
+    <td>string array</td>
+    <td>Array of IAB Tech Lab content categories that describe the current section of the app. The taxonomy to be used is defined by the cattax field.</td>
+  </tr>
+  <tr>
+    <td><code>pagecat</code></td>
+    <td>string array</td>
+    <td>Array of IAB Tech Lab content categories that describe the current page or view of the app. The taxonomy to be used is definied by the cattax field.</td>
+  </tr>
+  <tr>
+    <td><code>ver</code></td>
+    <td>string</td>
+    <td>Application version.</td>
+   <tr>
+  </tr>
+    <td><code>privacypolicy</code></td>
+    <td>integer</td>
+    <td>Indicates if the app has a privacy policy, where 0 = no, 1 = yes.</td>
+   </tr>
+   <tr>
+    <td><code>paid</code></td>
+    <td>integer</td>
+    <td>0 = app is free, 1 = the app is a paid version.</td>
+  <tr>
+  </tr>
+    <td><code>publisher</code></td>
+    <td>object</td>
+    <td>Details about the Publisher (Section 3.2.15) of the app.</td>
+  </tr>
+  <tr>
+    <td><code>content</code></td>
+    <td>object</td>
+    <td>Details about the Content (Section 3.2.16) within the app.</td>
+   <tr>
+  </tr>
+    <td><code>keywords</code></td>
+    <td>string</td>
+    <td>Comma separated list of keywords about the app. Only one of <code>keywords</code> or <code>kwarray</code> may be present.</td>
+   </tr>
+   <tr>
+    <td><code>kwarray</code></td>
+    <td>string array</td>
+    <td>Array of keywords about the app. Only one of <code>keywords</code> or <code>kwarray</code> may be present.</td>
+  <tr>
+  <tr>
+    <td><code>inventorypartnerdomain</code></td>
+    <td>string</td>
+    <td>A domain to be used for inventory authorization in the case of inventory sharing arrangements between an app owner and content owner. This field is typically used by authorization crawlers to establish the domain of the content owner, who has the right to monetize some portion of ad inventory within the app. The content owner's domain should be listed in the app owner's app-ads.txt file as an <code>inventorypartnerdomain</code>. Authorization for supply from the <code>inventorypartnerdomain</code> will be published in the ads.txt file on the root of that domain. Refer to <a href="https://iabtechlab.com/wp-content/uploads/2022/04/Ads.txt-1.1.pdf">the ads.txt 1.1 spec</a> for more details.</td>
+  </tr>
+  </tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+
+### 3.2.15 - Object: Publisher <a name="objectpublisher"></a>
+
+This object describes the entity who directly supplies inventory to and is paid by the exchange. This may be a publisher, intermediary exchange, ad network, etc.
+
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string</td>
+    <td>Exchange-specific seller ID. Every ID must map to only a single entity that is paid for inventory transacted via that ID. Corresponds to a <code>seller_id</code> of a seller in the exchange’s sellers.json file.</td>
+  </tr>
+  <tr>
+    <td><code>name</code></td>
+    <td>string</td>
+    <td>Seller name (may be aliased at the seller's request).</td>
+  </tr>
+  <tr>
+    <td><code>cattax</code></td>
+    <td>integer; default 1</td>
+    <td>The taxonomy in use. Refer to the AdCOM <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list_categorytaxonomies">List: Category Taxonomies</a> for values.</td>
+  <tr>
+  </tr>
+    <td><code>cat</code></td>
+    <td>string array</td>
+    <td>Array of IAB Tech Lab content categories of the publisher. The taxonomy to be used is defined by the cattax field. If no cattax field is supplied Content Category Taxonomy 1.0 is assumed.</td>
+  </tr>
+  <tr>
+    <td><code>domain</code></td>
+    <td>string</td>
+    <td>Highest level domain of the seller (e.g., "seller.com").</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.16 - Object: Content <a name="objectcontent"></a>
+
+This object describes the content in which the impression will appear, which may be syndicated or non-syndicated content. This object may be useful when syndicated content contains impressions and does not necessarily match the publisher’s general content. The exchange might or might not have knowledge of the page where the content is running, because of the syndication method. For example, might be a video impression embedded in an iframe on an unknown web property or device.
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string</td>
+    <td>ID uniquely identifying the content.</td>
+  </tr>
+  <tr>
+    <td><code>episode</code></td>
+    <td>integer</td>
+    <td>Episode number.</td>
+  </tr>
+  <tr>
+    <td><code>title</code></td>
+    <td>string</td>
+    <td>Content title. <br>*Video Examples:* “Search Committee” (television), “A New Hope” (movie), or “Endgame” (made for web).<br> *Non-Video Example:* “Why an Antarctic Glacier Is Melting So Quickly” (Time magazine article).</td>
+  </tr>
+  <tr>
+    <td><code>series</code></td>
+    <td>string</td>
+    <td>Content series.<br>*Video Examples:* “The Office” (television), “Star Wars” (movie), or “Arby ‘N’ The Chief” (made for web).<br>*Non-Video Example:* “Ecocentric” (Time Magazine blog).</td>
+  </tr>
+  <tr>
+    <td><code>season</code></td>
+    <td>string</td>
+    <td>Content season (e.g., “Season 3”).</td>
+  </tr>
+  <tr>
+    <td><code>artist</code></td>
+    <td>string</td>
+    <td>Artist credited with the content.</td>
+  </tr>
+  <tr>
+    <td><code>genre</code></td>
+    <td>string</td>
+    <td>Genre that best describes the content (e.g., rock, pop, etc).</td>
+  </tr>
+  <tr>
+    <td><code>gtax</code></td>
+    <td>int; default 9</td>
+    <td>The taxonomy in use. Refer to list <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list_categorytaxonomies">List: Category Taxonomies</a> in AdCOM 1.0 for values. <br><br>
+    If no gtax field is supplied rows listed, Content Category Taxonomy 3.1 is assumed</td>
+  </tr>
+  <tr>
+    <td><code>genres</code></td>
+    <td>int array</td>
+    <td>Array of categories that describe the genre of the content. The taxonomy to be used is defined by the <code>gtax</code> field. <br><br>
+	If no <code>gtax</code> field is supplied, subset of rows listed in <a href="https://github.com/InteractiveAdvertisingBureau/Taxonomies/blob/develop/Taxonomy%20Mappings/CTV%20Genre%20Mapping.tsv">CTV Genre Mapping</a> of <a href="https://github.com/InteractiveAdvertisingBureau/Taxonomies/blob/develop/Content%20Taxonomies/Content%20Taxonomy%203.1.tsv">Content Category Taxonomy 3.1</a> are assumed <br><br>
+    	See <a href="https://github.com/InteractiveAdvertisingBureau/openrtb2.x/blob/develop/implementation.md#713---using-genres-and-gtax-attributes-">Section 7.13 in Implementation Guidance</a> for additional detail.
+  </tr>
+  <tr>
+    <td><code>album</code></td>
+    <td>string</td>
+    <td>Album to which the content belongs; typically for audio.</td>
+  </tr>
+  <tr>
+    <td><code>isrc</code></td>
+    <td>string</td>
+    <td>International Standard Recording Code conforming to ISO- 3901.</td>
+  </tr>
+  <tr>
+    <td><code>producer</code></td>
+    <td>object</td>
+    <td>Details about the content <code>Producer</code> (Section 3.2.17).</td>
+  </tr>
+  <tr>
+    <td><code>url</code></td>
+    <td>string</td>
+    <td>URL of the content, for buy-side contextualization or review.</td>
+  </tr>
+  <tr>
+    <td><code>cattax</code></td>
+    <td>integer; default 1</td>
+    <td>The taxonomy in use. Refer to list <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list_categorytaxonomies">List: Category Taxonomies</a> in AdCOM 1.0 for values.</td>
+  </tr>
+  <tr>
+    <td><code>cat</code></td>
+    <td>string array</td>
+    <td>Array of IAB Tech Lab content categories that describe the content. The taxonomy to be used is defined by the cattax field. If no cattax field is supplied Content Category Taxonomy 1.0 is assumed.</td>
+  </tr>
+  <tr>
+    <td><code>prodq</code></td>
+    <td>integer</td>
+    <td>Production quality. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--production-qualities-">List: Production Qualities</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>context</code></td>
+    <td>integer</td>
+    <td>Type of content (game, video, text, etc.). Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--content-contexts-">List: Content Contexts</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>contentrating</code></td>
+    <td>string</td>
+    <td>Content rating (e.g., MPAA).</td>
+  </tr>
+  <tr>
+    <td><code>userrating</code></td>
+    <td>string</td>
+    <td>User rating of the content (e.g., number of stars, likes, etc.).</td>
+  </tr>
+  <tr>
+    <td><code>qagmediarating</code></td>
+    <td>integer</td>
+    <td>Media rating per IQG guidelines. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--media-ratings-">List: Media Ratings</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>keywords</code></td>
+    <td>string</td>
+    <td>Comma separated list of keywords describing the content. Only one of <code>keywords</code> or <code>kwarray</code> may be present.</td>
+  </tr>
+  <tr>
+    <td><code>kwarray</code></td>
+    <td>string array</td>
+    <td>Array of keywords about the site. Only one of <code>keywords</code> or <code>kwarray</code> may be present.</td>
+  </tr>
+  <tr>
+    <td><code>livestream</code></td>
+    <td>integer</td>
+    <td>0 = not live, 1 = content is live (e.g., stream, live blog).</td>
+  </tr>
+  <tr>
+    <td><code>sourcerelationship</code></td>
+    <td>integer</td>
+    <td>0 = indirect, 1 = direct.</td>
+  </tr>
+  <tr>
+    <td><code>len</code></td>
+    <td>integer</td>
+    <td>Length of content in seconds; appropriate for video or audio.</td>
+  </tr>
+  <tr>
+    <td><code>language</code></td>
+    <td>string</td>
+    <td>Content language using ISO-639-1-alpha-2. Only one of <code>language</code> or <code>langb</code> should be present.</td>
+  </tr>
+  <tr>
+    <td><code>langb</code></td>
+    <td>string</td>
+    <td>Content language using IETF BCP 47. Only one of <code>language</code> or <code>langb</code> should be present.</td>
+  </tr>
+  <tr>
+    <td><code>embeddable</code></td>
+    <td>integer</td>
+    <td>Indicator of whether the content is embeddable (e.g., an embeddable video player), where 0 = no, 1 = yes.</td>
+  </tr>
+  <tr>
+    <td><code>data</code></td>
+    <td>object array</td>
+    <td>Additional content data. Each <code>Data</code> object (Section 3.2.21) represents a different data source.</td>
+  </tr>
+  <tr>
+    <td><code>network</code></td>
+    <td>object</td>
+    <td>Details about the network (Section 3.2.23) the content is on.</td>
+  </tr>
+  <tr>
+    <td><code>channel</code></td>
+    <td>object</td>
+    <td>Details about the channel (Section 3.2.24) the content is on.</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+  </tr>
+</table>
+
+
+### 3.2.17 - Object: Producer <a name="objectproducer"></a>
+
+This object defines the producer of the content in which the ad will be shown. This is particularly useful when the content is syndicated and may be distributed through different publishers and thus when the producer and publisher are not necessarily the same entity.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string</td>
+    <td>Content producer or originator ID. Useful if content is syndicated and may be posted on a site using embed tags.</td>
+  </tr>
+  <tr>
+    <td><code>name</code></td>
+    <td>string</td>
+    <td>Content producer or originator name (e.g., “Warner Bros”).</td>
+ </tr>
+  <tr>
+    <td><code>cattax</code></td>
+    <td>integer; default 1</td>
+    <td>The taxonomy in use. Refer to the AdCOM 1.0 list <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list_categorytaxonomies">List: Category Taxonomies</a> for values.</td>
+   <tr>
+  </tr>
+    <td><code>cat</code></td>
+    <td>string array</td>
+    <td>Array of IAB Tech Lab content categories that describe the content producer.
+The taxonomy to be used is defined by the cattax field. If no cattax field is supplied Content Category Taxonomy 1.0 is assumed.</td>
+   </tr>
+   <tr>
+    <td><code>domain</code></td>
+    <td>string</td>
+    <td>Highest level domain of the content producer (e.g., "producer.com").</td>
+</tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.18 - Object: Device <a name="objectdevice"></a>
+
+This object provides information pertaining to the device through which the user is interacting. Device information includes its hardware, platform, location, and carrier data. The device can refer to a mobile handset, a desktop computer, set top box, or other digital device.
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>geo</code></td>
+    <td>object; recommended</td>
+    <td>Location of the device assumed to be the user’s current location defined by a <code>Geo</code> object (Section 3.2.19).</td>
+  </tr>
+  <tr>
+    <td><code>dnt</code></td>
+    <td>integer; recommended</td>
+    <td>Standard “Do Not Track” flag as set in the header by the browser, where 0 = tracking is unrestricted, 1 = do not track.</td>
+ </tr>
+  <tr>
+    <td><code>lmt</code></td>
+    <td>integer; recommended</td>
+    <td>“Limit Ad Tracking” signal commercially endorsed (e.g., iOS, Android), where 0 = tracking is unrestricted, 1 = tracking must be limited per commercial guidelines.</td>
+  </tr>
+  <tr>
+    <td><code>ua</code></td>
+    <td>string</td>
+    <td>Browser user agent string. This field represents a raw user agent string from the browser. For backwards compatibility, exchanges are recommended to always populate <code>ua</code> with the User-Agent string, when available from the end user’s device, even if an alternative representation, such as the User-Agent Client-Hints, is available and is used to populate <code>sua</code>. No inferred or approximated user agents are expected in this field. <br>If a client supports User-Agent Client Hints, and <code>sua</code> field is present, bidders are recommended to rely on <code>sua</code> for detecting device type, browser type and version and other purposes that rely on the user agent information, and ignore <code>ua</code> field. This is because the <code>ua</code> may contain a frozen or reduced user agent string.</td>
+</tr>
+  <tr>
+    <td><code>sua</code></td>
+    <td>object</td>
+    <td>Structured user agent information defined by a <code>UserAgent</code> object (see Section 3.2.29). If both <code>ua</code> and <code>sua</code> are present in the bid request, <code>sua</code> should be considered the more accurate representation of the device attributes. This is because the <code>ua</code> may contain a frozen or reduced user agent string.</td>
+  </tr>
+  <tr>
+    <td><code>ip</code></td>
+    <td>string</td>
+    <td>IPv4 address closest to device.</td>
+   </tr>
+   <tr>
+    <td><code>ipv6</code></td>
+    <td>string</td>
+    <td>IP address closest to device as IPv6.</td>
+  </tr>
+  <tr>
+    <td><code>devicetype</code></td>
+    <td>integer</td>
+    <td>The general type of device. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--device-types-">List: Device Types</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>make</code></td>
+    <td>string</td>
+    <td>Device make (e.g., “Apple”).</td>
+   </tr>
+  <tr>
+    <td><code>model</code></td>
+    <td>string</td>
+    <td>Device model (e.g., “iPhone”).</td>
+   </tr>
+   <tr>
+    <td><code>os</code></td>
+    <td>string</td>
+    <td>Device operating system (e.g., “iOS”).</td>
+  </tr>
+  <tr>
+    <td><code>osv</code></td>
+    <td>string</td>
+    <td>Device operating system version (e.g., “3.1.2”).</td>
+  </tr>
+  <tr>
+    <td><code>hwv</code></td>
+    <td>string</td>
+    <td>Hardware version of the device (e.g., “5S” for iPhone 5S).</td>
+   </tr>
+  <tr>
+    <td><code>h</code></td>
+    <td>integer</td>
+    <td>Physical height of the screen in pixels.</td>
+   </tr>
+   <tr>
+    <td><code>w</code></td>
+    <td>integer</td>
+    <td>Physical width of the screen in pixels.</td>
+   </tr>
+   <tr>
+    <td><code>ppi</code></td>
+    <td>integer</td>
+    <td>Screen size as pixels per linear inch.</td>
+   </tr>
+   <tr>
+    <td><code>pxratio</code></td>
+    <td>float</td>
+    <td>The ratio of physical pixels to device independent pixels.</td>
+  </tr>
+   <tr>
+    <td><code>js</code></td>
+    <td>integer</td>
+    <td>Support for JavaScript, where 0 = no, 1 = yes.</td>
+   </tr>
+   <tr>
+    <td><code>geofetch</code></td>
+    <td>integer</td>
+    <td>Indicates if the geolocation API will be available to JavaScript code running in the banner, where 0 = no, 1 = yes.</td>
+   </tr>
+   <tr>
+    <td><code>flashver</code></td>
+    <td>string</td>
+    <td>Version of Flash supported by the browser.</td>
+   </tr>
+   <tr>
+    <td><code>language</code></td>
+    <td>string</td>
+    <td>Browser language using ISO-639-1-alpha-2. Only one of <code>language</code> or <code>langb</code> should be present.</td>
+  </tr>
+  <tr>
+    <td><code>langb</code></td>
+    <td>string</td>
+    <td>Browser language using IETF BCP 47. Only one of <code>language</code> or <code>langb</code> should be present.</td>
+   </tr>
+   <tr>
+    <td><code>carrier</code></td>
+    <td>string</td>
+    <td>Carrier or ISP (e.g., “VERIZON”) using exchange curated string names which should be published to bidders *a priori*.</td>
+   </tr>
+   <tr>
+    <td><code>mccmnc</code></td>
+    <td>string</td>
+    <td>Mobile carrier as the concatenated MCC-MNC code (e.g., “310-005” identifies Verizon Wireless CDMA in the USA). Refer to https://en.wikipedia.org/wiki/Mobile_country_code for further examples. Note that the dash between the MCC and MNC parts is required to remove parsing ambiguity. The MCC-MNC values represent the SIM installed on the device and do not change when a device is roaming. Roaming may be inferred by a combination of the MCC-MNC, geo, IP and other data signals.</td>
+   </tr>
+  <tr>
+    <td><code>connectiontype</code></td>
+    <td>integer</td>
+    <td>Network connection type. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--connection-types-">List: Connection Types</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>ifa</code></td>
+    <td>string</td>
+    <td>ID sanctioned for advertiser use in the clear (i.e., not hashed)
+
+  <br>Unless prior arrangements have been made between the buyer and the seller directly, the value in this field is expected to be an ID derived from a call to an advertising API provided by the device’s Operating System.</br></td>
+  </tr>
+  <tr>
+    <td><code>didsha1</code></td>
+    <td>string; DEPRECATED</td>
+    <td>Deprecated as of OpenRTB 2.6.</td>
+  </tr>
+  <tr>
+    <td><code>didmd5</code></td>
+    <td>string; DEPRECATED</td>
+    <td>Deprecated as of OpenRTB 2.6.</td>
+  </tr>
+  <tr>
+    <td><code>dpidsha1</code></td>
+    <td>string; DEPRECATED</td>
+    <td>Deprecated as of OpenRTB 2.6.</td>
+  </tr>
+  <tr>
+    <td><code>dpidmd5</code></td>
+    <td>string; DEPRECATED</td>
+    <td>Deprecated as of OpenRTB 2.6.</td>
+  </tr>
+  <tr>
+    <td><code>macsha1</code></td>
+    <td>string; DEPRECATED</td>
+    <td>Deprecated as of OpenRTB 2.6.</td>
+  </tr>
+  <tr>
+    <td><code>macmd5</code></td>
+    <td>string; DEPRECATED</td>
+    <td>Deprecated as of OpenRTB 2.6.</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+  </tr>
+  </table>
+
+
+### 3.2.19 - Object: Geo <a name="objectgeo"></a>
+
+This object encapsulates various methods for specifying a geographic location. When subordinate to a `Device` object, it indicates the location of the device which can also be interpreted as the user’s current location. When subordinate to a `User` object, it indicates the location of the user’s home base (i.e., not necessarily their current location).
+
+The `lat`/`lon` attributes should only be passed if they conform to the accuracy depicted in the `type` attribute. For example, the centroid of a geographic region such as postal code should not be passed.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>lat</code></td>
+    <td>float</td>
+    <td>Latitude from -90.0 to +90.0, where negative is south.</td>
+  </tr>
+  <tr>
+    <td><code>lon</code></td>
+    <td>float</td>
+    <td>Longitude from -180.0 to +180.0, where negative is west.</td>
+ </tr>
+  <tr>
+    <td><code>type</code></td>
+    <td>integer</td>
+    <td>Source of location data; recommended when passing <code>lat</code>/<code>lon</code>. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--location-types-">List: Location Types</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>accuracy</code></td>
+    <td>integer</td>
+    <td>Estimated location accuracy in meters; recommended when <code>lat</code>/<code>lon</code> are specified and derived from a device’s location services (i.e., type = 1). Note that this is the accuracy as reported from the device. Consult OS specific documentation (e.g., Android, iOS) for exact interpretation.</td>
+</tr>
+  <tr>
+    <td><code>lastfix</code></td>
+    <td>integer</td>
+    <td>Number of seconds since this geolocation fix was established. Note that devices may cache location data across multiple fetches. Ideally, this value should be from the time the actual fix was taken.</td>
+  </tr>
+  <tr>
+    <td><code>ipservice</code></td>
+    <td>integer</td>
+    <td>Service or provider used to determine geolocation from IP address if applicable (i.e., type = 2). Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--ip-location-services-">List: IP Location Services</a> in AdCOM 1.0.</td>
+   <tr>
+  </tr>
+    <td><code>country</code></td>
+    <td>string</td>
+    <td>Country code using ISO-3166-1-alpha-3.</td>
+   </tr>
+   <tr>
+    <td><code>region</code></td>
+    <td>string</td>
+    <td>Region code using ISO-3166-2; 2-letter state code if USA.</td>
+  </tr>
+  <tr>
+    <td><code>regionfips104</code></td>
+    <td>string</td>
+    <td>Region of a country using FIPS 10-4 notation. While OpenRTB supports this attribute, it was withdrawn by NIST in 2008.</td>
+  </tr>
+  <tr>
+    <td><code>metro</code></td>
+    <td>string</td>
+    <td>Google metro code; similar to but not exactly Nielsen DMAs. See Appendix A for a link to the codes.</td>
+   <tr>
+  </tr>
+    <td><code>city</code></td>
+    <td>string</td>
+    <td>City using United Nations Code for Trade & Transport Locations. See Appendix A for a link to the codes.</td>
+   </tr>
+   <tr>
+    <td><code>zip</code></td>
+    <td>string</td>
+    <td>ZIP or postal code.</td>
+  <tr>
+  </tr>
+    <td><code>utcoffset</code></td>
+    <td>integer</td>
+    <td>Local time as the number +/- of minutes from UTC.</td>
+ <tr>
+  </tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+  </table>
+
+### 3.2.20 - Object: User <a name="objectuser"></a>
+
+This object contains information known or derived about the human user of the device (i.e., the audience for advertising). The user `id` is an exchange artifact and may be subject to rotation or other privacy policies. However, when present, this user ID should be stable long enough to serve reasonably as the basis for frequency capping and retargeting.
+
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string</td>
+    <td>Exchange-specific ID for the user.
+
+<br>Unless prior arrangements have been made between the buyer and the seller directly, the value in this field is expected to be derived from an ID sync. (see <a href="https://github.com/InteractiveAdvertisingBureau/openrtb2.x/blob/develop/2.6.md#appendix-c-cookie-based-id-syncing-">Appendix: Cookie Based ID Syncing)</a></br>
+    </td>
+  </tr>
+  <tr>
+    <td><code>buyeruid</code></td>
+    <td>string</td>
+    <td>Buyer-specific ID for the user as mapped by the exchange for the buyer.
+
+<br>Unless prior arrangements have been made between the buyer and the seller directly, the value in this field is expected to be derived from an ID sync. (see <a href="https://github.com/InteractiveAdvertisingBureau/openrtb2.x/blob/develop/2.6.md#appendix-c-cookie-based-id-syncing-">Appendix: Cookie Based ID Syncing)</a></br>
+    </td>
+ </tr>
+  <tr>
+    <td><code>yob</code></td>
+    <td>integer; DEPRECATED</td>
+    <td>Deprecated as of OpenRTB 2.6.</td>
+  </tr>
+  <tr>
+    <td><code>gender</code></td>
+    <td>string; DEPRECATED</td>
+    <td>Deprecated as of OpenRTB 2.6.</td>
+</tr>
+  <tr>
+    <td><code>keywords</code></td>
+    <td>string</td>
+    <td>Comma separated list of keywords, interests, or intent. Only one of <code>keywords</code> or <code>kwarray</code> may be present.</td>
+  </tr>
+  <tr>
+    <td><code>kwarray</code></td>
+    <td>string array</td>
+    <td>Array of keywords about the user. Only one of <code>keywords</code> or <code>kwarray</code> may be present.</td>
+   <tr>
+  </tr>
+    <td><code>customdata</code></td>
+    <td>string</td>
+    <td>Optional feature to pass bidder data that was set in the exchange’s cookie. The string must be in base85 cookie safe characters and be in any format. Proper JSON encoding must be used to include “escaped” quotation marks.</td>
+   </tr>
+   <tr>
+    <td><code>geo</code></td>
+    <td>object</td>
+    <td>Location of the user’s home base defined by a <code>Geo</code> object (Section 3.2.19). This is not necessarily their current location.</td>
+  </tr>
+  <tr>
+    <td><code>data</code></td>
+    <td>object array</td>
+    <td>Additional user data. Each <code>Data</code> object (Section 3.2.21) represents a different data source.</td>
+  </tr>
+  <tr>
+    <td><code>consent</code></td>
+    <td>string</td>
+    <td>When GDPR regulations are in effect this attribute contains the Transparency and Consent Framework’s <a href="https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework/blob/master/TCFv2/IAB%20Tech%20Lab%20-%20Consent%20string%20and%20vendor%20list%20formats%20v2.md">Consent String</a> data structure.</td>
+   <tr>
+  </tr>
+    <td><code>eids</code></td>
+    <td>object array</td>
+    <td>Details for support of a standard protocol for multiple third party identity providers (Section 3.2.27).</td>
+   </tr>
+   <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.21 - Object: Data <a name="objectdata"></a>
+
+The data and segment objects together allow additional data about the related object (e.g., user, content) to be specified. This data may be from multiple sources whether from the exchange itself or third parties as specified by the `id` field. A bid request can mix data objects from multiple providers. The specific data providers in use should be published by the exchange a priori to its bidders.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string</td>
+    <td>Exchange-specific ID for the data provider.</td>
+  </tr>
+  <tr>
+    <td><code>name</code></td>
+    <td>string</td>
+    <td>Exchange-specific name for the data provider.</td>
+  </tr>
+  <tr>
+    <td><code>segment</code></td>
+    <td>object array</td>
+    <td>Array of <code>Segment</code> (Section 3.2.22) objects that contain the actual data values.</td>
+ </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.22 - Object: Segment <a name="objectsegment"></a>
+
+Segment objects are essentially key-value pairs that convey specific units of data. The parent `Data` object is a collection of such values from a given data provider. The specific segment names and value options must be published by the exchange *a priori* to its bidders.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string</td>
+    <td>ID of the data segment specific to the data provider.</td>
+  </tr>
+  <tr>
+    <td><code>name</code></td>
+    <td>string</td>
+    <td>Name of the data segment specific to the data provider.</td>
+  </tr>
+  <tr>
+    <td><code>value</code></td>
+    <td>string</td>
+    <td>String representation of the data segment value.</td>
+ </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.23 - Object: Network <a name="objectnetwork"></a>
+
+This object describes the network an ad will be displayed on. A Network is defined as the parent entity of the `Channel` object’s entity for the purposes of organizing Channels. Examples are companies that own and/or license a collection of content channels (Viacom, Discovery, CBS, WarnerMedia, Turner and others), or studio that creates such content and self-distributes content. Name is a human-readable field while domain and id can be used for reporting and targeting purposes. See 7.6 for further examples.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string</td>
+    <td>A unique identifier assigned by the publisher. This may not be a unique identifier across all supply sources.</td>
+  </tr>
+  <tr>
+    <td><code>name</code></td>
+    <td>string</td>
+    <td>Network the content is on (e.g., a TV network like “ABC")</td>
+  </tr>
+  <tr>
+    <td><code>domain</code></td>
+    <td>string</td>
+    <td>The primary domain of the network (e.g. “abc.com” in the case of the network ABC). It is recommended to include the top private domain (PSL+1) for DSP targeting normalization purposes.</td>
+ </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.24 - Object: Channel <a name="objectchannel"></a>
+
+This object describes the channel an ad will be displayed on. A Channel is defined as the entity that curates a content library, or stream within a brand name for viewers. Examples are specific view selectable ‘channels’ within linear and streaming television (MTV, HGTV, CNN, BBC One, etc) or a specific stream of audio content commonly called ‘stations.’ Name is a human-readable field while domain and id can be used for reporting and targeting purposes. See 7.6 for further examples.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string</td>
+    <td>A unique identifier assigned by the publisher. This may not be a unique identifier across all supply sources.</td>
+  </tr>
+  <tr>
+    <td><code>name</code></td>
+    <td>string</td>
+    <td>Channel the content is on (e.g., a TV channel like “WABC-TV")</td>
+  </tr>
+  <tr>
+    <td><code>domain</code></td>
+    <td>string</td>
+    <td>The primary domain of the channel (e.g. “abc7ny.com” in the case of the local channel WABC-TV). It is recommended to include the top private domain (PSL+1) for DSP targeting normalization purposes.</td>
+ </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.25 - Object: SupplyChain <a name="objectsupplychain"></a>
+
+This object is composed of a set of nodes where each node represents a specific entity that participates in the transacting of inventory. The entire chain of nodes from beginning to end represents all entities who are involved in the direct flow of payment for inventory. Detailed implementation examples can be found here: https://github.com/InteractiveAdvertisingBureau/openrtb/blob/master/supplychainobject.md
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>complete</code></td>
+    <td>integer; required</td>
+    <td>Flag indicating whether the chain contains all nodes involved in the transaction leading back to the owner of the site, app or other medium of the inventory, where 0 = no, 1 = yes.</td>
+  </tr>
+  <tr>
+    <td><code>nodes</code></td>
+    <td>object array; required</td>
+    <td>Array of <code>SupplyChainNode</code> objects in the order of the chain. In a complete supply chain, the first node represents the initial advertising system and seller ID involved in the transaction, i.e. the owner of the site, app, or other medium. In an incomplete supply chain, it represents the first known node. The last node represents the entity sending this bid request.</td>
+  </tr>
+  <tr>
+    <td><code>ver</code></td>
+    <td>string; required</td>
+    <td>Version of the supply chain specification in use, in the format of “major.minor”. For example, for version 1.0 of the spec, use the string “1.0”.</td>
+ </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.26 - Object: SupplyChainNode <a name="objectsupplychainnode"></a>
+
+This object is associated with a `SupplyChain` object as an array of nodes. These nodes define the identity of an entity participating in the supply chain of a bid request. Detailed implementation examples can be found here: https://github.com/InteractiveAdvertisingBureau/openrtb/blob/master/supplychainobject.md. The `SupplyChainNode` object contains the following attributes:
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>asi</code></td>
+    <td>string; required</td>
+    <td>The canonical domain name of the SSP, Exchange, Header Wrapper, etc system that bidders connect to. This may be the operational domain of the system, if that is different than the parent corporate domain, to facilitate WHOIS and reverse IP lookups to establish clear ownership of the delegate system. This should be the same value as used to identify sellers in an ads.txt file if one exists.</td>
+  </tr>
+  <tr>
+    <td><code>sid</code></td>
+    <td>string; required</td>
+    <td>The identifier associated with the seller or reseller account within the advertising system. This must contain the same value used in transactions (i.e. OpenRTB bid requests) in the field specified by the SSP/exchange. Typically, in OpenRTB, this is <code>publisher.id</code>. For OpenDirect it is typically the publisher’s organization ID. Should be limited to 64 characters in length.</td>
+  </tr>
+  <tr>
+    <td><code>rid</code></td>
+    <td>string</td>
+    <td>The OpenRTB RequestId of the request as issued by this seller.</td>
+ </tr>
+  <tr>
+    <td><code>name</code></td>
+    <td>string</td>
+    <td>The name of the company (the legal entity) that is paid for inventory transacted under the given <code>seller_ID</code>. This value is optional and should NOT be included if it exists in the advertising system’s sellers.json file.</td>
+  </tr>
+  <tr>
+    <td><code>domain</code></td>
+    <td>string</td>
+    <td>The business domain name of the entity represented by this node. This value is optional and should NOT be included if it exists in the advertising system’s sellers.json file.</td>
+  </tr>
+  <tr>
+    <td><code>hp</code></td>
+    <td>integer</td>
+    <td>Indicates whether this node will be involved in the flow of payment for the inventory. When set to 1, the advertising system in the <code>asi</code> field pays the seller in the <code>sid</code> field, who is responsible for paying the previous node in the chain. When set to 0, this node is not involved in the flow of payment for the inventory. For version 1.0 of <code>SupplyChain</code>, this property should always be 1. Implementers should ensure that they propagate this field onwards when constructing <code>SupplyChain</code> objects in bid requests sent to a downstream advertising system.</td>
+ </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for advertising-system specific extensions to this object.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+
+### 3.2.27 - Object: EID <a name="objecteid"></a>
+
+Extended identifiers support in the OpenRTB specification allows buyers to use audience data in real-time bidding. This object can contain one or more UIDs from a single source or a technology provider. The exchange should ensure that business agreements allow for the sending of this data.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+<tr>
+    <td><code>inserter</code></td>
+    <td>string</td>
+    <td>The canonical domain name of the entity (publisher, publisher monetization company, SSP, Exchange, Header Wrapper, etc.) that caused the ID array element to be added. This may be the operational domain of the system, if that is different from the parent corporate domain, to facilitate WHOIS and reverse IP lookups to establish clear ownership of the delegate system.<br>
+    </br>This should be the same value as used to identify sellers in an ads.txt file if one exists.<br>
+</br>For ad tech intermediaries, this would be the domain as used in ads.txt. For publishers, this would match the domain in the <code>site</code> or <code>app</code> object.
+</td>
+ </tr>
+  <tr>
+    <td><code>source</code></td>
+    <td>string</td>
+    <td>Canonical domain of the ID.</td>
+  </tr>
+<tr>
+    <td><code>matcher</code></td>
+    <td>string</td>
+    <td>Technology providing the match method as defined in <code>mm</code>.<br>
+</br>In some cases, this may be the same value as inserter.<br>
+</br>When blank, it is assumed that the <code>matcher</code> is equal to the <code>source</code><br>
+</br>May be omitted when mm=0, 1, or 2.<br>
+</td>
+ </tr>
+<tr>
+    <td><code>mm</code></td>
+    <td>int</td>
+    <td>Match method used by the <code>matcher</code>. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/main/AdCOM%20v1.0%20FINAL.md#list-id-match-methods-">List: ID Match Methods</a> in AdCOM 1.0
+    </td>
+  </tr>
+  <tr>
+    <td><code>uids</code></td>
+    <td>object array</td>
+    <td>Array of extended ID <code>UID</code> objects from the given source. Refer to the <code>Extended Identifier UIDs</code> object (Section 3.2.28)</td>
+ </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for exchange-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.28 - Object: UID <a name="objectuid"></a>
+
+This object contains a single user identifier provided as part of extended identifiers. The exchange should ensure that business agreements allow for the sending of this data.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string</td>
+    <td>The identifier for the user.</td>
+  </tr>
+  <tr>
+    <td><code>atype</code></td>
+    <td>integer</td>
+    <td>Type of user agent the ID is from. It is highly recommended to set this, as many DSPs separate app-native IDs from browser-based IDs and require a type value for ID resolution. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list_agenttypes">List: Agent Types</a> in AdCOM 1.0</td>
+ </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for vendor specific extensions to this object.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+
+### 3.2.29 - Object: UserAgent <a name="objectuseragent"></a>
+
+Structured user agent information, which can be used when a client supports [User-Agent Client Hints](https://wicg.github.io/ua-client-hints/). If both `device.ua` and `device.sua` are present in the bid request, `device.sua` should be considered the more accurate representation of the device attributes. This is because the `device.ua` may contain a frozen or reduced user agent string due to deprecation of user agent strings by browsers.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>browsers</code></td>
+    <td>array of <code>BrandVersion</code> objects; recommended</td>
+    <td>Each <code>BrandVersion</code> object (see Section 3.2.30) identifies a browser or similar software component. Implementers should send brands and versions derived from the Sec-CH-UA-Full-Version-List header*.</td>
+  </tr>
+  <tr>
+    <td><code>platform</code></td>
+    <td>BrandVersion object; recommended</td>
+    <td>A <code>BrandVersion</code> object (see Section 3.2.30) that identifies the user agent’s execution platform / OS. Implementers should send a brand derived from the Sec-CH-UA-Platform header, and version derived from the Sec-CH-UA-Platform-Version header *.</td>
+  </tr>
+  <tr>
+    <td><code>mobile</code></td>
+    <td>integer</td>
+    <td>1 if the agent prefers a “mobile” version of the content, if available, i.e. optimized for small screens or touch input. 0 if the agent prefers the “desktop” or “full” content. Implementers should derive this value from the Sec-CH-UA-Mobile header *.</td>
+ </tr>
+  <tr>
+    <td><code>architecture</code></td>
+    <td>string</td>
+    <td>Device’s major binary architecture, e.g. “x86” or “arm”. Implementers should retrieve this value from the Sec-CH-UA-Arch header*.</td>
+  </tr>
+  <tr>
+    <td><code>bitness</code></td>
+    <td>string</td>
+    <td>Device’s bitness, e.g. “64” for 64-bit architecture. Implementers should retrieve this value from the Sec-CH-UA-Bitness header*.</td>
+  </tr>
+  <tr>
+    <td><code>model</code></td>
+    <td>string</td>
+    <td>Device model. Implementers should retrieve this value from the Sec-CH-UA-Model header*.</td>
+ </tr>
+  <tr>
+    <td><code>source</code></td>
+    <td>integer; default 0</td>
+    <td>The source of data used to create this object, <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--user-agent-source-">List: User-Agent Source</a> in AdCOM 1.0</td>
+ </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for vendor specific extensions to this object.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+* or an equivalent JavaScript accessor from [NavigatorUAData interface](https://wicg.github.io/ua-client-hints/#navigatoruadata). This header or accessor are only available for browsers that support [User-Agent Client Hints](https://wicg.github.io/ua-client-hints/).
+
+### 3.2.30 - Object: BrandVersion <a name="objectbrandversion"></a>
+
+Further identification based on [User-Agent Client Hints](https://wicg.github.io/ua-client-hints/), the `BrandVersion` object is used to identify a device’s browser or similar software component, and the user agent’s execution platform or operating system.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>brand</code></td>
+    <td>string; required</td>
+    <td>A brand identifier, for example, “Chrome” or “Windows”. The value may be sourced from the User-Agent Client Hints headers, representing either the user agent brand (from the Sec-CH-UA-Full-Version header) or the platform brand (from the Sec-CH-UA-Platform header).</td>
+  </tr>
+  <tr>
+    <td><code>version</code></td>
+    <td>array of string</td>
+    <td>A sequence of version components, in descending hierarchical order (major, minor, micro, …)</td>
+ </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for vendor specific extensions to this object.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+### 3.2.31 - Object: Qty <a name="objectqty"></a>
+
+A programmatic impression is often referred to as a ‘spot’ in digital out-of-home and CTV, with an impression being a unique member of the audience viewing it. Therefore, a standard means of passing a multiplier in the bid request, representing the total quantity of impressions, is required. This object includes the impression multiplier, and describes the source of the multiplier value.
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>multiplier</code></td>
+    <td>float; required</td>
+    <td>The quantity of billable events which will be deemed to have occurred if this item is purchased. For example, a DOOH opportunity may be considered to be 14.2 impressions. Equivalent to qtyflt in OpenRTB 3.0.</td>
+  </tr>
+  <tr>
+    <td><code>sourcetype</code></td>
+    <td>integer; recommended</td>
+    <td>The source type of the quantity measurement, ie. publisher. Refer to the list https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list-multiplier-measurement-source-types- </td>
+ </tr>
+  <tr>
+    <td><code>vendor</code></td>
+    <td>string; required if sourcetype is present and type = 1</td>
+    <td>The top level business domain name of the measurement vendor providing the quantity measurement.</td>
+     </td>
+     <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for vendor specific extensions to this object.</td>
+     </td>
+     </td>
+  </tr>
+     </td>
+  </tr>
+</table>
+
+
+### 3.2.32 - Object: DOOH <a name="objectdooh"></a>
+
+This object should be included if the ad supported content is a Digital Out-Of-Home screen. A bid request with a DOOH object must not contain a site or app object. At a minimum, it is useful to provide id and/or venuetypeid, but this is not strictly required.
+
+|Attribute   |Type               |Description                                                                                                                                                                                                                              |
+|------------|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|id          |string; recommended|Exchange provided id for a placement or logical grouping of placements.                                                                                                                                                                  |
+|name        |string             |Name of the dooh placement.                                                                                                                                                                                                              |
+|venuetype   |string, array      |The type of out-of-home venue. The taxonomy to be used is defined by the venuetax field. If no venuetax field is supplied, The OpenOOH Venue Taxonomy is assumed. https://github.com/openooh/venue-taxonomy/blob/main/specification-1.0.md|
+|venuetypetax|integer; default 1 |The venue taxonomy in use. Refer to list https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list-venue-taxonomies-                                                                                                                                                                                           |
+|publisher   |object             |Details about the publisher of the placement.                                                                                                                                                                                            |
+|domain      |string             |Domain of the inventory owner (e.g., “mysite.foo.com”)                                                                                                                                                                         |
+|keywords    |string             |Comma separated list of keywords about the DOOH placement.                                                                                                                                                                               |
+|content     |object             |Details about the Content within the DOOH placement.                                                                                                                                                                     |
+|ext         |object             |Placeholder for exchange-specific extensions to OpenRTB.                                                                                                                                                                                 |
+### 3.2.33 - Object: Refresh <a name="objectrefresh"></a>
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+<tr>
+    <td><code>refsettings</code></td>
+    <td>object array; recommended</td>
+    <td>A <code>RefSettings</code> object (see Section 3.2.34) describing the mechanics of how an ad placement automatically refreshes.</td>
+</tr>
+  <tr>
+    <td><code>count</code></td>
+    <td>integer; recommended</td>
+    <td>The number of times this ad slot had been refreshed since last page load.</td>
+<tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for vendor specific extensions to this object.</td>
+     </td>
+     </td>
+  </tr>
+ </td>
+     </td>
+  </tr>
+</table>
+
+### 3.2.34 - Object: RefSettings <a name="objectrefsettings"></a>
+
+Information on how often and what triggers an ad slot being refreshed.
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+<tr>
+    <td><code>reftype</code></td>
+    <td>integer; default 0; recommended</td>
+    <td>The type of the declared auto refresh. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/develop/AdCOM%20v1.0%20FINAL.md#list_autorefreshtriggers">List: Auto Refresh Triggers</a> in AdCOM 1.0
+</td>
+</tr>
+  <tr>
+    <td><code>minint</code></td>
+    <td>integer; recommended</td>
+    <td>The minimum refresh interval in seconds. This applies to all refresh types. This is the (uninterrupted) time the ad creative will be rendered before refreshing to the next creative. If the field is absent, the exposure time is unknown. This field does not account for viewability or external factors such as a user leaving a page.
+</td>
+ </td>
+ <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for vendor specific extensions to this object.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+### 3.2.35 - Object: DurFloors <a name="objectdurfloors"></a>
+
+This object allows sellers to specify price floors for video and audio creatives, whose price varies based on time. For example: 1-15 seconds at a floor of $5; 16-30 seconds at a floor of $10, > 31 seconds at a floor of $20. There are no explicit constraints on the defined ranges, nor guarantees that they don't overlap. In cases where multiple ranges may apply, it is up to the buyer and seller to coordinate on which floor is applicable.
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>mindur</code></td>
+    <td>integer</td>
+    <td>An integer indicating the low end of a duration range. If this value is missing, the low end is unbounded. Either mindur or maxdur is required, but not both.</td>
+  </tr>
+  <tr>
+    <td><code>maxdur</code></td>
+    <td>integer</td>
+    <td>An integer indicating the high end of a duration range. If this value is missing, the high end is unbounded. Either mindur or maxdur is required, but not both.</td>
+  </tr>
+  <tr>
+    <td><code>bidfloor</code></td>
+    <td>float; default 0</td>
+    <td>Minimum bid for a given impression opportunity, if bidding with a creative in this duration range, expressed in CPM. For any creatives whose durations are outside of the defined min/max, the `bidfloor` at the `Imp` level will serve as the default floor.</td>
+  </tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for vendor specific extensions to this object.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+# 4. Bid Response Specification <a name="bidresponsespec"></a>
+
+RTB responses contain bids that reference specific impressions within a bid request. Bids are in essence an offer to buy. The bid response consists of the top-level bid response object and optional objects that depict the specific bids. An empty HTTP response constitutes a no-bid and is in fact the most bandwidth friendly form of this signal although returning a response with a “no-bid reason” is encouraged. A malformed response or a response that contains no actual bids will also be interpreted as no-bid.
+
+## 4.1 - Object Model <a name="4.2objectmodel"></a>
+
+Following is the object model for the bid response. The top-level object (i.e., in JSON the unnamed outer object) is denoted as `BidResponse` in the model. A bid response may contain bids from multiple “seats” (i.e., the buying entity upstream from the actual bidder). In fact, a response may contain multiple bids from the same seat; typically but not necessarily from different campaigns. This can improve the seat’s chances of winning since most exchanges enforce various block lists on behalf of their publishers.
+
+![](https://github.com/InteractiveAdvertisingBureau/openrtb2.x/blob/864a56706b106eda94c03abefaa01dd43544864c/assets/Figure3.png)
+
+*Figure 4: Bid Response object model.*
+
+Referring to the figure, the actual response objects are shown on the left, specifically the `BidResponse` top level object the seat specific `SeatBid` collections of `Bid` objects. The other objects shown are those objects from the bid request to which response objects related. Specifically, `BidResponse` includes the `BidRequest` ID for positive tracking purposes, and since a request can include multiple impressions `Bid` includes the ID of the `Imp` for which the bid is an offer to purchase. If a bid is made under the terms of a private marketplace deal, the `Bid` also includes the ID of the specific `Deal` object.
+
+Not shown in the model figure is an extensions object. This is an object of undefined structure that can be added to any other object to convey bidder-specific extensions to the standard. Bidders using these objects are responsible for publishing their extensions to their exchanges.
+
+The following table summarizes the objects in the Bid Response model and serves as an index into the detailed definitions in the subsections that follow.
+
+
+
+<table>
+  <tr>
+    <td><strong>Object&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Section&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>BidResponse</code></td>
+    <td>4.2.1</td>
+    <td>Top-level object.</td>
+  </tr>
+  <tr>
+    <td><code>SeatBid</code></td>
+    <td>4.2.2</td>
+    <td>Collection of bids made by the bidder on behalf of a specific seat.</td>
+ </tr>
+  <tr>
+    <td><code>Bid</code></td>
+    <td>4.2.3</td>
+    <td>An offer to buy a specific impression under certain business terms.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+## 4.2 - Object Specifications <a name="objectspecs"></a>
+
+The subsections that follow define each of the objects in the bid response model. Several conventions are used throughout:
+- Attributes are “required” if their omission would technically break the protocol.
+- Some optional attributes are denoted “recommended” due to their elevated business importance.
+- Unless a default value is explicitly specified, an omitted attribute is interpreted as “unknown”.
+
+### 4.2.1 - Object: BidResponse <a name="objectbidresponse"></a>
+
+This object is the top-level bid response object (i.e., the unnamed outer JSON object). The `id` attribute reflects the bid request ID for logging purposes. Similarly, `bidid` is an optional response tracking ID for bidders. If specified, it can be included in the subsequent win notice call if the bidder wins. At least one `seatbid` object is required, which contains at least one bid for an impression. Other attributes are optional.
+
+To express a “no-bid”, the options are to return an empty response with HTTP 204. Alternately if the bidder wishes to convey to the exchange a reason for not bidding, just a `BidResponse` object is returned with a reason code in the `nbr` attribute.
+
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string; required</td>
+    <td>ID of the bid request to which this is a response.</td>
+  </tr>
+  <tr>
+    <td><code>seatbid</code></td>
+    <td>object array</td>
+    <td>Array of seatbid objects; 1+ required if a bid is to be made.</td>
+ </tr>
+  <tr>
+    <td><code>bidid</code></td>
+    <td>string</td>
+    <td>Bidder generated response ID to assist with logging/tracking.</td>
+</tr>
+  <tr>
+    <td><code>cur</code></td>
+    <td>string; default "USD"</td>
+    <td>Bid currency using ISO-4217 alpha codes.</td>
+  </tr>
+  <tr>
+    <td><code>customdata</code></td>
+    <td>string</td>
+    <td>Optional feature to allow a bidder to set data in the exchange’s cookie. The string must be in base85 cookie safe characters and be in any format. Proper JSON encoding must be used to include “escaped” quotation marks.</td>
+ </tr>
+  <tr>
+    <td><code>nbr</code></td>
+    <td>integer</td>
+    <td>Reason for not bidding. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/openrtb/blob/master/OpenRTB%20v3.0%20FINAL.md#list--no-bid-reason-codes-">List: No-Bid Reason Codes</a> in OpenRTB 3.0.</td>
+</tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for bidder-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+
+### 4.2.2 - Object: SeatBid <a name="objectseatbid"></a>
+
+A bid response can contain multiple `SeatBid` objects, each on behalf of a different bidder seat and each containing one or more individual bids. If multiple impressions are presented in the request, the `group` attribute can be used to specify if a seat is willing to accept any impressions that it can win (default) or if it is only interested in winning any if it can win them all as a group.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>bid</code></td>
+    <td>object array; required</td>
+    <td>Array of 1+ <code>Bid</code> objects (Section 4.2.3) each related to an impression. Multiple bids can relate to the same impression.</td>
+  </tr>
+  <tr>
+    <td><code>seat</code></td>
+    <td>string</td>
+    <td>ID of the buyer seat (e.g., advertiser, agency) on whose behalf this bid is made.</td>
+ </tr>
+  <tr>
+    <td><code>group</code></td>
+    <td>integer; default 0</td>
+    <td>0 = impressions can be won individually; 1 = impressions must be won or lost as a group.</td>
+</tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for bidder-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+
+### 4.2.3 - Object: Bid <a name="objectbid"></a>
+
+A `SeatBid` object contains one or more `Bid` objects, each of which relates to a specific impression in the bid request via the `impid` attribute and constitutes an offer to buy that impression for a given `price`.
+
+
+<table>
+  <tr>
+    <td><strong>Attribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td><code>id</code></td>
+    <td>string; required</td>
+    <td>Bidder generated bid ID to assist with logging/tracking.</td>
+  </tr>
+  <tr>
+    <td><code>impid</code></td>
+    <td>string; required</td>
+    <td>ID of the <code>Imp</code> object in the related bid request.</td>
+ </tr>
+  <tr>
+    <td><code>price</code></td>
+    <td>float; required</td>
+    <td>Bid price expressed as CPM although the actual transaction is for a unit impression only. Note that while the type indicates float, integer math is highly recommended when handling currencies (e.g., BigDecimal in Java).</td>
+</tr>
+  <tr>
+    <td><code>nurl</code></td>
+    <td>string</td>
+    <td>Win notice URL called by the exchange if the bid wins (not necessarily indicative of a delivered, viewed, or billable ad); optional means of serving ad markup. Substitution macros (Section 4.4) may be included in both the URL and optionally returned markup.</td>
+  </tr>
+  <tr>
+    <td><code>burl</code></td>
+    <td>string</td>
+    <td>Billing notice URL called by the exchange when a winning bid becomes billable based on exchange-specific business policy (e.g., typically delivered, viewed, etc.). Substitution macros (Section 4.4) may be included.</td>
+ </tr>
+  <tr>
+    <td><code>lurl</code></td>
+    <td>string</td>
+    <td>Loss notice URL called by the exchange when a bid is known to have been lost. Substitution macros (Section 4.4) may be included. Exchange-specific policy may preclude support for loss notices or the disclosure of winning clearing prices resulting in ${AUCTION_PRICE} macros being removed (i.e., replaced with a zero-length string).</td>
+ </tr>
+  <tr>
+    <td><code>adm</code></td>
+    <td>string</td>
+    <td>Optional means of conveying ad markup in case the bid wins; supersedes the win notice if markup is included in both. Substitution macros (Section 4.4) may be included.</td>
+  </tr>
+  <tr>
+    <td><code>adid</code></td>
+    <td>string</td>
+    <td>ID of a preloaded ad to be served if the bid wins.</td>
+ </tr>
+  <tr>
+    <td><code>adomain</code></td>
+    <td>string array</td>
+    <td>Advertiser domain for block list checking (e.g., “ford.com”). This can be an array of for the case of rotating creatives. Exchanges can mandate that only one domain is allowed.</td>
+</tr>
+  <tr>
+    <td><code>bundle</code></td>
+    <td>string</td>
+    <td>The store ID of the app in an app store (e.g., Apple App Store, Google Play). See <a href="https://iabtechlab.com/wp-content/uploads/2020/08/IAB-Tech-Lab-OTT-store-assigned-App-Identification-Guidelines-2020.pdf">OTT/CTV Store Assigned App Identification Guidelines</a> for more details about expected strings for CTV app stores. For mobile apps in Google Play Store, these should be bundle or package names (e.g. com.foo.mygame). For apps in Apple App Store, these should be a numeric ID.</td>
+  </tr>
+  <tr>
+    <td><code>iurl</code></td>
+    <td>string</td>
+    <td>URL without cache-busting to an image that is representative of the content of the campaign for ad quality/safety checking.</td>
+</tr>
+  <tr>
+ <td><code>cid</code></td>
+    <td>string</td>
+    <td>Campaign ID to assist with ad quality checking; the collection of creatives for which <code>iurl</code> should be representative.</td>
+ </tr>
+  <tr>
+    <td><code>crid</code></td>
+    <td>string</td>
+    <td>Creative ID to assist with ad quality checking.</td>
+ </tr>
+  <tr>
+    <td><code>tactic</code></td>
+    <td>string</td>
+    <td>Tactic ID to enable buyers to label bids for reporting to the exchange the tactic through which their bid was submitted. The specific usage and meaning of the tactic ID should be communicated between buyer and exchanges <i>a priori</i>.</td>
+  </tr>
+  <tr>
+    <td><code>cattax</code></td>
+    <td>integer; default 1</td>
+    <td>The taxonomy in use. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list_categorytaxonomies">List: Category Taxonomies</a> for values.</td>
+ </tr>
+  <tr>
+    <td><code>cat</code></td>
+    <td>string array</td>
+    <td>IAB Tech Lab content categories of the creative. The taxonomy to be used is defined by the cattax field. If no cattax field is supplied Content Taxonomy 1.0 is assumed </td>
+</tr>
+  <tr>
+    <td><code>attr</code></td>
+    <td>integer array</td>
+    <td>Set of attributes describing the creative. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--creative-attributes-">List: Creative Attributes</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>apis</code></td>
+    <td>integer array</td>
+    <td>List of supported APIs for the markup. If an API is not explicitly listed, it is assumed to be unsupported. Refer to <a href:="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--api-frameworks-">List: API Frameworks</a> in AdCOM 1.0.</td>
+</tr>
+  <tr>
+<td><code>api</code></td>
+    <td>integer; DEPRECATED</td>
+	  <td>NOTE: Deprecated in favor of <code>apis</code>.</td>
+ </tr>
+  <tr>
+    <td><code>protocol</code></td>
+    <td>integer</td>
+    <td>Video response protocol of the markup if applicable. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--creative-subtypes---audiovideo-">List: Creative Subtypes - Audio/Video</a> in AdCOM 1.0.</td>
+ </tr>
+  <tr>
+    <td><code>qagmediarating</code></td>
+    <td>integer</td>
+    <td>Creative media rating per IQG guidelines. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list--media-ratings-">List: Media Ratings</a> in AdCOM 1.0.</td>
+  </tr>
+  <tr>
+    <td><code>language</code></td>
+    <td>string</td>
+    <td>Language of the creative using ISO-639-1-alpha-2. The non- standard code “xx” may also be used if the creative has no linguistic content (e.g., a banner with just a company logo). Only one of <code>language</code> or <code>langb</code> should be present.</td>
+ </tr>
+  <tr>
+    <td><code>langb</code></td>
+    <td>string</td>
+    <td>Language of the creative using IETF BCP 47. Only one of <code>language</code> or <code>langb</code> should be present.</td>
+</tr>
+  <tr>
+    <td><code>dealid</code></td>
+    <td>string</td>
+	  <td>Reference to the <code>deal.id</code> from the bid request if this bid pertains to a private marketplace direct deal.</td>
+  </tr>
+  <tr>
+    <td><code>w</code></td>
+    <td>integer</td>
+    <td>Width of the creative in device independent pixels (DIPS).</td>
+</tr>
+  <tr>
+<td><code>h</code></td>
+    <td>integer</td>
+    <td>Height of the creative in device independent pixels (DIPS).</td>
+ </tr>
+  <tr>
+    <td><code>wratio</code></td>
+    <td>integer</td>
+    <td>Relative width of the creative when expressing size as a ratio. Required for Flex Ads.</td>
+ </tr>
+  <tr>
+    <td><code>hratio</code></td>
+    <td>integer</td>
+    <td>Relative height of the creative when expressing size as a ratio. Required for Flex Ads.</td>
+  </tr>
+  <tr>
+    <td><code>exp</code></td>
+    <td>integer</td>
+    <td>Advisory as to the number of seconds the bidder is willing to wait between the auction and the actual impression.</td>
+ </tr>
+  <tr>
+    <td><code>dur</code></td>
+    <td>integer</td>
+    <td>Duration of the video or audio creative in seconds.</td>
+</tr>
+  <tr>
+    <td><code>mtype</code></td>
+    <td>integer</td>
+    <td>Type of the creative markup so that it can properly be associated with the right sub-object of the <code>BidRequest.Imp.</code><br>
+Values:<br>
+1 = Banner<br>
+2 = Video,<br>
+3 = Audio<br>
+4 = Native<br></td>
+  </tr>
+  <tr>
+    <td><code>slotinpod</code></td>
+    <td>integer; default 0</td>
+    <td>Indicates that the bid response is only eligible for a specific position within a video or audio ad pod (e.g. first position, last position, or any). Refer to List: <a href="https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list_slotpositioninpod">Slot Position in Pod</a> in AdCOM 1.0 for guidance on the use of this field.</td>
+</tr>
+  <tr>
+    <td><code>ext</code></td>
+    <td>object</td>
+    <td>Placeholder for bidder-specific extensions to OpenRTB.</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+For each bid, the `nurl` attribute can contain the win notice URL. If the bidder wins the impression, the exchange calls this notice URL to inform the bidder of the win and to convey certain information using substitution macros (see Section 4.5) such as the clearing price. The win notice return or the `adm` attribute can be used to serve markup (see Section 4.4). In either case, the exchange will also apply the aforementioned substitution to any macros found in the markup.
+
+**BEST PRACTICE**: The essential function of the win notice is to inform a bidder that they won an auction. It does not necessarily imply ad delivery, creative viewability, or billability. Exchanges are highly encouraged to publish to their bidders their event triggers, billing policies, and any other meaning they attach to the win notice. Also, please refer to Section 7.2 for additional guidance on expirations.
+
+**BEST PRACTICE**: Firing of the billing notice should be server-side and as “close” as possible to where the exchange books revenue in order to minimize discrepancies between exchange and bidder.
+
+**BEST PRACTICE**: For VAST Video, the IAB Tech Lab prescribes that the VAST impression event is the official signal that the impression is billable. If the `burl` attribute is specified, it too should be fired at the same time if the exchange is adhering to this policy. However, subtle technical issues may lead to additional discrepancies and bidders are cautioned to avoid this scenario.
+
+Several other attributes are used for ad quality checks or enforcing publisher restrictions. These include the advertiser domain via `adomain`, a non-cache-busted URL to an image representative of the content of the campaign via `iurl`, an ID of the campaign and of the creative within the campaign via `cid` and `crid` respectively, an array of creative attribute via `attr`, and the dimensions via `h` and `w`. If the bid pertains to a private marketplace deal, the `dealid` attribute is used to reference that agreement from the bid request.
+
+
+## 4.3 - Ad Serving Options <a name="adservingoptions"></a>
+
+The fulfilment of an RTB transaction within the scope of this OpenRTB specification lies in the delivery of markup. Depending on the impression and other ad type constraints, this markup can be XHTML, HTML5, XHTML or HTML5 with embedded JavaScript, a VAST document for video or audio, a Native ad unit structure, and potentially other formats in the future.
+
+The OpenRTB specification does not require any processing of the ad markup by the exchange other than macro substitution (refer to Section 4.5) and delivery to the supply-side. There are, however, multiple standard methods for transferring markup from the bidder to the exchange. The method used is at the discretion of the bidder, subject to support by the exchange. Bidders and exchanges should discuss the method to be used during integration.
+
+### 4.3.1 - Markup Served on the Win Notice <a name="markupservedonwin"></a>
+
+In this method, ad markup is returned to the exchange is via the win notice. In this case, the response body of the win notice call (i.e., invoking the `bid.nurl` attribute) contains the ad markup and only the ad markup; there must be no other structured data in the response body. Using this method, the `bid.adm` attribute must be omitted.
+
+### 4.3.2 - Markup Served in the Bid <a name="markupservedinbid"></a>
+
+In this method, ad markup is returned directly in the bid itself. This is accomplished via the `bid.adm`
+attribute. If both the `adm` attribute and win notice return data, the `adm` contents will take precedence.
+
+### 4.3.3 - Comparison of Ad Serving Approaches <a name="comparisonofapproaches"></a>
+
+Each of the ad serving methods has its own advantages that may be of varying importance to either the exchange or the bidder.
+
+**Ad Served on the Win Notice**
+
+- *Reduced Bandwidth Costs*: Serving ad markup only upon winning can save large amounts of bandwidth usage, the costs for which can be large at high volumes or when sending multiple bids per bid response.
+- *Additional Bidder Flexibility*: Bidders may typically know the ad they will serve at the time of bid, but this provides an additional optional decision point after the clearing price has been established.
+
+**Ad Served in the Bid**
+
+- *Reduced Risk of Forfeiture*: A forfeit is the scenario in which a bidder wins, but forfeits due to failure to serve the ad markup. The risk of an additional HTTP failure (e.g., calling the win notice) is mitigated by this method.
+- *Potential Concurrency*: The exchange can choose to return that ad markup and call the win notice concurrently, thereby improving user experience.
+
+
+## 4.4 - Substitution Macros <a name="substitutionmacros"></a>
+
+The win notice and billing notice URLs and their format are defined by the bidder. For the exchange to convey certain information to the bidder (e.g., the clearing price), several substitution macros can be inserted into these URLs. Prior to calling a win or billing notice URL, the exchange will search the specified URL for any of the defined macros and replace them with the appropriate data.<br>
+Note that the substitution is simple in the sense that wherever a legal macro is found, it will be replaced without regard for syntax correctness. Furthermore, if the source value is an optional parameter that was not specified, the macro will simply be removed (i.e., replaced with a zero-length string).
+
+These same substitution macros can also be placed in the ad markup. The exchange will perform the same data substitutions as in the aforementioned notice URLs. This occurs irrespective of whether the markup is returned on the win notice or passed in the `bid.adm` attribute of the bid response. A use case for macros in the ad markup might be when a bidder prefers to receive its win notification from the device itself. To accomplish this, the bidder would include a tracking pixel in the ad markup, the URL for which would include any of the available macros.
+
+
+
+<table>
+  <tr>
+    <td><strong>Macro&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+  </tr>
+  <tr>
+    <td><code>${AUCTION_ID}</code></td>
+    <td>ID of the bid request; from <code>BidRequest.id</code> attribute.</td>
+  </tr>
+  <tr>
+    <td><code>${AUCTION_BID_ID}</code></td>
+    <td>ID of the bid; from <code>BidResponse.bidid</code> attribute.</td>
+ </tr>
+  <tr>
+    <td><code>${AUCTION_IMP_ID}</code></td>
+    <td>ID of the impression just won; from <code>imp.id</code> attribute.</td>
+</tr>
+  <tr>
+    <td><code>${AUCTION_SEAT_ID}</code></td>
+    <td>ID of the bidder seat for whom the bid was made.</td>
+  </tr>
+  <tr>
+    <td><code>${AUCTION_AD_ID}</code></td>
+    <td>ID of the ad markup the bidder wishes to serve; from <code>bid.adid</code> attribute.</td>
+ </tr>
+  <tr>
+    <td><code>${AUCTION_PRICE}</code></td>
+    <td>Clearing price using the same currency and units as the bid.</td>
+ </tr>
+  <tr>
+    <td><code>${AUCTION_CURRENCY}</code></td>
+    <td>The currency used in the bid (explicit or implied); for confirmation only.</td>
+  </tr>
+  <tr>
+    <td><code>${AUCTION_MBR}</code></td>
+    <td>Market Bid Ratio defined as: clearance price / bid price.</td>
+ </tr>
+  <tr>
+    <td><code>${AUCTION_LOSS}</code></td>
+    <td>Loss reason codes. Refer to <a href="https://github.com/InteractiveAdvertisingBureau/openrtb/blob/master/OpenRTB%20v3.0%20FINAL.md#list--loss-reason-codes-">List: Loss Reason Codes</a> in OpenRTB 3.0.</td>
+</tr>
+  <tr>
+    <td><code>${AUCTION_MIN_TO_WIN}</code></td>
+    <td>Minimum bid to win the exchange's auction, using the same currency and units as the bid.</td>
+     </td>
+     </td>
+  </tr>
+  <tr>
+    <td><code>${AUCTION_MULTIPLIER}</code></td>
+    <td>The total quantity of impressions won; for confirmation only. This should always be less than or equal to the multiplier value sent in the bid request. This value is a float value greater than zero and may be less than one. Should be used to confirm that the buyer expects and understands the multiplier value.</td>
+     </td>
+     </td>
+  </tr>
+  <tr>
+    <td><code>${AUCTION_IMP_TS}</code></td>
+    <td>Timestamp when the impression was fulfilled (e.g. when the ad is displayed) in Unix format (i.e., milliseconds since the epoch).
+This may be used by platforms that cannot fire a notification as soon as the impression takes place. If omitted, it is assumed the impression took place a few seconds before the notification is fired.</td>
+ </tr>
+</table>
+
+
+Note that OpenRTB compliance exchanges must support all macros for which data is available and support substitution in both markup and URLs for win and billing notification.
+
+**BEST PRACTICE**: When rendering markup for test or ad quality purposes, some macro values (e.g., clearing price) may not be known. In these cases, substitute “AUDIT” as the macro value.
+
+**BEST PRACTICE**: Encoding of macro data should be used sparingly due to the additional processing overhead. For communications strictly between exchange and bidder (e.g., a win notice called from the exchange), encoding is generally considered unnecessary.
+
+
+Prior to substitution, macro data values can be encoded for security purposes using various obfuscation or encryption algorithms. This may be of particular interest for use cases where price information is carried beyond the exchange, through the publisher, and into the device browser via a tracking pixel in the markup.
+
+To specify that a particular macro is to be encoded, the suffix “`:X`” should be appended to the macro name, where X is a string that indicates the algorithm to be used. Algorithms choices are not defined by this specification and must be mutually agreed upon between parties. As an example, suppose that the price macro is to be encoded using Base64 and that its code is “`B64`”. The macro would then be written as follows:
+
+`${AUCTION PRICE:B64}`
+
+### 4.4.1 - Notes on the macro ${AUCTION_MIN_TO_WIN} <a name="notesonmacro"></a>
+
+Except where the value "AUDIT" applies, as above, the macro is replaced by:
+
+- The empty string, if the exchange chooses not to provide the value, for example because:
+  - The bid was not allowed into the auction, e.g., because of blocks on the seat, advertiser, etc.
+  - Per the loss code, price was not the deciding factor in the loss.
+  - As dictated by exchange privacy controls, e.g., if price data is not shared to bidders that did not meet the desired floor, or if the exchange supports a publisher or winning bidder election not to share price data with the other bidders.
+
+- The minimum price required to tie with the winning bid, when your bid lost to another in the auction.
+- The minimum price required to tie with the next-closest bid, or the floor if there was only one bid, when your bid won the auction.
+
+Note, the exchange in question may not be the final decision-maker. It may propagate two or more bids into a second auction. In that case, still only one auction bid is the "winner" and the macro is replaced for all bids as above.
+
+In the following examples, assume an auction with a floor price of $0.85, and that each row is a competing bid. Note the exchange may also choose to replace the macros with the empty string for the reasons above.
+
+For a first-price auction:<br>
+
+<table>
+  <tr>
+    <td><strong>Bid Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>${AUCTION_PRICE}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>${AUCTION_MIN_TO_WIN}</strong></td>
+  </tr>
+  <tr>
+    <td><code>$1.00</code></td>
+    <td>$1.00</td>
+    <td>$0.90</td>
+  </tr>
+  <tr>
+    <td><code>$0.90</code></td>
+    <td>Empty string</td>
+    <td>$1.00</td>
+ </tr>
+  <tr>
+    <td><code>$0.80</code></td>
+    <td>Empty string</td>
+    <td>$1.00</td>
+</tr>
+  <tr>
+    <td><code>Invalid</code></td>
+    <td>n/a</td>
+    <td>Empty string</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+For a second-price auction (where, for the sake of the illustration, the clearing price is the second-best price plus $0.01):<br>
+
+<table>
+  <tr>
+    <td><strong>Bid Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>${AUCTION_PRICE}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>${AUCTION_MIN_TO_WIN}</strong></td>
+  </tr>
+  <tr>
+    <td><code>$1.00</code></td>
+    <td>$0.91</td>
+    <td>$0.90</td>
+  </tr>
+  <tr>
+    <td><code>$0.90</code></td>
+    <td>Empty string</td>
+    <td>$0.91</td>
+ </tr>
+  <tr>
+    <td><code>$0.80</code></td>
+    <td>Empty string</td>
+    <td>$0.91</td>
+</tr>
+  <tr>
+    <td><code>Invalid</code></td>
+    <td>n/a</td>
+    <td>Empty string</td>
+     </td>
+     </td>
+  </tr>
+</table>
+
+
+
+# 5. Enumerated Lists Specification <a name="enumeratedlistsspec"></a>
+
+OpenRTB utilizes the Advertising Common Object Model ([AdCOM](https://github.com/InteractiveAdvertisingBureau/AdCOM/) 1.0) for enumerations. In previous versions, any additional enumerations required not just a documentation update, but a version update. Using AdCOM 1.0, items will be able to be added to enumerations without requiring a new OpenRTB version. Implementers will need to ensure that they are utilizing the most current enumerations as possible as new standards come out.
+
+# 6. Bid Request/Response Samples <a name="bidrequestresponsesamples"></a>
+
+## 6.1 - GitHub Repository <a name="githubrepo"></a>
+
+The official OpenRTB Github repository now contains a set of validated example requests. This repository should be considered the canonical examples for implementers.
+https://github.com/InteractiveAdvertisingBureau/openrtb
+
+## 6.2 - Bid Requests <a name="6.4bidrequests"></a>
+
+### 6.2.1 - Example 1 – Simple Banner <a name="simplebanner"></a>
+
+Following is a basic example of a bid request for a banner ad. Some optional parameters are included in this example.
+
+```javascript
+{
+  "id": "80ce30c53c16e6ede735f123ef6e32361bfc7b22",
+  "at": 1,
+  "cur": [
+    "USD"
+  ],
+  "imp": [
+    {
+      "id": "1",
+      "bidfloor": 0.03,
+      "banner": {
+        "h": 250,
+        "w": 300,
+        "pos": 0
+      }
+    }
+  ],
+  "site": {
+    "id": "102855",
+    "cat": [
+      "IAB3-1"
+    ],
+    "domain": "www.foobar.com",
+    "page": "http://www.foobar.com/1234.html",
+    "publisher": {
+      "id": "8953",
+      "name": "foobar.com",
+      "cat": [
+        "IAB3-1"
+      ],
+      "domain": "foobar.com"
+    },
+    "user": {
+      "id": "55816b39711f9b5acf3b90e313ed29e51665623f"
+    }
+  }
+}
+```
+
+
+
+### 6.2.2 - Example 2 – Expandable Creative <a name="expandablecreative"></a>
+
+This example builds the first and adds parameters to describe support for an expandable creative, and passes data about the user from “Data Provider 1”.
+
+```javascript
+{
+  "id": "123456789316e6ede735f123ef6e32361bfc7b22",
+  "at": 2,
+  "cur": [
+    "USD"
+  ],
+  "imp": [
+    {
+      "id": "1",
+      "bidfloor": 0.03,
+      "iframebuster": [
+        "vendor1.com",
+        "vendor2.com"
+      ],
+      "banner": {
+        "h": 250,
+        "w": 300,
+        "pos": 0,
+        "battr": [
+          13
+        ],
+        "expdir": [
+          2,
+          4
+        ]
+      }
+    }
+  ],
+  "site": {
+    "id": "102855",
+    "cat": [
+      "IAB3-1"
+    ],
+    "domain": "www.foobar.com",
+    "page": "http://www.foobar.com/1234.html",
+    "publisher": {
+      "id": "8953",
+      "name": "foobar.com",
+      "cat": [
+        "IAB3-1"
+      ],
+      "domain": "foobar.com"
+    }
+  },
+  "user": {
+    "id": "55816b39711f9b5acf3b90e313ed29e51665623f",
+    "buyeruid": "545678765467876567898765678987654",
+    "data": [
+      {
+        "id": "12341318394918",
+        "name": "auto intenders"
+      },
+      {
+        "id": "1234131839491234",
+        "name": "auto enthusiasts"
+      },
+      {
+        "id": "23423424",
+        "name": "data-provider1-age",
+        "value": "30-40"
+      }
+    ]
+  }
+}
+```
+
+
+
+### 6.2.3 - Example 3 – Mobile <a name="example3mobile"></a>
+
+This example uses a device object to reflect a mobile device, and an app object to reflect a request from a mobile application.
+
+```javascript
+{
+  "id": "IxexyLDIIk",
+  "at": 2,
+  "bcat": [
+    "IAB25",
+    "IAB7-39",
+    "IAB8-18",
+    "IAB8-5",
+    "IAB9-9"
+  ],
+  "badv": [
+    "apple.com",
+    "go-text.me",
+    "heywire.com"
+  ],
+  "imp": [
+    {
+      "id": "1",
+      "bidfloor": 0.5,
+      "instl": 0,
+      "tagid": "agltb3B1Yi1pbmNyDQsSBFNpdGUY7fD0FAw",
+      "banner": {
+        "w": 728,
+        "h": 90,
+        "pos": 1,
+        "btype": [
+          4
+        ],
+        "battr": [
+          14
+        ],
+        "api": [
+          3
+        ]
+      }
+    }
+  ],
+  "app": {
+    "id": "agltb3B1Yi1pbmNyDAsSA0FwcBiJkfIUDA",
+    "name": "Yahoo Weather",
+    "cat": [
+      "IAB15",
+      "IAB15-10"
+    ],
+    "ver": "1.0.2",
+    "bundle": "12345",
+    "storeurl": "https://itunes.apple.com/id628677149",
+    "publisher": {
+      "id": "agltb3B1Yi1pbmNyDAsSA0FwcBiJkfTUCV",
+      "name": "yahoo",
+      "domain": "www.yahoo.com"
+    }
+  },
+  "device": {
+    "dnt": 0,
+    "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 6_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3",
+    "ifa": "AA000DFE74168477C70D291f574D344790E0BB11",
+    "carrier": "VERIZON",
+    "language": "en",
+    "make": "Apple",
+    "model": "iPhone",
+    "os": "iOS",
+    "osv": "6.1",
+    "js": 1,
+    "connectiontype": 3,
+    "devicetype": 1
+  },
+  "user": {
+    "id": "ffffffd5135596709273b3a1a07e466ea2bf4fff"
+  }
+}
+```
+
+
+
+### 6.2.4 Example 4 – Video <a name="example4video"></a>
+
+The following example illustrates a bid request for a video impression with two companion ad slots (1 expandable). Additionally, the video content itself is described in the "content" object. A few notes about specific fields in the example:
+
+- `battr`: User interactive and alert type ads (value “13” and “14”, respectively) are explicitly being blocked for both the video and its companions.
+- `pos`: Indicates this opportunity is “above the fold”.
+- `companiontype`: Indicates only static or HTML resources are allowed.
+
+```javascript
+{
+  "id": "1234567893",
+  "at": 2,
+  "tmax": 120,
+  "imp": [
+    {
+      "id": "1",
+      "bidfloor": 0.03,
+      "video": {
+        "w": 640,
+        "h": 480,
+        "pos": 1,
+        "startdelay": 0,
+        "minduration": 5,
+        "maxduration": 30,
+        "maxextended": 30,
+        "minbitrate": 300,
+        "maxbitrate": 1500,
+        "apis": [
+          1,
+          2
+        ],
+        "protocols": [
+          2,
+          3
+        ],
+        "mimes": [
+          "video/x-flv",
+          "video/mp4",
+          "application/javascript"
+        ],
+        "linearity": 1,
+        "boxingallowed": 1,
+        "playbackmethod": [
+          1,
+          3
+        ],
+        "delivery": [
+          2
+        ],
+        "battr": [
+          13,
+          14
+        ],
+        "companionad": [
+          {
+            "id": "1234567893-1",
+            "w": 300,
+            "h": 250,
+            "pos": 1,
+            "battr": [
+              13,
+              14
+            ],
+            "expdir": [
+              2,
+              4
+            ]
+          },
+          {
+            "id": "1234567893-2",
+            "w": 728,
+            "h": 90,
+            "pos": 1,
+            "battr": [
+              13,
+              14
+            ]
+          }
+        ],
+        "companiontype": [
+          1,
+          2
+        ]
+      }
+    }
+  ],
+  "site": {
+    "id": "1345135123",
+    "name": "Site ABCD",
+    "domain": "siteabcd.com",
+    "cat": [
+      "IAB2-1",
+      "IAB2-2"
+    ],
+    "page": "http://siteabcd.com/page.htm",
+    "ref": "http://referringsite.com/referringpage.htm",
+    "privacypolicy": 1,
+    "publisher": {
+      "id": "pub12345",
+      "name": "Publisher A"
+    },
+    "content": {
+      "id": "1234567",
+      "series": "All About Cars",
+      "season": "2",
+      "episode": 23,
+      "title": "Car Show",
+      "cat": [
+        "IAB2-2"
+      ],
+      "keywords": "keyword-a,keyword-b,keyword-c"
+    }
+  },
+  "device": {
+    "ua": "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.16) Gecko/20110319 Firefox/3.6.16",
+    "os": "OS X",
+    "js": 1
+  },
+  "user": {
+    "id": "456789876567897654678987656789",
+    "buyeruid": "545678765467876567898765678987654",
+    "data": [
+      {
+        "id": "6",
+        "name": "Data Provider 1",
+        "segment": [
+          {
+            "id": "12341318394918",
+            "name": "auto intenders"
+          },
+          {
+            "id": "1234131839491234",
+            "name": "auto enthusiasts"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+
+
+### 6.2.5 - Example 5 – PMP with Direct Deal <a name="pmpwdirectdeal"></a>
+
+Following is a basic example of a bid request for a banner ad with a direct deal. Some optional parameters are included in this example.
+
+```javascript
+{
+  "id": "80ce30c53c16e6ede735f123ef6e32361bfc7b22",
+  "at": 1,
+  "cur": [
+    "USD"
+  ],
+  "imp": [
+    {
+      "id": "1",
+      "bidfloor": 0.03,
+      "banner": {
+        "h": 250,
+        "w": 300,
+        "pos": 0
+      },
+      "pmp": {
+        "private_auction": 1,
+        "deals": [
+          {
+            "id": "AB-Agency1-0001",
+            "at": 1,
+            "bidfloor": 2.5,
+            "wseat": [
+              "Agency1"
+            ]
+          },
+          {
+            "id": "XY-Agency2-0001",
+            "at": 2,
+            "bidfloor": 2,
+            "wseat": [
+              "Agency2"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "site": {
+    "id": "102855",
+    "domain": "www.foobar.com",
+    "cat": [
+      "IAB3-1"
+    ],
+    "page": "http://www.foobar.com/1234.html",
+    "publisher": {
+      "id": "8953",
+      "name": "foobar.com",
+      "cat": [
+        "IAB3-1"
+      ],
+      "domain": "foobar.com"
+    }
+  },
+  "device": {
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2"
+  },
+  "user": {
+    "id": "55816b39711f9b5acf3b90e313ed29e51665623f"
+  }
+}
+```
+
+
+### 6.2.6 - Example 6 – Native Ad <a name="example6nativead"></a>
+
+For details on Native Ad implementation including examples, please review the OpenRTB Native Ads API Specification: https://iabtechlab.com/standards/openrtb-native/
+
+
+## 6.3 - Bid Responses <a name="6.5bidresponses"></a>
+
+### 6.3.1 - Example 1 – Ad Served on Win Notice <a name="ex1adservedwin"></a>
+
+Following is an example of a bid response with the ad served on win notice. The bid for this impression is a $9.43 CPM.
+
+```javascript
+{
+  "id": "1234567890",
+  "bidid": "abc1123",
+  "cur": "USD",
+  "seatbid": [
+    {
+      "seat": "512",
+      "bid": [
+        {
+          "id": "1",
+          "impid": "102",
+          "price": 9.43,
+          "nurl": "http://adserver.com/winnotice?impid=102",
+          "iurl": "http://adserver.com/pathtosampleimage",
+          "adomain": [
+            "advertiserdomain.com"
+          ],
+          "cid": "campaign111",
+          "crid": "creative112",
+          "attr": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            12
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+
+### 6.3.2 - Example 2 – VAST XML Document Returned Inline <a name="vastxml"></a>
+
+Following is an example of a bid response that returns the VAST document inline to be served. A few notes about specific fields in the example:
+- The bid for this impression is a $3.00 CPM.
+- Note that since there both a win notice URL and an inline VAST document in the `adm` attribute, which constitutes the ad markup. The win notice is still called, but if it were to return markup it would be ignored in favor of the contents of the `adm` attribute.
+
+
+```javascript
+{
+  "id": "123",
+  "seatbid": [
+    {
+      "bid": [
+        {
+          "id": "12345",
+          "impid": "2",
+          "price": 3.00,
+          "nurl": "http://example.com/winnoticeurl",
+          "adm": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VAST version=\"2.0\">\n<Ad id=\"12345\">\n<InLine>\n<AdSystem version=\"1.0\">SpotXchange</AdSystem>\n<AdTitle>\n<![CDATA[Sample VAST]]>\n</AdTitle>\n<Impression>http://sample.com</Impression>\n<Description>\n<![C DATA[A sample VAST feed]]>\n</Description>\n <Creatives>\n<Creative sequence=\"1\" id=\"1\">\n<Linear>\n<Duration>00:00:30</Duration>\n <TrackingEvents>< /TrackingEvents>\n<VideoClicks>\n<ClickThrough>\n<![CDATA[http://sample.com/openrtb test]]>\n</ClickThrough >\n</ VideoClicks >\n< MediaFiles >\n < MediaFile delivery =\"progressive\" bitrate=\"256\" width=\"640\" height=\"480\" type=\"video/mp4\">\n<![CDATA[http://sample.com/video.mp4]]>\n< /MediaFile>\n</MediaFiles >\n < /Linear>\n< /Creative>\n</Creatives >\n < /InLine>\n</Ad >\n < /VAST>"
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+
+### 6.3.3 - Example 3 – Direct Deal Ad Served on Win Notice <a name="directdealadonwin"></a>
+
+Following is an example of a bid response with the ad served on win notice. The bid for this impression is a $5.00 CPM against a direct deal.
+
+```javascript
+{
+  "id": "1234567890",
+  "bidid": "abc1123",
+  "cur": "USD",
+  "seatbid": [
+    {
+      "seat": "512",
+      "bid": [
+        {
+          "id": "1",
+          "impid": "102",
+          "price": 5.00,
+          "dealid": "ABC-1234-6789",
+          "nurl": "http: //adserver.com/winnotice?impid=102",
+          "adomain": [
+            "advertiserdomain.com"
+          ],
+          "iurl": "http: //adserver.com/pathtosampleimage",
+          "cid": "campaign111",
+          "crid": "creative112",
+          "adid": "314",
+          "attr": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+### 6.3.4 - Example 4 – Native Markup Returned Inline <a name="nativemarkupreturnedinline"></a>
+
+Following is an example of a bid response that returns a native ad inline to be served. The `adm` attribute contains an encoded string of a native ad request that conforms to the Dynamic Native Ads API and specifically the same version as that used for the request string. Alternatively, the `adm` attribute could have been omitted in favor of returning the native ad markup in the response to the win notice `nurl`.
+
+```javascript
+{
+  "id": "123",
+  "seatbid": [
+    {
+      "bid": [
+        {
+          "id": "12345",
+          "impid": "2",
+          "price": 3.00,
+          "nurl": "http://example.com/winnoticeurl",
+          "adm": "{\"native\":{\"ver\":\"1.0\",\"link\":{ ... },\"imptrackers\":[ ... ],\"assets\":[ ... ]}}"
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+## [7. Implementation Notes](implementation.md#implementationnotes)
+
+- [7.1 - No-Bid Signaling](implementation.md#nobidsignaling)
+
+- [7.2 - Impression Expiration](implementation.md#impressionexpiration)
+
+- [7.3 - PMP & Direct Deals](implementation.md#pmpanddirectdeals)
+
+- [7.4 - Skippability](implementation.md#skippability)
+
+- [7.5 - Regs Resources](implementation.md#regsresources)
+
+- [7.6 - Pod Bidding for Video and Audio](implementation.md#podbidding)
+
+- [7.7 - Network vs Channel Example Cases](implementation.md#networkandchannel)
+
+- [7.8 - Counting Billable Events and Tracked Ads](implementation.md#counting)
+
+- [7.9 - Digital Out-Of-Home](implementation.md#dooh)
+
+- [7.10 - Updated Video Signals](implementation.md#videosignals)
+
+- [7.11 - Guidance on the Use of Floors](implementation.md#floors)
+
+
+# Appendix A. Additional Information <a name="appendixa"></a>
+
+- Creative Commons / Attribution License
+
+ 	creativecommons.org/licenses/by/3.0
+
+- IAB (Interactive Advertising Bureau)
+
+ 	www.iab.com
+
+- IAB Quality Assurance Guidelines (QAG):
+
+ 	www.iab.com/guidelines/iab-quality-assurance-guidelines-qag-taxonomy/
+
+- JavaScript Object Notation (JSON)
+
+ 	www.json.org
+
+- MMA (Mobile Marketing Association)
+
+ 	mmaglobal.com
+
+- OpenRTB Project on Github
+
+ 	github.com/openrtb/OpenRTB/
+
+- Apache Avro
+
+ 	avro.apache.org
+
+ 	Protocol Buffers (Protobuf)
+
+code.google.com/p/protobuf
+
+- Google Metro Codes
+
+ 	code.google.com/apis/adwords/docs/appendix/metrocodes.html
+
+- U.N. Code for Trade and Transport Locations:
+
+ 	www.unece.org/cefact/locode/service/location.htm
+
+
+# Appendix B. Specification Change Log <a name="appendixb"></a>
+
+This appendix serves as an index of specification changes across 2.x versions. These changes pertain only to the substance of the specification and not routine document formatting, organization, or content without technical impact.
+
+**<strong>Please refer to GitHub [Releases](https://github.com/InteractiveAdvertisingBureau/openrtb2.x/releases) page for release notes for ORTB2.6-202303 onward</strong>**
+
+
+**Version 2.6-202210 (Base 2.6 version) to 2.6-202211:**
+<table>
+  <tr>
+    <td><strong>Section&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+  </tr>
+  <tr>
+  <td><code><b>3.1</b></code></td>
+	  <td><b>Object Model</b> Update to model image to show DOOH and Qty objects</td>
+  </tr>
+  <tr>
+ <td><code><b>3.2.3</b></code></td>
+    <td><b>Object: Regs</b> Additional fields gpp and gpp_sid to support Global Privacy Protection string</td>
+ </tr>
+  <tr>
+	  <td><code><b>3.2.13, 3.2.14</b></code></td>
+	  <td><b>Objects: Site, App</b> Added inventorypartnerdomain (previously ext)</td>
+     <tr>
+  </tr>
+ <td><code><b>3.2.31</b></code></td>
+	<td><b>Object: Qty</b> New object to describe source of multiplier value in Digital Out of Home </td>
+  </tr>
+  <tr>
+    <td><code><b>3.2.32</b></code></td>
+    <td><b>Object: DOOH</b> New object to support programmatic buys of Digital Out of Home inventory</td>
+ </tr>
+  <tr>
+    <td><code><b>7.9</b></code></td>
+    <td><b>Implementation Notes</b> Addition of notes, examples and best practices for utilizing DOOH</td>
+</tr>
+</table>
+
+**Version 2.5 to 2.6:**
+
+
+<table>
+  <tr>
+    <td><strong>Section&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+  </tr>
+  <tr>
+	  <td><code><b>3.2.1, 3.2.16, 4.2.3, 3.2.18</b></code></td>
+    <td>Added new language field to support IETF BCP 47, IETF BCP 47 offers additional layers of granularity, for example, differentiating written language versions of the same spoken language (e.g. Traditional and Simplified Chinese), https://en.wikipedia.org/wiki/IETF_language_tag</td>
+  </tr>
+   <td><code><b>3.2.3</b></code></td>
+    <td><b>Object: Regs</b> added `gdpr` attribute (previously ext)</td>
+ </tr><tr>
+<td><code><b>3.2.20</b></code></td>
+    <td><b>Object: User</b> added `consent` attribute (previously ext)</td>
+ </tr><tr>
+  <tr>
+    <td><code><b>5</b></code></td>
+    <td>Removed section (Enumerated Lists) All references now point to AdCOM 1.0 / OpenRTB 3.0 Lists</td>
+ </tr>
+  <tr>
+    <td><code><b>3.2.1, 3.2.13, 3.2.14, 3.2.15, 3.2.16, 3.2.17, 4.2.3</b></code></td>
+    <td><b>Objects: BidRequest, Site, App, Publisher, Content, Producer, Bid</b> Use of cattax for all taxonomy references</td>
+</tr>
+  <tr>
+    <td><code><b>3.2.7, 3.2.8</b></code></td>
+    <td><b>Objects: Video, Audio</b> Added rqddurs</td>
+     <tr>
+  </tr>
+ <td><code><b>3.2.7, 3.2.8</b></code></td>
+ <td><b>Objects: Video, Audio</b> Added maxseq, poddur, podid, podseq, mincpmpersec, slotinpod for pod bidding support</td>
+  </tr>
+  <tr>
+    <td><code><b>4.4, 4.4.1</b></code></td>
+    <td><b>Substition Macros</b> Added AUCTION_MIN_TO_WIN</td>
+ </tr>
+  <tr>
+    <td><code><b>4.2.3</b></code></td>
+    <td><b>Object, Bid</b> Added apis</td>
+</tr>
+  <tr>
+ <td><code><b>3.2.4</b></code></td>
+    <td><b>Object: Imp</b> Added rwdd</td>
+</tr>
+  <tr>
+    <td><code><b>3.2.1, 3.2.14, 4.2.3</b></code></td>
+    <td><b>Objects: App, Bid, BidRequest</b> Clarified laguage around use of storeid vs bundle</td>
+     <tr>
+  </tr>
+ <td><code><b>3.2.4</b></code></td>
+ <td><b>Object Imp</b> Added ssai</td>
+  </tr>
+  <tr>
+    <td><code><b>3.2.18</b></code></td>
+    <td><b>Object: Device</b> Clarified language around mccmnc and roaming</td>
+ </tr>
+  <tr>
+ <td><code><b>3.2.23, 3.2.24</b></code></td>
+    <td><b>Added Objects:</b> Network, Channel, SupplyChain, SupplyChainNode, EIDs and UIDs*</td>
+     <tr>
+  </tr>
+ <td><code><b>4.2.3</b></code></td>
+ <td><b>Object: Bid</b> Added mtype</td>
+  </tr>
+  <tr>
+    <td><code><b>3.2.6, 3.2.7, 3.2.16</b></code></td>
+    <td><b>Removed previously deprecated attributes</b> Object: Banner, wmax, hmax, wmin, hmin, Object: Video, protocol, Object: Content, videoquality</td>
+ </tr>
+  <tr>
+    <td><code><b>7.6</b></code></td>
+    <td>Pod Bidding for Video and Audio implementers guide</td>
+</tr>
+  <tr>
+ <td><code><b>7.7</b></code></td>
+    <td>Network and Channel object examples</td>
+</tr>
+  <tr>
+    <td><code><b>3.2.7, 3.2.8, 3.2.18, 3.2.20, 4.2.3</b></code></td>
+    <td><b>Deprecated attributes</b> Object: Video, sequence, Object: Audio, sequence, Ojbect: Device, didsha1, didmd5, dpidsha1, dpidnd5, macsha1, macmd5, Object: User, yob, gender, Object: Bid, api</td>
+     <tr>
+  </tr>
+ <td><code><b>7.8</b></code></td>
+ <td> Added Counting Billable events and tracked ads</td>
+  </tr>
+  <tr>
+<td><code><b>3.2.29, 3.2.30</b></code></td>
+ <td>Object: UserAgent & Object Brand Version added</td>
+  </td>
+  </td>
+  </tr>
+</table>
+
+
+
+**Version 2.4 to 2.5:**
+
+
+<table>
+  <tr>
+    <td><strong>Section&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+  </tr>
+  <tr>
+    <td><code><b>2.4</b></code></td>
+    <td><b>Section: Data Encoding</b> New section added.</td>
+  </tr>
+  <tr>
+    <td><code><b>3.1<b></code></td>
+    <td><b>Object Model: Bid Request</b> Update to include Source and Metric objects.</td>
+ </tr>
+  <tr>
+    <td><code<b>3.2.1</b></code></td>
+    <td><b>Object: BidRequest</b>, Attributes bseat, wlang, and source have been added.</td>
+</tr>
+  <tr>
+    <td><code><b>3.2.2</b></code></td>
+    <td><b>Object: Source</b> New Source object has been added including the Payment ID pchain attribute.</td>
+     <tr>
+  </tr>
+ <td><code><b>3.2.4</b></code></td>
+ <td><b>Object: Imp</b> Attribute Metric object has been added.</td>
+  </tr>
+  <tr>
+    <td><code><b>3.2.5</b></code></td>
+    <td><b>Object: Metric</b> New Metric object has been added.</td>
+ </tr>
+  <tr>
+    <td><code><b>3.2.6</b></code></td>
+    <td><b>Object: Banner</b>, Attribute vcm has been added.</td>
+</tr>
+  <tr>
+ <td><code><b>3.2.7</b></code></td>
+    <td><b>Object: Video</b>, Attributes placement and playbackend have been added. Guidance added to use only the first element of attribute playbackmethod in preparation for future converson to an integer.</td>
+</tr>
+  <tr>
+    <td><code><b>3.2.10</b></code></td>
+    <td><b>Object: Format</b> Attributes wratio, hratio, and wmin have been added.</td>
+     <tr>
+  </tr>
+ <td><code><b>3.2.4</b></code></td>
+ <td><b>Object Imp</b> Added ssai</td>
+  </tr>
+  <tr>
+    <td><code><b>3.2.13</b></code></td>
+    <td><b>Object: Device</b> Attribute mccmnc has been added. Attribute carrier has been clarified to eliminate a reference to using "WIFI" as a carrier.</td>
+ </tr>
+  <tr>
+ <td><code><b>4.2.3<b></code></td>
+    <td><b>Object: Bid</b> Attributes burl, lurl, tactic, language, wratio, and hratio have been added.</td>
+     <tr>
+  </tr>
+ <td><code><b>4.4</b></code></td>
+ <td><b>Subsititution Macros:</b> Macros ${AUCTION_MBR} and ${AUCTION_LOSS} have been added. A best practice has been added to use “AUDIT” for unknown values when rendering for test or quality purposes.</td>
+  </tr>
+  <tr>
+    <td><code><b>5.6</b></code></td>
+    <td><b>List: API Frameworks</b> Item 6 has been added.</td>
+ </tr>
+  <tr>
+    <td><code><b>5.9</b></code></td>
+    <td><b>List: Video Placement Types</b> New list has been added.</td>
+</tr>
+  <tr>
+ <td><code><b>5.10</b></code></td>
+    <td><b>List: Playback Methods</b> Items 5-6 have been added.</td>
+</tr>
+  <tr>
+    <td><code><b>5.11</b></code></td>
+    <td><b>List: Playback Cessation Modes</b> New list has been added.</td>
+     <tr>
+  </tr>
+ <td><code><b>5.24</b></code></td>
+ <td><b>List: No-Bid Reason Codes</b> Items 9-10 have been added.</td>
+  </tr>
+  <tr>
+<td><code><b>5.25</b></code></td>
+ <td><b>List: Loss Reason Codes</b> New list has been added.</td>
+  </td>
+  </td>
+  </tr>
+</table>
+
+# Appendix C. Cookie Based ID Syncing <a name="appendixc"></a>
+Cookie syncing (also known as user syncing, user matching, cookie matching) is the process by which one party learns another party’s user IDs, and thus is foundational to availability of IDs in the cookie-based web environment. Since cookies are domain-specific, the sync process is necessary for one party to know the other’s IDs.
+
+
+Cookie syncs are established between any two parties in the ecosystem that need to send user IDs to each other. Classically, however, cookie syncs are established between DSPs and exchanges/SSPs, and between DSPs and DMPs.
+
+In the cookie sync process, one party stores the relationship between their user IDs and the other party’s user IDs in a match table that knows that cookieID123 from party A is the same user as cookieID789 from party B.
+
+When the sync pixel loads, the party reads their cookie (or sets a new one) to learn their user ID, and then issues a 302 redirect to a URL provided by the other party, to pass them that user ID. When the other party’s URL loads in the browser, they will be able to read their cookie (or set a new one), thus establishing the relationship between the two user IDs, which can then be stored (in a server-side data store of some sort, or simply by using a cookie to store it client-side if feasible).
+
+Most commonly between DSPs and exchanges/SSPs, the exchange holds the match table, but it can be done either way. When the exchange holds the match table, it is used when generating the bid request to send to the DSP. The exchange observes its cookie when the browser makes a request to it, looks up its user ID in the match table, and finds the DSP’s user ID. The exchange them puts that DSP user ID in the “buyeruid” field in the bid request.
+
+The details of cookie sync implementation will vary from integration to integration and should be discussed between the two parties. However, this section describes how cookie syncs typically work at a high level
+
+Cookie Sync Example (Exchange-Hosted)
+In this example, the exchange is holding the match table.
+
+The DSP provides their sync URL to the exchange. This might look something like..
+
+https://ads.dsp.com/sync?exchange=29
+
+The exchange provides their sync URL to the DSP, in which they will indicate where the DSP’s user ID should be placed. This might look something like..
+
+https://platform.exchange.com/match?dsp=12&dsp_user_id=<USER ID HERE>
+
+The DSP arranges such that their sync URL will redirect to the exchange sync URL, populating the DSP user ID into the appropriate location.
+
+The exchange then causes the DSP sync pixel to be loaded in users’ browsers, perhaps when the exchange is serving ads or at other opportunities. The DSP observes its’ user ID cookie. For this example, assume the user ID is “6b9a9765-697e-4c44-b393-dbb00ae7ac6b”. The DSP servers cause a 302 redirect to:
+
+https://platform.exchange.com/match?dsp=12&dsp_user_id=6b9a9765-697e-4c44-b393-dbb00ae7ac6b
+
+And thus, since the exchange now has the opportunity to examine their cookie, the exchange has the mapping between the exchange’s cookie ID and the DSP’s. Outbound bid requests to the DSP can now include the DSP’s ID in “buyeruid” when the corresponding exchange cookie ID is present. The DSP acts on it for audience targeting, frequency capping, measurement, etc.
+
+The DSP may also elect to directly drop the exchange’s sync pixel at opportunities it has, for example with the DSP’s pixels/tags for audiences and conversions.
+
+Cookie Sync Example (DSP-Hosted)
+In this example, the DSP holds the match table.
+
+The exchange provides their sync URL to the DSP. This might look something like..
+
+https://platform.exchange.com/match?dsp=12
+
+The DSP provides their sync URL to the exchange, in which they will indicate where the exchange’s user ID should be placed:
+
+https://ads.dsp.com/sync?exchange=29&exchange_id=<USER ID HERE>
+
+The exchange arranges such that their sync URL will redirect to the DSP sync URL, populating the exchange’s user ID in the appropriate location. The DSP finds opportunities to drop the exchange’s sync pixel in browsers, initiating syncs. The exchange may also elect to directly drop the DSP’s sync pixel in the browser at opportunities it has. For this example, assume the exchange’s user ID is “0cc175b9c0f1b6a831c399e269772661”. When the exchange’s sync pixel loads, the exchange observes their cookie. They then serve a 302 redirect to:
+
+https://ads.dsp.com/sync?exchange=29&exchange_id=0cc175b9c0f1b6a831c399e269772661
+
+Now that the DSP’s sync pixel is loaded in the browser, the DSP can observe its cookie, and store a mapping between its user ID and the exchange’s. Since it does not touch the user browser until serving an ad, it’s necessary in this case that the DSP stores this in a server-side data store.
+
+When the exchange sends bid requests, it includes the exchange’s cookie ID in the “id” field in the user object. Since the DSP is hosting a match table relating the exchange cookie IDs to the DSP’s, it can and does perform a lookup to determine the DSP’s user ID. The DSP can then proceed with audience targeting, frequency capping, measurement, etc.
+
+Other Considerations and Best Practices
+As user IDs can be considered personal data under some privacy regulations, implementers are advised to consult with their counsel and apply appropriate measures for compliance. As examples, however, the following practices are considered customary:
+Inclusion of query string parameters for GDPR, US Privacy String, GPP, etc. per the relevant Tech Lab specifications
+Based on information like GDPR consent string, a party might gate whether or not they fire a given sync pixel on whether they believe the consent string indicates the appropriate consent for the party
+Based on information like a GDPR consent string, a party might elect to treat the event as a no-op — for example, if their sync pixel is fired, the user is in Europe, and consent information is not provided, the party might elect to simply immediately return 204 No Content and take no actions, since user consent is not known
+
+There are several best practices that implementers can follow to ensure the match rate and coverage between parties is maximized:
+Cookies have a limited lifespan typically, so it is customary to limit match table retention to some period of time like 14 to 60 days. Parties are suggested to arrange their sync behavior to ensure that the match for a given user is refreshed (if they are still observed active) before expiring out of the match table.
+There are frequently a long list of parties necessary to sync. For example, an exchange, for each user, needs to trigger syncs with each and every DSP they work with. Thus, it’s suggested to take all available opportunities to deploy sync pixels, such as when serving ads, when serving tracking tags, etc.
+It's also helpful if both parties deploy sync pixels when possible, as this increases the number of opportunities to perform sync for a given user.
+Sync pixels fire in the user’s browser, and thus sync activity creates overhead when web pages load. To avoid blocking page loads, parties are advised to load sync pixels in a non-blocking manner, such as in a hidden IFRAME. Additionally, parties might wish to limit the number of sync partners deployed in a given instance to a modest number.
+For example, a reasonable strategy would be to sync up to 5 partners on each occasion, and record that this has occurred and when. Then, on the next occasion, the next 5 partners can be synced, and so on. Once all partners have been rotated through and syncs established for a given user, it’s not necessary to fire any more sync pixels for a while. Keeping track of the timestamp of performing each sync enables the party to trigger another one shortly before they expect that the ID will expire out of the match table.
+

@@ -1,0 +1,18 @@
+{
+  "name": "openrtb-json-schema",
+  "repository": "https://github.com/klaussilveira/openrtb-json-schema",
+  "license": "MIT",
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "glob": "^11.0.2"
+  },
+  "devDependencies": {
+    "prettier": "3.5.3"
+  },
+  "scripts": {
+    "format": "prettier --write '*.{js,ts,json,css,scss,yaml}'",
+    "lint": "prettier --check '*.{js,ts,json,css,scss,yaml}'",
+    "test": "node test.js"
+  }
+}

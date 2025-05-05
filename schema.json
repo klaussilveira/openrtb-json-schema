@@ -1,0 +1,2204 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OpenRTB 2.6 Specification",
+  "description": "JSON Schema representation of the OpenRTB 2.6 specification based on spec.md.",
+  "$defs": {
+    "BidRequest": {
+      "type": "object",
+      "description": "Top-level bid request object.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the bid request, assigned by the exchange, and unique for the exchange's subsequent tracking of the responses. The exchange may use different values for different recipients."
+        },
+        "imp": {
+          "type": "array",
+          "description": "Array of Imp objects (Section 3.2.4) representing the impressions offered. At least 1 Imp object is required.",
+          "items": {
+            "$ref": "#/$defs/Imp"
+          },
+          "minItems": 1
+        },
+        "site": {
+          "$ref": "#/$defs/Site",
+          "description": "Details via a Site object (Section 3.2.13) about the publisher's website. Recommended. Only applicable for websites. Mutually exclusive with app and dooh."
+        },
+        "app": {
+          "$ref": "#/$defs/App",
+          "description": "Details via an App object (Section 3.2.14) about the publisher's app (i.e., non-browser applications). Recommended. Only applicable for apps. Mutually exclusive with site and dooh."
+        },
+        "dooh": {
+          "$ref": "#/$defs/DOOH",
+          "description": "Details via a DOOH object (Section 3.2.32) about the publisher's digital out-of-home inventory. Only applicable for DOOH. Mutually exclusive with site and app."
+        },
+        "device": {
+          "$ref": "#/$defs/Device",
+          "description": "Details via a Device object (Section 3.2.18) about the user's device to which the impression will be delivered. Recommended."
+        },
+        "user": {
+          "$ref": "#/$defs/User",
+          "description": "Details via a User object (Section 3.2.20) about the human user of the device; the advertising audience. Recommended."
+        },
+        "test": {
+          "type": "integer",
+          "description": "Indicator of test mode in which auctions are not billable, where 0 = live mode, 1 = test mode.",
+          "default": 0
+        },
+        "at": {
+          "type": "integer",
+          "description": "Auction type, where 1 = First Price, 2 = Second Price Plus. Exchange-specific auction types can be defined using values 500 and greater.",
+          "default": 2
+        },
+        "tmax": {
+          "type": "integer",
+          "description": "Maximum time in milliseconds the exchange allows for bids to be received including Internet latency to avoid timeout. This value supersedes any a priori guidance from the exchange."
+        },
+        "wseat": {
+          "type": "array",
+          "description": "Allowed list of buyer seats (e.g., advertisers, agencies) allowed to bid on this impression. IDs of seats and knowledge of the buyer's customers to which they refer must be coordinated between bidders and the exchange a priori. At most, only one of wseat and bseat should be used in the same request. Omission of both implies no seat restrictions.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bseat": {
+          "type": "array",
+          "description": "Block list of buyer seats (e.g., advertisers, agencies) restricted from bidding on this impression. IDs of seats and knowledge of the buyer's customers to which they refer must be coordinated between bidders and the exchange a priori. At most, only one of wseat and bseat should be used in the same request. Omission of both implies no seat restrictions.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allimps": {
+          "type": "integer",
+          "description": "Flag to indicate if Exchange can verify that the impressions offered represent all of the impressions available in context (e.g., all on the web page, all video spots such as pre/mid/post roll) to support road-blocking. 0 = no or unknown, 1 = yes, the impressions offered represent all that are available.",
+          "default": 0
+        },
+        "cur": {
+          "type": "array",
+          "description": "Array of allowed currencies for bids on this bid request using ISO-4217 alpha codes. Recommended only if the exchange accepts multiple currencies.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "wlang": {
+          "type": "array",
+          "description": "Allowed list of languages for creatives using ISO-639-1-alpha-2. Omission implies no specific restrictions, but buyers would be advised to consider language attribute in the Device and/or Content objects if available. Only one of wlang or wlangb should be present.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "wlangb": {
+          "type": "array",
+          "description": "Allowed list of languages for creatives using IETF BCP 47. Omission implies no specific restrictions, but buyers would be advised to consider language attribute in the Device and/or Content objects if available. Only one of wlang or wlangb should be present.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "acat": {
+          "type": "array",
+          "description": "Allowed advertiser categories using the specified category taxonomy (defined by cattax). If no cattax is supplied, IAB Content Taxonomy 1.0 is assumed. Only one of acat or bcat should be present.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bcat": {
+          "type": "array",
+          "description": "Blocked advertiser categories using the specified category taxonomy (defined by cattax). If no cattax is supplied, IAB Content Taxonomy 1.0 is assumed. Only one of acat or bcat should be present.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cattax": {
+          "type": "integer",
+          "description": "The taxonomy in use for bcat/acat. Refer to AdCOM 1.0 List: Category Taxonomies.",
+          "default": 1
+        },
+        "badv": {
+          "type": "array",
+          "description": "Block list of advertisers by their domains (e.g., ford.com).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bapp": {
+          "type": "array",
+          "description": "Block list of applications by their app store IDs. See OTT/CTV Store Assigned App Identification Guidelines. For mobile apps (Google Play, Apple App Store), use bundle or package names or numeric IDs.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source": {
+          "$ref": "#/$defs/Source",
+          "description": "A Source object (Section 3.2.2) that provides data about the inventory source and which entity makes the final decision."
+        },
+        "regs": {
+          "$ref": "#/$defs/Regs",
+          "description": "A Regs object (Section 3.2.3) that specifies any industry, legal, or governmental regulations in force for this request."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      },
+      "required": ["id", "imp"]
+    },
+    "Source": {
+      "type": "object",
+      "description": "Describes the source of the bid request upstream from the exchange, defining post-auction or upstream decisioning.",
+      "properties": {
+        "fd": {
+          "type": "integer",
+          "description": "Entity responsible for the final impression sale decision, where 0 = exchange, 1 = upstream source. Recommended."
+        },
+        "tid": {
+          "type": "string",
+          "description": "Transaction ID that must be common across all participants in this bid request (e.g., potentially multiple exchanges). Recommended."
+        },
+        "pchain": {
+          "type": "string",
+          "description": "Payment ID chain string containing embedded syntax described in the TAG payment ID Protocol v1.0. Recommended."
+        },
+        "schain": {
+          "$ref": "#/$defs/SupplyChain",
+          "description": "SupplyChain object (section 3.2.25) representing the links in the supply chain. Recommended."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Regs": {
+      "type": "object",
+      "description": "Contains legal, governmental, or industry regulations applicable to the request.",
+      "properties": {
+        "coppa": {
+          "type": "integer",
+          "description": "Flag indicating if this request is subject to the COPPA regulations (USA FTC), where 0 = no, 1 = yes. See Section 7.5."
+        },
+        "gdpr": {
+          "type": "integer",
+          "description": "Flag indicating if the request is subject to GDPR regulations. 0 = No, 1 = Yes, omission indicates unknown. See Section 7.5."
+        },
+        "us_privacy": {
+          "type": "string",
+          "description": "US Privacy String specifications. See Section 7.5."
+        },
+        "gpp": {
+          "type": "string",
+          "description": "Contains the Global Privacy Platform's consent string."
+        },
+        "gpp_sid": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "Array of GPP section IDs to apply. See GPP Section Information."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Imp": {
+      "type": "object",
+      "description": "Describes an ad placement or impression being auctioned.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier for this impression within the content of the bid request (typically, starts with 1 and increments)."
+        },
+        "metric": {
+          "type": "array",
+          "description": "An array of Metric objects (Section 3.2.5).",
+          "items": {
+            "$ref": "#/$defs/Metric"
+          }
+        },
+        "banner": {
+          "$ref": "#/$defs/Banner",
+          "description": "A Banner object (Section 3.2.6); required if this impression is offered as a banner ad opportunity."
+        },
+        "video": {
+          "$ref": "#/$defs/Video",
+          "description": "A Video object (Section 3.2.7); required if this impression is offered as a video ad opportunity."
+        },
+        "audio": {
+          "$ref": "#/$defs/Audio",
+          "description": "An Audio object (Section 3.2.8); required if this impression is offered as an audio ad opportunity."
+        },
+        "native": {
+          "$ref": "#/$defs/Native",
+          "description": "A Native object (Section 3.2.9); required if this impression is offered as a native ad opportunity."
+        },
+        "pmp": {
+          "$ref": "#/$defs/Pmp",
+          "description": "A Pmp object (Section 3.2.11) containing any private marketplace deals in effect for this impression."
+        },
+        "displaymanager": {
+          "type": "string",
+          "description": "Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile). Recommended for video and/or apps."
+        },
+        "displaymanagerver": {
+          "type": "string",
+          "description": "Version of ad mediation partner, SDK technology, or player responsible for rendering ad. Recommended for video and/or apps."
+        },
+        "instl": {
+          "type": "integer",
+          "description": "1 = the ad is interstitial or full screen, 0 = not interstitial.",
+          "default": 0
+        },
+        "tagid": {
+          "type": "string",
+          "description": "Identifier for specific ad placement or ad tag that was used to initiate the auction."
+        },
+        "bidfloor": {
+          "type": "number",
+          "description": "Minimum bid for this impression expressed in CPM.",
+          "default": 0
+        },
+        "bidfloorcur": {
+          "type": "string",
+          "description": "Currency specified using ISO-4217 alpha codes. Sets default for floors in Imp object.",
+          "default": "USD"
+        },
+        "clickbrowser": {
+          "type": "integer",
+          "description": "Indicates the type of browser opened upon clicking the creative in an app, where 0 = embedded, 1 = native."
+        },
+        "secure": {
+          "type": "integer",
+          "description": "Flag to indicate if the impression requires secure HTTPS URL creative assets and markup, where 0 = non-secure, 1 = secure. If omitted, the secure state is unknown, but non-secure HTTP support can be assumed."
+        },
+        "iframebuster": {
+          "type": "array",
+          "description": "Array of exchange-specific names of supported iframe busters.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rwdd": {
+          "type": "integer",
+          "description": "Indicates whether the user receives a reward for viewing the ad, where 0 = no, 1 = yes.",
+          "default": 0
+        },
+        "ssai": {
+          "type": "integer",
+          "description": "Indicates if server-side ad insertion is in use and the impact of this on asset and tracker retrieval. 0 = unknown, 1 = client-side, 2 = assets server-side, tracking client-side, 3 = all server-side.",
+          "default": 0
+        },
+        "exp": {
+          "type": "integer",
+          "description": "Advisory as to the number of seconds that may elapse between the auction and the actual impression."
+        },
+        "qty": {
+          "$ref": "#/$defs/Qty",
+          "description": "A means of passing a multiplier in the bid request, representing the total quantity of impressions for adverts that display to more than one person."
+        },
+        "dt": {
+          "type": "number",
+          "format": "float",
+          "description": "Timestamp when the item is estimated to be fulfilled (e.g. DOOH display time) in Unix format (milliseconds since epoch)."
+        },
+        "refresh": {
+          "$ref": "#/$defs/Refresh",
+          "description": "Details about ad slots being refreshed automatically (Section 3.2.33)."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      },
+      "required": ["id"]
+    },
+    "Metric": {
+      "type": "object",
+      "description": "Offers insight into the impression, like viewability or CTR.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of metric being presented using exchange curated string names."
+        },
+        "value": {
+          "type": "number",
+          "description": "Number representing the value of the metric. Probabilities must be in the range 0.0 – 1.0."
+        },
+        "vendor": {
+          "type": "string",
+          "description": "Source of the value using exchange curated string names. 'EXCHANGE' recommended if exchange is the source. Recommended."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      },
+      "required": ["type", "value"]
+    },
+    "Banner": {
+      "type": "object",
+      "description": "Represents a banner impression, including static images, expandable units, or in-banner video.",
+      "properties": {
+        "format": {
+          "type": "array",
+          "description": "Array of Format objects (Section 3.2.10) representing the banner sizes permitted. Recommended if h/w are not specified.",
+          "items": {
+            "$ref": "#/$defs/Format"
+          }
+        },
+        "w": {
+          "type": "integer",
+          "description": "Exact width in device-independent pixels (DIPS); recommended if no Format objects are specified."
+        },
+        "h": {
+          "type": "integer",
+          "description": "Exact height in device-independent pixels (DIPS); recommended if no Format objects are specified."
+        },
+        "btype": {
+          "type": "array",
+          "description": "Blocked banner ad types. 1=XHTML Text, 2=XHTML Banner, 3=JavaScript, 4=iframe.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "battr": {
+          "type": "array",
+          "description": "Blocked creative attributes. Refer to AdCOM 1.0 List: Creative Attributes.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "pos": {
+          "type": "integer",
+          "description": "Ad position on screen. Refer to AdCOM 1.0 List: Placement Positions."
+        },
+        "mimes": {
+          "type": "array",
+          "description": "Content MIME types supported (e.g., image/jpeg, image/gif).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "topframe": {
+          "type": "integer",
+          "description": "Indicates if the banner is in the top frame as opposed to an iframe, where 0 = no, 1 = yes."
+        },
+        "expdir": {
+          "type": "array",
+          "description": "Directions in which the banner may expand. Refer to AdCOM 1.0 List: Expandable Directions.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "api": {
+          "type": "array",
+          "description": "List of supported API frameworks. Refer to AdCOM 1.0 List: API Frameworks. If not listed, assume not supported.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for this banner object. Recommended when Banner objects are used with a Video object as companion ads."
+        },
+        "vcm": {
+          "type": "integer",
+          "description": "Companion banner rendering mode relative to associated video, where 0 = concurrent, 1 = end-card. Relevant only for companion ads."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Video": {
+      "type": "object",
+      "description": "Represents a video impression, generally assuming VAST compliance.",
+      "properties": {
+        "mimes": {
+          "type": "array",
+          "description": "Content MIME types supported (e.g., video/mp4).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "minduration": {
+          "type": "integer",
+          "description": "Minimum video ad duration in seconds. Recommended. Mutually exclusive with rqddurs.",
+          "default": 0
+        },
+        "maxduration": {
+          "type": "integer",
+          "description": "Maximum video ad duration in seconds. Recommended. Mutually exclusive with rqddurs."
+        },
+        "startdelay": {
+          "type": "integer",
+          "description": "Start delay in seconds for pre-roll, mid-roll, or post-roll placements. Refer to AdCOM 1.0 List: Start Delay Modes. Recommended."
+        },
+        "maxseq": {
+          "type": "integer",
+          "description": "Indicates the maximum number of ads in a dynamic video ad pod. See Section 7.6. Recommended."
+        },
+        "poddur": {
+          "type": "integer",
+          "description": "Total time in seconds for a dynamic video ad pod or the dynamic portion of a hybrid pod. Required for dynamic portions. See Section 7.6. Recommended."
+        },
+        "protocols": {
+          "type": "array",
+          "description": "Array of supported video protocols. Refer to AdCOM 1.0 List: Creative Subtypes - Audio/Video. Recommended.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "w": {
+          "type": "integer",
+          "description": "Width of the video player in DIPS. Recommended."
+        },
+        "h": {
+          "type": "integer",
+          "description": "Height of the video player in DIPS. Recommended."
+        },
+        "podid": {
+          "type": "string",
+          "description": "Unique identifier indicating an impression belongs to a video ad pod. Shared podid indicates impressions belong to the same pod."
+        },
+        "podseq": {
+          "type": "integer",
+          "description": "The sequence (position) of the video ad pod within a content stream. Refer to AdCOM 1.0 List: Pod Sequence.",
+          "default": 0
+        },
+        "rqddurs": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "Precise acceptable durations for video creatives in seconds (Live TV use case). Mutually exclusive with minduration/maxduration."
+        },
+        "placement": {
+          "type": "integer",
+          "description": "DEPRECATED as of OpenRTB 2.6-202303. Use plcmt instead."
+        },
+        "plcmt": {
+          "type": "integer",
+          "description": "Video placement type for the impression. Refer to AdCOM 1.0 List: Plcmt Subtypes - Video."
+        },
+        "linearity": {
+          "type": "integer",
+          "description": "Indicates if the impression must be linear, nonlinear, etc. Refer to AdCOM 1.0 List: Linearity Modes."
+        },
+        "skip": {
+          "type": "integer",
+          "description": "Indicates if the player will allow skipping, where 0 = no, 1 = yes. If ad is skippable, Bid should include attr 16."
+        },
+        "skipmin": {
+          "type": "integer",
+          "description": "Videos of duration > skipmin seconds can be skippable; only applicable if skip=1.",
+          "default": 0
+        },
+        "skipafter": {
+          "type": "integer",
+          "description": "Number of seconds a video must play before skipping is enabled; only applicable if skip=1.",
+          "default": 0
+        },
+        "sequence": {
+          "type": "integer",
+          "description": "DEPRECATED as of OpenRTB 2.6. Use slotinpod.",
+          "default": 0
+        },
+        "slotinpod": {
+          "type": "integer",
+          "description": "For video ad pods, indicates the seller can guarantee delivery against the indicated slot position in the pod. Refer to AdCOM 1.0 List: Slot Position in Pod.",
+          "default": 0
+        },
+        "mincpmpersec": {
+          "type": "number",
+          "format": "float",
+          "description": "Minimum CPM per second for the dynamic portion of a video ad pod, relative to bid duration."
+        },
+        "battr": {
+          "type": "array",
+          "description": "Blocked creative attributes. Refer to AdCOM 1.0 List: Creative Attributes.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "maxextended": {
+          "type": "integer",
+          "description": "Maximum extended ad duration if extension is allowed. If blank or 0, not allowed. If -1, no limit. If > 0, seconds of extension supported beyond maxduration."
+        },
+        "minbitrate": {
+          "type": "integer",
+          "description": "Minimum bit rate in Kbps."
+        },
+        "maxbitrate": {
+          "type": "integer",
+          "description": "Maximum bit rate in Kbps."
+        },
+        "boxingallowed": {
+          "type": "integer",
+          "description": "Indicates if letter-boxing of 4:3 content into a 16:9 window is allowed, where 0=no, 1=yes.",
+          "default": 1
+        },
+        "playbackmethod": {
+          "type": "array",
+          "description": "Playback methods that may be in use. Refer to AdCOM 1.0 List: Playback Methods. Strongly advised to use only the first element.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "playbackend": {
+          "type": "integer",
+          "description": "The event that causes playback to end. Refer to AdCOM 1.0 List: Playback Cessation Modes."
+        },
+        "delivery": {
+          "type": "array",
+          "description": "Supported delivery methods (e.g., streaming, progressive). Refer to AdCOM 1.0 List: Delivery Methods.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "pos": {
+          "type": "integer",
+          "description": "Ad position on screen. Refer to AdCOM 1.0 List: Placement Positions."
+        },
+        "companionad": {
+          "type": "array",
+          "description": "Array of Banner objects (Section 3.2.6) if companion ads are available.",
+          "items": {
+            "$ref": "#/$defs/Banner"
+          }
+        },
+        "api": {
+          "type": "array",
+          "description": "List of supported API frameworks. Refer to AdCOM 1.0 List: API Frameworks. If not listed, assume not supported.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "companiontype": {
+          "type": "array",
+          "description": "Supported VAST companion ad types. Refer to AdCOM 1.0 List: Companion Types. Recommended if companionad is included.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "poddedupe": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "PROVISIONAL. Indicates pod deduplication settings. Refer to AdCOM 1.0 List: Pod Deduplication."
+        },
+        "durfloors": {
+          "type": "array",
+          "description": "An array of DurFloors objects (Section 3.2.35) indicating floor prices for various video creative durations.",
+          "items": {
+            "$ref": "#/$defs/DurFloors"
+          }
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      },
+      "required": ["mimes"]
+    },
+    "Audio": {
+      "type": "object",
+      "description": "Represents an audio type impression, generally assuming VAST compliance.",
+      "properties": {
+        "mimes": {
+          "type": "array",
+          "description": "Content MIME types supported (e.g., audio/mp4).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "minduration": {
+          "type": "integer",
+          "description": "Minimum audio ad duration in seconds. Recommended. Mutually exclusive with rqddurs.",
+          "default": 0
+        },
+        "maxduration": {
+          "type": "integer",
+          "description": "Maximum audio ad duration in seconds. Recommended. Mutually exclusive with rqddurs."
+        },
+        "poddur": {
+          "type": "integer",
+          "description": "Total time in seconds for a dynamic audio ad pod or the dynamic portion of a hybrid pod. Required for dynamic portions. Recommended."
+        },
+        "protocols": {
+          "type": "array",
+          "description": "Array of supported audio protocols. Refer to AdCOM 1.0 List: Creative Subtypes - Audio/Video. Recommended.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "startdelay": {
+          "type": "integer",
+          "description": "Start delay in seconds for pre-roll, mid-roll, or post-roll placements. Refer to AdCOM 1.0 List: Start Delay Modes. Recommended."
+        },
+        "rqddurs": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "Precise acceptable durations for audio creatives in seconds (live audio/radio use case). Mutually exclusive with minduration/maxduration."
+        },
+        "podid": {
+          "type": "string",
+          "description": "Unique identifier indicating an impression belongs to an audio ad pod. Shared podid indicates impressions belong to the same pod."
+        },
+        "podseq": {
+          "type": "integer",
+          "description": "The sequence (position) of the audio ad pod within a content stream. Refer to AdCOM 1.0 List: Pod Sequence.",
+          "default": 0
+        },
+        "sequence": {
+          "type": "integer",
+          "description": "DEPRECATED as of OpenRTB 2.6. Use slotinpod.",
+          "default": 0
+        },
+        "slotinpod": {
+          "type": "integer",
+          "description": "For audio ad pods, indicates the seller can guarantee delivery against the indicated slot position in the pod. Refer to AdCOM 1.0 List: Slot Position in Pod.",
+          "default": 0
+        },
+        "mincpmpersec": {
+          "type": "number",
+          "format": "float",
+          "description": "Minimum CPM per second for the dynamic portion of an audio ad pod, relative to bid duration."
+        },
+        "battr": {
+          "type": "array",
+          "description": "Blocked creative attributes. Refer to AdCOM 1.0 List: Creative Attributes.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "maxextended": {
+          "type": "integer",
+          "description": "Maximum extended ad duration if extension is allowed. If blank or 0, not allowed. If -1, no limit. If > 0, seconds of extension supported beyond maxduration."
+        },
+        "minbitrate": {
+          "type": "integer",
+          "description": "Minimum bit rate in Kbps."
+        },
+        "maxbitrate": {
+          "type": "integer",
+          "description": "Maximum bit rate in Kbps."
+        },
+        "delivery": {
+          "type": "array",
+          "description": "Supported delivery methods (e.g., streaming, progressive). Refer to AdCOM 1.0 List: Delivery Methods.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "companionad": {
+          "type": "array",
+          "description": "Array of Banner objects (Section 3.2.6) if companion ads are available.",
+          "items": {
+            "$ref": "#/$defs/Banner"
+          }
+        },
+        "api": {
+          "type": "array",
+          "description": "List of supported API frameworks. Refer to AdCOM 1.0 List: API Frameworks. If not listed, assume not supported.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "companiontype": {
+          "type": "array",
+          "description": "Supported companion ad types. Refer to AdCOM 1.0 List: Companion Types. Recommended if companionad is included.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "maxseq": {
+          "type": "integer",
+          "description": "The maximum number of ads that can be played in an ad pod."
+        },
+        "feed": {
+          "type": "integer",
+          "description": "Type of audio feed. Refer to AdCOM 1.0 List: Feed Types."
+        },
+        "stitched": {
+          "type": "integer",
+          "description": "Indicates if the ad is stitched with audio content or delivered independently, where 0=no, 1=yes."
+        },
+        "nvol": {
+          "type": "integer",
+          "description": "Volume normalization mode. Refer to AdCOM 1.0 List: Volume Normalization Modes."
+        },
+        "durfloors": {
+          "type": "array",
+          "description": "An array of DurFloors objects (Section 3.2.35) indicating floor prices for various audio creative durations.",
+          "items": {
+            "$ref": "#/$defs/DurFloors"
+          }
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      },
+      "required": ["mimes"]
+    },
+    "Native": {
+      "type": "object",
+      "description": "Represents a native type impression, conforming to the Dynamic Native Ads API.",
+      "properties": {
+        "request": {
+          "type": "string",
+          "description": "Request payload complying with the Native Ad Specification. JSON encoded string. For Native 1.0, root object with 'native' key. For Native 1.1+, root object is the Native Markup Request Object."
+        },
+        "ver": {
+          "type": "string",
+          "description": "Version of the Dynamic Native Ads API to which request complies; highly recommended."
+        },
+        "api": {
+          "type": "array",
+          "description": "List of supported API frameworks. Refer to AdCOM 1.0 List: API Frameworks. If not listed, assume not supported.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "battr": {
+          "type": "array",
+          "description": "Blocked creative attributes. Refer to AdCOM 1.0 List: Creative Attributes.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      },
+      "required": ["request"]
+    },
+    "Format": {
+      "type": "object",
+      "description": "Represents an allowed size (height/width) or Flex Ad parameters for a banner impression.",
+      "properties": {
+        "w": {
+          "type": "integer",
+          "description": "Width in device independent pixels (DIPS)."
+        },
+        "h": {
+          "type": "integer",
+          "description": "Height in device independent pixels (DIPS)."
+        },
+        "wratio": {
+          "type": "integer",
+          "description": "Relative width when expressing size as a ratio."
+        },
+        "hratio": {
+          "type": "integer",
+          "description": "Relative height when expressing size as a ratio."
+        },
+        "wmin": {
+          "type": "integer",
+          "description": "The minimum width in DIPS at which the ad will be displayed if size is expressed as a ratio."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Pmp": {
+      "type": "object",
+      "description": "Private marketplace container for direct deals applicable to this impression.",
+      "properties": {
+        "private_auction": {
+          "type": "integer",
+          "description": "Indicator of auction eligibility to seats named in deals, where 0=all bids accepted, 1=bids restricted to the deals specified.",
+          "default": 0
+        },
+        "deals": {
+          "type": "array",
+          "description": "Array of Deal objects (Section 3.2.12) conveying specific deals applicable to this impression.",
+          "items": {
+            "$ref": "#/$defs/Deal"
+          }
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Deal": {
+      "type": "object",
+      "description": "Constitutes a specific deal struck between a buyer and a seller.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier for the direct deal."
+        },
+        "bidfloor": {
+          "type": "number",
+          "description": "Minimum bid for this impression expressed in CPM.",
+          "default": 0
+        },
+        "bidfloorcur": {
+          "type": "string",
+          "description": "Currency specified using ISO-4217 alpha codes. Does not inherit from Imp.bidfloorcur.",
+          "default": "USD"
+        },
+        "at": {
+          "type": "integer",
+          "description": "Optional override of the overall auction type: 1=First Price, 2=Second Price Plus, 3=Deal Price. Additional types by exchange."
+        },
+        "wseat": {
+          "type": "array",
+          "description": "Allowed list of buyer seats allowed to bid on this deal. Omission implies no restrictions.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "wadomain": {
+          "type": "array",
+          "description": "Array of advertiser domains (e.g., advertiser.com) allowed to bid on this deal. Omission implies no restrictions.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "guar": {
+          "type": "integer",
+          "description": "Indicates that the deal is of type 'guaranteed' and the bidder must bid, where 0 = not guaranteed, 1 = guaranteed deal.",
+          "default": 0
+        },
+        "mincpmpersec": {
+          "type": "number",
+          "format": "float",
+          "description": "Minimum CPM per second for video or audio impression opportunities, relative to bid duration."
+        },
+        "durfloors": {
+          "type": "array",
+          "description": "Container for floor price by duration information (video/audio). Array of DurFloors objects (Section 3.2.35).",
+          "items": {
+            "$ref": "#/$defs/DurFloors"
+          }
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      },
+      "required": ["id"]
+    },
+    "Site": {
+      "type": "object",
+      "description": "Details of the website calling for the impression. Mutually exclusive with App and DOOH.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Exchange-specific site ID. Recommended."
+        },
+        "name": {
+          "type": "string",
+          "description": "Site name (may be aliased)."
+        },
+        "domain": {
+          "type": "string",
+          "description": "Domain of the site (e.g., 'mysite.foo.com')."
+        },
+        "cattax": {
+          "type": "integer",
+          "description": "The taxonomy in use. Refer to AdCOM List: Category Taxonomies.",
+          "default": 1
+        },
+        "cat": {
+          "type": "array",
+          "description": "Array of IAB Tech Lab content categories of the site. Taxonomy defined by cattax.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sectioncat": {
+          "type": "array",
+          "description": "Array of IAB Tech Lab content categories for the current site section. Taxonomy defined by cattax.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pagecat": {
+          "type": "array",
+          "description": "Array of IAB Tech Lab content categories for the current page or view. Taxonomy defined by cattax.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "page": {
+          "type": "string",
+          "description": "URL of the page where the impression will be shown."
+        },
+        "ref": {
+          "type": "string",
+          "description": "Referrer URL that caused navigation to the current page."
+        },
+        "search": {
+          "type": "string",
+          "description": "Search string that caused navigation to the current page."
+        },
+        "mobile": {
+          "type": "integer",
+          "description": "Indicates if the site has been optimized for mobile layout, where 0=no, 1=yes."
+        },
+        "privacypolicy": {
+          "type": "integer",
+          "description": "Indicates if the site has a privacy policy, where 0 = no, 1 = yes."
+        },
+        "publisher": {
+          "$ref": "#/$defs/Publisher",
+          "description": "Details about the Publisher (Section 3.2.15) of the site."
+        },
+        "content": {
+          "$ref": "#/$defs/Content",
+          "description": "Details about the Content (Section 3.2.16) within the site."
+        },
+        "keywords": {
+          "type": "string",
+          "description": "Comma separated list of keywords about the site. Only one of keywords or kwarray."
+        },
+        "kwarray": {
+          "type": "array",
+          "description": "Array of keywords about the site. Only one of keywords or kwarray.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "inventorypartnerdomain": {
+          "type": "string",
+          "description": "Domain for inventory authorization in sharing arrangements (ads.txt inventorypartnerdomain). See ads.txt 1.1 spec."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "App": {
+      "type": "object",
+      "description": "Details of the non-browser application calling for the impression. Mutually exclusive with Site and DOOH.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Exchange-specific app ID. Recommended."
+        },
+        "name": {
+          "type": "string",
+          "description": "App name (may be aliased)."
+        },
+        "bundle": {
+          "type": "string",
+          "description": "The store ID of the app. See OTT/CTV Store Assigned App Identification Guidelines. For mobile (Google Play, Apple App Store), use bundle/package name or numeric ID."
+        },
+        "domain": {
+          "type": "string",
+          "description": "Domain of the app (e.g., 'mygame.foo.com')."
+        },
+        "storeurl": {
+          "type": "string",
+          "description": "App store URL for an installed app; for IQG 2.1 compliance."
+        },
+        "cattax": {
+          "type": "integer",
+          "description": "The taxonomy in use. Refer to AdCOM List: Category Taxonomies.",
+          "default": 1
+        },
+        "cat": {
+          "type": "array",
+          "description": "Array of IAB Tech Lab content categories of the app. Taxonomy defined by cattax.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sectioncat": {
+          "type": "array",
+          "description": "Array of IAB Tech Lab content categories for the current app section. Taxonomy defined by cattax.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pagecat": {
+          "type": "array",
+          "description": "Array of IAB Tech Lab content categories for the current page or view. Taxonomy defined by cattax.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ver": {
+          "type": "string",
+          "description": "Application version."
+        },
+        "privacypolicy": {
+          "type": "integer",
+          "description": "Indicates if the app has a privacy policy, where 0 = no, 1 = yes."
+        },
+        "paid": {
+          "type": "integer",
+          "description": "0 = app is free, 1 = the app is a paid version."
+        },
+        "publisher": {
+          "$ref": "#/$defs/Publisher",
+          "description": "Details about the Publisher (Section 3.2.15) of the app."
+        },
+        "content": {
+          "$ref": "#/$defs/Content",
+          "description": "Details about the Content (Section 3.2.16) within the app."
+        },
+        "keywords": {
+          "type": "string",
+          "description": "Comma separated list of keywords about the app. Only one of keywords or kwarray."
+        },
+        "kwarray": {
+          "type": "array",
+          "description": "Array of keywords about the app. Only one of keywords or kwarray.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "inventorypartnerdomain": {
+          "type": "string",
+          "description": "Domain for inventory authorization in sharing arrangements (app-ads.txt inventorypartnerdomain). See ads.txt 1.1 spec."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Publisher": {
+      "type": "object",
+      "description": "Entity who directly supplies inventory to and is paid by the exchange.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Exchange-specific seller ID. Corresponds to a seller_id in sellers.json."
+        },
+        "name": {
+          "type": "string",
+          "description": "Seller name (may be aliased)."
+        },
+        "cattax": {
+          "type": "integer",
+          "description": "The taxonomy in use. Refer to AdCOM List: Category Taxonomies.",
+          "default": 1
+        },
+        "cat": {
+          "type": "array",
+          "description": "Array of IAB Tech Lab content categories of the publisher. Taxonomy defined by cattax.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "domain": {
+          "type": "string",
+          "description": "Highest level domain of the seller (e.g., 'seller.com')."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Content": {
+      "type": "object",
+      "description": "Describes the content in which the impression appears (syndicated or non-syndicated).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID uniquely identifying the content."
+        },
+        "episode": {
+          "type": "integer",
+          "description": "Episode number."
+        },
+        "title": {
+          "type": "string",
+          "description": "Content title (e.g., TV show, movie title, article title)."
+        },
+        "series": {
+          "type": "string",
+          "description": "Content series (e.g., 'The Office', 'Star Wars', 'Ecocentric')."
+        },
+        "season": {
+          "type": "string",
+          "description": "Content season (e.g., 'Season 3')."
+        },
+        "artist": {
+          "type": "string",
+          "description": "Artist credited with the content."
+        },
+        "genre": {
+          "type": "string",
+          "description": "Genre that best describes the content (e.g., rock, pop, etc)."
+        },
+        "gtax": {
+          "type": "integer",
+          "description": "Taxonomy used for 'genres'. Refer to AdCOM List: Category Taxonomies. Default 9 (Content Category Taxonomy 3.1).",
+          "default": 9
+        },
+        "genres": {
+          "type": "array",
+          "description": "Array of categories describing content genre. Taxonomy defined by gtax. If gtax not supplied, subset of CTV Genre Mapping (Content Cat Tax 3.1) assumed. See Sec 7.13.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "album": {
+          "type": "string",
+          "description": "Album to which the content belongs; typically for audio."
+        },
+        "isrc": {
+          "type": "string",
+          "description": "International Standard Recording Code (ISO-3901)."
+        },
+        "producer": {
+          "$ref": "#/$defs/Producer",
+          "description": "Details about the content Producer (Section 3.2.17)."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL of the content, for buy-side contextualization or review."
+        },
+        "cattax": {
+          "type": "integer",
+          "description": "The taxonomy in use for 'cat'. Refer to AdCOM List: Category Taxonomies.",
+          "default": 1
+        },
+        "cat": {
+          "type": "array",
+          "description": "Array of IAB Tech Lab content categories describing the content. Taxonomy defined by cattax.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prodq": {
+          "type": "integer",
+          "description": "Production quality. Refer to AdCOM 1.0 List: Production Qualities."
+        },
+        "context": {
+          "type": "integer",
+          "description": "Type of content (game, video, text, etc.). Refer to AdCOM 1.0 List: Content Contexts."
+        },
+        "contentrating": {
+          "type": "string",
+          "description": "Content rating (e.g., MPAA)."
+        },
+        "userrating": {
+          "type": "string",
+          "description": "User rating of the content (e.g., number of stars, likes, etc.)."
+        },
+        "qagmediarating": {
+          "type": "integer",
+          "description": "Media rating per IQG guidelines. Refer to AdCOM 1.0 List: Media Ratings."
+        },
+        "keywords": {
+          "type": "string",
+          "description": "Comma separated list of keywords describing the content. Only one of keywords or kwarray."
+        },
+        "kwarray": {
+          "type": "array",
+          "description": "Array of keywords describing the content. Only one of keywords or kwarray.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "livestream": {
+          "type": "integer",
+          "description": "0 = not live, 1 = content is live (e.g., stream, live blog)."
+        },
+        "sourcerelationship": {
+          "type": "integer",
+          "description": "0 = indirect, 1 = direct."
+        },
+        "len": {
+          "type": "integer",
+          "description": "Length of content in seconds; appropriate for video or audio."
+        },
+        "language": {
+          "type": "string",
+          "description": "Content language using ISO-639-1-alpha-2. Only one of language or langb."
+        },
+        "langb": {
+          "type": "string",
+          "description": "Content language using IETF BCP 47. Only one of language or langb."
+        },
+        "embeddable": {
+          "type": "integer",
+          "description": "Indicator of whether the content is embeddable (e.g., video player), where 0 = no, 1 = yes."
+        },
+        "data": {
+          "type": "array",
+          "description": "Additional content data. Each Data object (Section 3.2.21) represents a different data source.",
+          "items": {
+            "$ref": "#/$defs/Data"
+          }
+        },
+        "network": {
+          "$ref": "#/$defs/Network",
+          "description": "Details about the network (Section 3.2.23) the content is on."
+        },
+        "channel": {
+          "$ref": "#/$defs/Channel",
+          "description": "Details about the channel (Section 3.2.24) the content is on."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Producer": {
+      "type": "object",
+      "description": "Defines the producer of the content, useful for syndicated content.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Content producer or originator ID."
+        },
+        "name": {
+          "type": "string",
+          "description": "Content producer or originator name (e.g., 'Warner Bros')."
+        },
+        "cattax": {
+          "type": "integer",
+          "description": "The taxonomy in use. Refer to AdCOM List: Category Taxonomies.",
+          "default": 1
+        },
+        "cat": {
+          "type": "array",
+          "description": "Array of IAB Tech Lab content categories describing the content producer. Taxonomy defined by cattax.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "domain": {
+          "type": "string",
+          "description": "Highest level domain of the content producer (e.g., 'producer.com')."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Device": {
+      "type": "object",
+      "description": "Information pertaining to the device through which the user is interacting.",
+      "properties": {
+        "geo": {
+          "$ref": "#/$defs/Geo",
+          "description": "Location of the device defined by a Geo object (Section 3.2.19). Recommended."
+        },
+        "dnt": {
+          "type": "integer",
+          "description": "Standard 'Do Not Track' flag from browser header, where 0=unrestricted, 1=do not track. Recommended."
+        },
+        "lmt": {
+          "type": "integer",
+          "description": "'Limit Ad Tracking' signal (e.g., iOS, Android), where 0=unrestricted, 1=limited per commercial guidelines. Recommended."
+        },
+        "ua": {
+          "type": "string",
+          "description": "Browser user agent string (raw). Use sua if available and client supports User-Agent Client Hints."
+        },
+        "sua": {
+          "$ref": "#/$defs/UserAgent",
+          "description": "Structured user agent information (Section 3.2.29). If present, use instead of ua."
+        },
+        "ip": {
+          "type": "string",
+          "format": "ipv4",
+          "description": "IPv4 address closest to device."
+        },
+        "ipv6": {
+          "type": "string",
+          "format": "ipv6",
+          "description": "IP address closest to device as IPv6."
+        },
+        "devicetype": {
+          "type": "integer",
+          "description": "The general type of device. Refer to AdCOM 1.0 List: Device Types."
+        },
+        "make": {
+          "type": "string",
+          "description": "Device make (e.g., 'Apple')."
+        },
+        "model": {
+          "type": "string",
+          "description": "Device model (e.g., 'iPhone')."
+        },
+        "os": {
+          "type": "string",
+          "description": "Device operating system (e.g., 'iOS')."
+        },
+        "osv": {
+          "type": "string",
+          "description": "Device operating system version (e.g., '3.1.2')."
+        },
+        "hwv": {
+          "type": "string",
+          "description": "Hardware version of the device (e.g., '5S' for iPhone 5S)."
+        },
+        "h": {
+          "type": "integer",
+          "description": "Physical height of the screen in pixels."
+        },
+        "w": {
+          "type": "integer",
+          "description": "Physical width of the screen in pixels."
+        },
+        "ppi": {
+          "type": "integer",
+          "description": "Screen size as pixels per linear inch."
+        },
+        "pxratio": {
+          "type": "number",
+          "description": "The ratio of physical pixels to device independent pixels."
+        },
+        "js": {
+          "type": "integer",
+          "description": "Support for JavaScript, where 0 = no, 1 = yes."
+        },
+        "geofetch": {
+          "type": "integer",
+          "description": "Indicates if geolocation API is available to banner JavaScript, where 0 = no, 1 = yes."
+        },
+        "flashver": {
+          "type": "string",
+          "description": "Version of Flash supported by the browser."
+        },
+        "language": {
+          "type": "string",
+          "description": "Browser language using ISO-639-1-alpha-2. Only one of language or langb."
+        },
+        "langb": {
+          "type": "string",
+          "description": "Browser language using IETF BCP 47. Only one of language or langb."
+        },
+        "carrier": {
+          "type": "string",
+          "description": "Carrier or ISP (e.g., 'VERIZON') using exchange curated string names."
+        },
+        "mccmnc": {
+          "type": "string",
+          "description": "Mobile carrier as the concatenated MCC-MNC code (e.g., '310-005'). Represents SIM, not roaming status."
+        },
+        "connectiontype": {
+          "type": "integer",
+          "description": "Network connection type. Refer to AdCOM 1.0 List: Connection Types."
+        },
+        "ifa": {
+          "type": "string",
+          "description": "ID sanctioned for advertiser use in the clear (e.g., IDFA, AAID)."
+        },
+        "didsha1": {
+          "type": "string",
+          "description": "Deprecated as of OpenRTB 2.6."
+        },
+        "didmd5": {
+          "type": "string",
+          "description": "Deprecated as of OpenRTB 2.6."
+        },
+        "dpidsha1": {
+          "type": "string",
+          "description": "Deprecated as of OpenRTB 2.6."
+        },
+        "dpidmd5": {
+          "type": "string",
+          "description": "Deprecated as of OpenRTB 2.6."
+        },
+        "macsha1": {
+          "type": "string",
+          "description": "Deprecated as of OpenRTB 2.6."
+        },
+        "macmd5": {
+          "type": "string",
+          "description": "Deprecated as of OpenRTB 2.6."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Geo": {
+      "type": "object",
+      "description": "Encapsulates geographic location. Used in Device (current location) or User (home base).",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "description": "Latitude from -90.0 to +90.0, negative is south."
+        },
+        "lon": {
+          "type": "number",
+          "description": "Longitude from -180.0 to +180.0, negative is west."
+        },
+        "type": {
+          "type": "integer",
+          "description": "Source of location data. Refer to AdCOM 1.0 List: Location Types. Recommended when passing lat/lon."
+        },
+        "accuracy": {
+          "type": "integer",
+          "description": "Estimated location accuracy in meters; recommended when lat/lon are from device services (type=1)."
+        },
+        "lastfix": {
+          "type": "integer",
+          "description": "Number of seconds since this geolocation fix was established."
+        },
+        "ipservice": {
+          "type": "integer",
+          "description": "Service used to determine geolocation from IP address (type=2). Refer to AdCOM 1.0 List: IP Location Services."
+        },
+        "country": {
+          "type": "string",
+          "description": "Country code using ISO-3166-1-alpha-3."
+        },
+        "region": {
+          "type": "string",
+          "description": "Region code using ISO-3166-2; 2-letter state code if USA."
+        },
+        "regionfips104": {
+          "type": "string",
+          "description": "Region code using FIPS 10-4 (withdrawn by NIST in 2008)."
+        },
+        "metro": {
+          "type": "string",
+          "description": "Google metro code (similar to Nielsen DMAs)."
+        },
+        "city": {
+          "type": "string",
+          "description": "City using UN Code for Trade & Transport Locations."
+        },
+        "zip": {
+          "type": "string",
+          "description": "ZIP or postal code."
+        },
+        "utcoffset": {
+          "type": "integer",
+          "description": "Local time as the number +/- of minutes from UTC."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "description": "Information about the human user of the device (the audience).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Exchange-specific ID for the user (cookie ID). Often via ID sync (Appendix C)."
+        },
+        "buyeruid": {
+          "type": "string",
+          "description": "Buyer-specific ID for the user as mapped by the exchange. Often via ID sync (Appendix C)."
+        },
+        "yob": {
+          "type": "integer",
+          "description": "Deprecated as of OpenRTB 2.6."
+        },
+        "gender": {
+          "type": "string",
+          "description": "Deprecated as of OpenRTB 2.6."
+        },
+        "keywords": {
+          "type": "string",
+          "description": "Comma separated list of keywords, interests, or intent. Only one of keywords or kwarray."
+        },
+        "kwarray": {
+          "type": "array",
+          "description": "Array of keywords about the user. Only one of keywords or kwarray.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "customdata": {
+          "type": "string",
+          "description": "Optional bidder data set in the exchange's cookie (base85 cookie safe characters)."
+        },
+        "geo": {
+          "$ref": "#/$defs/Geo",
+          "description": "Location of the user's home base (Section 3.2.19), not necessarily current location."
+        },
+        "data": {
+          "type": "array",
+          "description": "Additional user data from third-party providers via Data objects (Section 3.2.21).",
+          "items": {
+            "$ref": "#/$defs/Data"
+          }
+        },
+        "consent": {
+          "type": "string",
+          "description": "Transparency and Consent Framework Consent String (TCF string) when GDPR applies."
+        },
+        "eids": {
+          "type": "array",
+          "description": "Extended identifiers support for multiple third party identity providers (Section 3.2.27).",
+          "items": {
+            "$ref": "#/$defs/EID"
+          }
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Data": {
+      "type": "object",
+      "description": "Container for specifying additional data about a related object (e.g., user, content) from a specific data provider.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Exchange-specific ID for the data provider."
+        },
+        "name": {
+          "type": "string",
+          "description": "Exchange-specific name for the data provider."
+        },
+        "segment": {
+          "type": "array",
+          "description": "Array of Segment objects (Section 3.2.22) containing actual data values.",
+          "items": {
+            "$ref": "#/$defs/Segment"
+          }
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Segment": {
+      "type": "object",
+      "description": "Key-value pairs conveying specific units of data within a Data object.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the data segment specific to the data provider."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the data segment specific to the data provider."
+        },
+        "value": {
+          "type": "string",
+          "description": "String representation of the data segment value."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Network": {
+      "type": "object",
+      "description": "Describes the network an ad will be displayed on (parent entity of Channel). See 7.7.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier assigned by the publisher."
+        },
+        "name": {
+          "type": "string",
+          "description": "Network name (e.g., 'ABC')."
+        },
+        "domain": {
+          "type": "string",
+          "description": "The primary domain of the network (e.g., 'abc.com'). Recommend TLD+1."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Channel": {
+      "type": "object",
+      "description": "Describes the channel an ad will be displayed on (curated content library/stream). See 7.7.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier assigned by the publisher."
+        },
+        "name": {
+          "type": "string",
+          "description": "Channel name (e.g., 'WABC-TV')."
+        },
+        "domain": {
+          "type": "string",
+          "description": "The primary domain of the channel (e.g., 'abc7ny.com'). Recommend TLD+1."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "SupplyChain": {
+      "type": "object",
+      "description": "Represents the chain of entities involved in the direct flow of payment for inventory. See https://github.com/InteractiveAdvertisingBureau/openrtb/blob/master/supplychainobject.md",
+      "properties": {
+        "complete": {
+          "type": "integer",
+          "description": "Flag indicating if the chain contains all nodes back to the owner, where 0 = no, 1 = yes."
+        },
+        "nodes": {
+          "type": "array",
+          "description": "Array of SupplyChainNode objects (Section 3.2.26) in order. First node is initial system/seller, last is the sender of this request.",
+          "items": {
+            "$ref": "#/$defs/SupplyChainNode"
+          }
+        },
+        "ver": {
+          "type": "string",
+          "description": "Version of the supply chain specification (e.g., '1.0')."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      },
+      "required": ["complete", "nodes", "ver"]
+    },
+    "SupplyChainNode": {
+      "type": "object",
+      "description": "Defines the identity of an entity participating in the supply chain. See https://github.com/InteractiveAdvertisingBureau/openrtb/blob/master/supplychainobject.md",
+      "properties": {
+        "asi": {
+          "type": "string",
+          "description": "Canonical domain name of the advertising system (SSP, Exchange, etc.). Should match ads.txt if applicable."
+        },
+        "sid": {
+          "type": "string",
+          "description": "Seller/reseller account ID within the advertising system (asi). Must match publisher.id in OpenRTB. Max 64 chars."
+        },
+        "rid": {
+          "type": "string",
+          "description": "The OpenRTB RequestId of the request as issued by this seller."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the company (legal entity) paid for inventory under sid. Optional; do NOT include if in sellers.json."
+        },
+        "domain": {
+          "type": "string",
+          "description": "Business domain name of the entity. Optional; do NOT include if in sellers.json."
+        },
+        "hp": {
+          "type": "integer",
+          "description": "Indicates if this node is involved in the flow of payment (1 = yes, 0 = no). Should always be 1 for version 1.0."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for advertising-system specific extensions."
+        }
+      },
+      "required": ["asi", "sid"]
+    },
+    "EID": {
+      "type": "object",
+      "description": "Extended Identifiers support. Contains UIDs from a single source/provider.",
+      "properties": {
+        "inserter": {
+          "type": "string",
+          "description": "Canonical domain name of the entity (publisher, SSP, etc.) that added the ID array element. Should match ads.txt domain."
+        },
+        "source": {
+          "type": "string",
+          "description": "Canonical domain of the ID."
+        },
+        "matcher": {
+          "type": "string",
+          "description": "Technology providing the match method (mm). If blank, assumed equal to source. May be omitted when mm=0, 1, or 2."
+        },
+        "mm": {
+          "type": "integer",
+          "description": "Match method used by the matcher. Refer to AdCOM 1.0 List: ID Match Methods."
+        },
+        "uids": {
+          "type": "array",
+          "description": "Array of extended ID UID objects (Section 3.2.28) from the given source.",
+          "items": {
+            "$ref": "#/$defs/UID"
+          }
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "UID": {
+      "type": "object",
+      "description": "A single user identifier provided as part of extended identifiers.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The identifier for the user."
+        },
+        "atype": {
+          "type": "integer",
+          "description": "Type of user agent the ID is from. Highly recommended. Refer to AdCOM 1.0 List: Agent Types."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for vendor specific extensions to this object."
+        }
+      }
+    },
+    "UserAgent": {
+      "type": "object",
+      "description": "Structured user agent information based on User-Agent Client Hints. Use if available, instead of device.ua.",
+      "properties": {
+        "browsers": {
+          "type": "array",
+          "description": "Array of BrandVersion objects (Section 3.2.30) identifying browsers/components. From Sec-CH-UA-Full-Version-List header*. Recommended.",
+          "items": {
+            "$ref": "#/$defs/BrandVersion"
+          }
+        },
+        "platform": {
+          "$ref": "#/$defs/BrandVersion",
+          "description": "BrandVersion object (Section 3.2.30) identifying platform/OS. From Sec-CH-UA-Platform and Sec-CH-UA-Platform-Version headers*. Recommended."
+        },
+        "mobile": {
+          "type": "integer",
+          "description": "1 if agent prefers 'mobile' content, 0 if 'desktop'. From Sec-CH-UA-Mobile header*."
+        },
+        "architecture": {
+          "type": "string",
+          "description": "Device's major binary architecture (e.g., 'x86', 'arm'). From Sec-CH-UA-Arch header*."
+        },
+        "bitness": {
+          "type": "string",
+          "description": "Device's bitness (e.g., '64'). From Sec-CH-UA-Bitness header*."
+        },
+        "model": {
+          "type": "string",
+          "description": "Device model. From Sec-CH-UA-Model header*."
+        },
+        "source": {
+          "type": "integer",
+          "description": "Source of data used to create this object. Refer to AdCOM 1.0 List: User-Agent Source.",
+          "default": 0
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for vendor specific extensions."
+        }
+      }
+    },
+    "BrandVersion": {
+      "type": "object",
+      "description": "Identifies a device's browser/component or platform/OS using User-Agent Client Hints.",
+      "properties": {
+        "brand": {
+          "type": "string",
+          "description": "Brand identifier (e.g., 'Chrome', 'Windows'). From Sec-CH-UA-Full-Version or Sec-CH-UA-Platform headers."
+        },
+        "version": {
+          "type": "array",
+          "description": "Sequence of version components (major, minor, micro, ...).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for vendor specific extensions."
+        }
+      },
+      "required": ["brand"]
+    },
+    "Qty": {
+      "type": "object",
+      "description": "Represents the impression multiplier for DOOH/CTV.",
+      "properties": {
+        "multiplier": {
+          "type": "number",
+          "description": "The quantity of billable events if this item is purchased (e.g., 14.2 impressions for DOOH). Equivalent to qtyflt in OpenRTB 3.0."
+        },
+        "sourcetype": {
+          "type": "integer",
+          "description": "Source type of quantity measurement. Refer to AdCOM 1.0 List: Multiplier Measurement Source Types. Recommended.",
+          "enum": [0, 1]
+        },
+        "vendor": {
+          "type": "string",
+          "description": "Top-level business domain of the measurement vendor. Required if sourcetype=1."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for vendor specific extensions."
+        }
+      },
+      "required": ["multiplier"],
+      "if": {
+        "properties": {
+          "sourcetype": {
+            "const": 1
+          }
+        },
+        "required": ["sourcetype"]
+      },
+      "then": {
+        "properties": {
+          "vendor": { "$ref": "#/$defs/Qty/properties/vendor" }
+        },
+        "required": ["vendor"]
+      }
+    },
+    "DOOH": {
+      "type": "object",
+      "description": "Details of the Digital Out of Home inventory. Mutually exclusive with Site and App.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Exchange provided id for a placement or logical grouping. Recommended."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the DOOH placement."
+        },
+        "venuetype": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Type of out-of-home venue. Taxonomy defined by venuetypetax. Default: OpenOOH Venue Taxonomy 1.0."
+        },
+        "venuetypetax": {
+          "type": "integer",
+          "description": "Venue taxonomy in use. Refer to AdCOM 1.0 List: Venue Taxonomies.",
+          "default": 1
+        },
+        "publisher": {
+          "$ref": "#/$defs/Publisher",
+          "description": "Details about the publisher of the placement."
+        },
+        "domain": {
+          "type": "string",
+          "description": "Domain of the inventory owner."
+        },
+        "keywords": {
+          "type": "string",
+          "description": "Comma separated list of keywords about the DOOH placement."
+        },
+        "content": {
+          "$ref": "#/$defs/Content",
+          "description": "Details about the Content within the DOOH placement."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for exchange-specific extensions to OpenRTB."
+        }
+      }
+    },
+    "Refresh": {
+      "type": "object",
+      "description": "Details about ad slots being refreshed automatically.",
+      "properties": {
+        "refsettings": {
+          "type": "array",
+          "description": "Array of RefSettings objects (Section 3.2.34) describing refresh mechanics. Recommended.",
+          "items": {
+            "$ref": "#/$defs/RefSettings"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "description": "Number of times this ad slot has been refreshed since last page load. Recommended."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for vendor specific extensions."
+        }
+      }
+    },
+    "RefSettings": {
+      "type": "object",
+      "description": "Information on how often and what triggers an ad slot refresh.",
+      "properties": {
+        "reftype": {
+          "type": "integer",
+          "description": "Type of declared auto refresh. Refer to AdCOM 1.0 List: Auto Refresh Triggers. Recommended.",
+          "default": 0
+        },
+        "minint": {
+          "type": "integer",
+          "description": "Minimum refresh interval in seconds. Time creative will be rendered before refresh. Recommended."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for vendor specific extensions."
+        }
+      }
+    },
+    "DurFloors": {
+      "type": "object",
+      "description": "Allows sellers to specify price floors for video/audio creatives based on duration ranges.",
+      "properties": {
+        "mindur": {
+          "type": "integer",
+          "description": "Low end of a duration range (seconds). If missing, low end is unbounded. Either mindur or maxdur is required, but not both."
+        },
+        "maxdur": {
+          "type": "integer",
+          "description": "High end of a duration range (seconds). If missing, high end is unbounded. Either mindur or maxdur is required, but not both."
+        },
+        "bidfloor": {
+          "type": "number",
+          "format": "float",
+          "description": "Minimum bid (CPM) for creatives in this duration range. Defaults to Imp.bidfloor if duration outside defined ranges.",
+          "default": 0
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for vendor specific extensions."
+        }
+      }
+    },
+    "BidResponse": {
+      "type": "object",
+      "description": "Top-level bid response object.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the bid request to which this is a response."
+        },
+        "seatbid": {
+          "type": "array",
+          "description": "Array of SeatBid objects; 1+ required if a bid is to be made.",
+          "items": {
+            "$ref": "#/$defs/SeatBid"
+          }
+        },
+        "bidid": {
+          "type": "string",
+          "description": "Bidder generated response ID to assist with logging/tracking."
+        },
+        "cur": {
+          "type": "string",
+          "description": "Bid currency using ISO-4217 alpha codes.",
+          "default": "USD"
+        },
+        "customdata": {
+          "type": "string",
+          "description": "Optional feature to allow a bidder to set data in the exchange's cookie (base85 cookie safe characters)."
+        },
+        "nbr": {
+          "type": "integer",
+          "description": "Reason for not bidding. Refer to OpenRTB 3.0 List: No-Bid Reason Codes."
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for bidder-specific extensions to OpenRTB."
+        }
+      },
+      "required": ["id"]
+    },
+    "SeatBid": {
+      "type": "object",
+      "description": "Collection of bids from a specific bidder seat.",
+      "properties": {
+        "bid": {
+          "type": "array",
+          "description": "Array of 1+ Bid objects (Section 4.2.3) each related to an impression.",
+          "items": {
+            "$ref": "#/$defs/Bid"
+          },
+          "minItems": 1
+        },
+        "seat": {
+          "type": "string",
+          "description": "ID of the buyer seat (e.g., advertiser, agency) on whose behalf this bid is made."
+        },
+        "group": {
+          "type": "integer",
+          "description": "0 = impressions can be won individually; 1 = impressions must be won or lost as a group.",
+          "default": 0
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for bidder-specific extensions to OpenRTB."
+        }
+      },
+      "required": ["bid"]
+    },
+    "Bid": {
+      "type": "object",
+      "description": "An offer to buy a specific impression under certain terms.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Bidder generated bid ID to assist with logging/tracking."
+        },
+        "impid": {
+          "type": "string",
+          "description": "ID of the Imp object in the related bid request."
+        },
+        "price": {
+          "type": "number",
+          "description": "Bid price expressed as CPM. Integer math highly recommended for currency."
+        },
+        "nurl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Win notice URL called by exchange if bid wins. Optional means of serving ad markup. Macros supported."
+        },
+        "burl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Billing notice URL called by exchange when a winning bid becomes billable. Macros supported."
+        },
+        "lurl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Loss notice URL called by exchange when bid is lost. Macros supported. Support depends on exchange policy."
+        },
+        "adm": {
+          "type": "string",
+          "description": "Optional means of conveying ad markup if bid wins; supersedes win notice markup. Macros supported."
+        },
+        "adid": {
+          "type": "string",
+          "description": "ID of a preloaded ad to be served if the bid wins."
+        },
+        "adomain": {
+          "type": "array",
+          "description": "Advertiser domain for block list checking (e.g., 'ford.com'). Can be array for rotating creatives.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bundle": {
+          "type": "string",
+          "description": "The store ID of the app (e.g., Apple App Store, Google Play). See OTT/CTV Store Assigned App ID Guidelines."
+        },
+        "iurl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL without cache-busting to an image representative of the campaign for ad quality/safety checking."
+        },
+        "cid": {
+          "type": "string",
+          "description": "Campaign ID to assist with ad quality checking."
+        },
+        "crid": {
+          "type": "string",
+          "description": "Creative ID to assist with ad quality checking."
+        },
+        "tactic": {
+          "type": "string",
+          "description": "Tactic ID to enable buyers to label bids for reporting. Meaning coordinated a priori."
+        },
+        "cattax": {
+          "type": "integer",
+          "description": "The taxonomy in use for 'cat'. Refer to AdCOM 1.0 List: Category Taxonomies.",
+          "default": 1
+        },
+        "cat": {
+          "type": "array",
+          "description": "IAB Tech Lab content categories of the creative. Taxonomy defined by cattax.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attr": {
+          "type": "array",
+          "description": "Set of attributes describing the creative. Refer to AdCOM 1.0 List: Creative Attributes.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "apis": {
+          "type": "array",
+          "description": "List of supported APIs for the markup. Refer to AdCOM 1.0 List: API Frameworks. If not listed, assumed unsupported.",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "api": {
+          "type": "integer",
+          "description": "NOTE: Deprecated in favor of apis."
+        },
+        "protocol": {
+          "type": "integer",
+          "description": "Video response protocol of the markup if applicable. Refer to AdCOM 1.0 List: Creative Subtypes - Audio/Video."
+        },
+        "qagmediarating": {
+          "type": "integer",
+          "description": "Creative media rating per IQG guidelines. Refer to AdCOM 1.0 List: Media Ratings."
+        },
+        "language": {
+          "type": "string",
+          "description": "Language of creative using ISO-639-1-alpha-2. Use 'xx' for non-linguistic content. Only one of language or langb."
+        },
+        "langb": {
+          "type": "string",
+          "description": "Language of creative using IETF BCP 47. Only one of language or langb."
+        },
+        "dealid": {
+          "type": "string",
+          "description": "Reference to the deal.id from bid request if this bid pertains to a PMP deal."
+        },
+        "w": {
+          "type": "integer",
+          "description": "Width of the creative in DIPS."
+        },
+        "h": {
+          "type": "integer",
+          "description": "Height of the creative in DIPS."
+        },
+        "wratio": {
+          "type": "integer",
+          "description": "Relative width of the creative for ratio size (Flex Ads)."
+        },
+        "hratio": {
+          "type": "integer",
+          "description": "Relative height of the creative for ratio size (Flex Ads)."
+        },
+        "exp": {
+          "type": "integer",
+          "description": "Advisory number of seconds bidder is willing to wait between auction and impression."
+        },
+        "dur": {
+          "type": "integer",
+          "description": "Duration of the video or audio creative in seconds."
+        },
+        "mtype": {
+          "type": "integer",
+          "description": "Type of the creative markup: 1=Banner, 2=Video, 3=Audio, 4=Native."
+        },
+        "slotinpod": {
+          "type": "integer",
+          "description": "Indicates bid is only eligible for a specific position within a video/audio ad pod. Refer to AdCOM 1.0 List: Slot Position in Pod.",
+          "default": 0
+        },
+        "ext": {
+          "type": "object",
+          "description": "Placeholder for bidder-specific extensions to OpenRTB."
+        }
+      },
+      "required": ["id", "impid", "price"]
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/BidRequest"
+    },
+    {
+      "$ref": "#/$defs/BidResponse"
+    }
+  ]
+}
